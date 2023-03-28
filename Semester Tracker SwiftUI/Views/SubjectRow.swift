@@ -11,7 +11,7 @@ import SwiftUIFontIcon
 struct SubjectRow: View {
     var subject: Subject
     @EnvironmentObject var statusListViewModel: StatusListViewModel
-    
+    @EnvironmentObject var subjectListViewModel: SubjectListViewModel
     var body: some View {
         HStack {
             HStack {
@@ -33,7 +33,7 @@ struct SubjectRow: View {
                         .font(.footnote)
                         .opacity(0.7)
                     //MARK: year
-                    Text("\(subject.semester.academicYear)")
+                    Text("\(subject.semester.academicYear.description)")
                         .font(.footnote)
                         .opacity(0.7)
                     
@@ -66,5 +66,6 @@ struct SubjectRow_Previews: PreviewProvider {
     static var previews: some View {
         SubjectRow(subject: subjectPreviewData)
             .environmentObject(StatusListViewModel()) //read from statuses.json
+            .environmentObject(SubjectListViewModel())
     }
 }

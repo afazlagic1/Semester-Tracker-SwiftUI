@@ -11,5 +11,6 @@ struct Subject: Identifiable, Decodable, Hashable {
     private(set) var id: Int
     private(set) var name: String
     private(set) var subjectCode: String
+    //private(set) var semesterId: Int
     private(set) var semester: Semester
 }

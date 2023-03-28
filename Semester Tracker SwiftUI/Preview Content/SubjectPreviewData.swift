@@ -8,6 +8,9 @@
 import Foundation
 import SwiftUI
 
-var subjectPreviewData = Subject(id: 1, name: "Defence Against the Dark Arts", subjectCode: "PA111", semester: Semester(id: 1, academicYear: 2023, semesterType: "spring"))
+var semester = Semester(id: 1, academicYear: 2023, semesterType: "spring")
+var subjectPreviewData = Subject(id: 1, name: "Defence Against the Dark Arts", subjectCode: "PA111", semester: semester)
+var subjectPreviewData2 = Subject(id: 2, name: "Theory of magic", subjectCode: "PA123", semester: semester)
 
 var subjectPreviewDataList = [Subject](repeating: subjectPreviewData, count: 10)
+//var subjectPreviewDataList = [subjectPreviewData, subjectPreviewData2]
