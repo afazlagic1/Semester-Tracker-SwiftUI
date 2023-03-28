@@ -10,6 +10,11 @@ import SwiftUI
 struct SubjectsTable: View {
     @EnvironmentObject var subjectListViewModel: SubjectListViewModel
     var body: some View {
+        //TODO: Search bar
+        //TODO: Filter by (show all/lectures only/seminars only)
+        //TODO: Sort by date asc/dsc, subject name...
+        //TODO: labels week1, week2...
+        //MARK: Subject List
         VStack {
             ForEach(Array(subjectListViewModel.subjectList.enumerated()), id: \.element)
             {
@@ -17,6 +22,10 @@ struct SubjectsTable: View {
                 SubjectRow(subject: subject)
             }
         }
+        .padding([.top, .bottom])
+        .background(Color.systemBackground)
+        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+        .shadow(color: Color.primary.opacity(0.2), radius: 10, x: 0, y: 5)
     }
 }
 
