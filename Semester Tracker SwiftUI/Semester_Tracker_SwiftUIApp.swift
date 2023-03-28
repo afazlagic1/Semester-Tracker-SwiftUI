@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct Semester_Tracker_SwiftUIApp: App {
+    //this object follows the lifecycle of an app
+    @StateObject var statusListViewModel = StatusListViewModel()
+    //@StateObject var subjectListViewModel = SubjectListViewModel()
     var body: some Scene {
         WindowGroup {
             ContentView()
+            //object available to others
+                .environmentObject(statusListViewModel)
+                //.environmentObject(subjectListViewModel)
         }
     }
 }
