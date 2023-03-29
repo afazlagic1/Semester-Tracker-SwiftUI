@@ -27,7 +27,7 @@ struct StatusCell: View {
                     .rotationEffect(Angle(degrees: 45))
                 }
                 else if(status.attendance == "distraction") {
-                    FontIcon.text(.awesome5Solid(code: .meh_rolling_eyes), fontsize: 35, color: Color.icon
+                    FontIcon.text(.awesome5Solid(code: .meh_rolling_eyes), fontsize: 35, color: .orange
                     )
                 }
             }

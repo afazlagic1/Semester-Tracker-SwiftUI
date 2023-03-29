@@ -34,6 +34,7 @@ final class StatusListViewModel: ObservableObject {
             }
             return nil
         }
+        
         self.statusList = loadJson(filename: "statuses.json") ?? []
     }
 }
