@@ -10,10 +10,10 @@ import Foundation
 struct Status: Identifiable, Decodable, Hashable {
     
     private(set) var id: Int //Identifiable
-    //private(set) var student: Student
-    //private(set) var event: Event
-    private(set) var studentId: Int
-    private(set) var eventId: Int
+    private(set) var student: Student
+    private(set) var event: Event
+    //private(set) var studentId: Int
+    //private(set) var eventId: Int
     private(set) var attendance: AttendanceType.RawValue
     private(set) var points: Int
     private(set) var raiting: Raiting.RawValue

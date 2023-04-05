@@ -12,26 +12,31 @@ struct StatusCell: View {
     var status: Status
     
     var body: some View {
-        
-        //MARK: icon
-        RoundedRectangle(cornerRadius: 5, style: .continuous)
-            .fill(Color.icon.opacity(0.2))
-            .frame(width: 55, height: 55)
-            .overlay {
-                if(status.attendance == "presence") {
-                    FontIcon.text(.awesome5Solid(code: .check), fontsize: 35, color: .green)
-                }
-                else if(status.attendance == "absence") {
-                    FontIcon.text(.awesome5Solid(code: .plus), fontsize: 35, color: .red
+        VStack {
+            //MARK: date
+            Text(DateFormatter.dayMonthFormat.string(from: status.event.dateParse))
+                .font(.subheadline)
+                .fontDesign(.monospaced)
+            //MARK: icon
+            RoundedRectangle(cornerRadius: 5, style: .continuous)
+                .fill(Color.icon.opacity(0.2))
+                .frame(width: 55, height: 55)
+                .overlay {
+                    if(status.attendance == "presence") {
+                        FontIcon.text(.awesome5Solid(code: .check), fontsize: 35, color: .green)
+                    }
+                    else if(status.attendance == "absence") {
+                        FontIcon.text(.awesome5Solid(code: .plus), fontsize: 35, color: .red
                         )
-                    .rotationEffect(Angle(degrees: 45))
+                        .rotationEffect(Angle(degrees: 45))
+                    }
+                    else if(status.attendance == "distraction") {
+                        FontIcon.text(.awesome5Solid(code: .meh_rolling_eyes), fontsize: 35, color: .orange
+                        )
+                    }
                 }
-                else if(status.attendance == "distraction") {
-                    FontIcon.text(.awesome5Solid(code: .meh_rolling_eyes), fontsize: 35, color: .orange
-                    )
-                }
-            }
-            .shadow(radius: .pi)
+                .shadow(radius: .pi)
+        }
     }
 }
 

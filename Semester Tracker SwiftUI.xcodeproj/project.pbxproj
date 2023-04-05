@@ -24,7 +24,11 @@
 		FB04859729CE45BD0086323D /* SwiftUIFontIcon in Frameworks */ = {isa = PBXBuildFile; productRef = FB04859629CE45BD0086323D /* SwiftUIFontIcon */; };
 		FB04859929CE588C0086323D /* StatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB04859829CE588C0086323D /* StatusCell.swift */; };
 		FB172B8F29D32889000AC842 /* SubjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB172B8E29D32889000AC842 /* SubjectListViewModel.swift */; };
+		FB2490D229D8818D0052AA40 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = FB2490D129D8818D0052AA40 /* Introspect */; };
+		FB2490D729D884810052AA40 /* SimultaneouslyScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = FB2490D629D884810052AA40 /* SimultaneouslyScrollView */; };
 		FB2CF1C029D2208000BC9DF0 /* StatusPreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2CF1BF29D2208000BC9DF0 /* StatusPreviewData.swift */; };
+		FB2D636B29DC9622007D707A /* SimultaneouslyScrollViewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2D636A29DC9621007D707A /* SimultaneouslyScrollViewHandler.swift */; };
+		FB2D636D29DCB097007D707A /* FilterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2D636C29DCB097007D707A /* FilterBar.swift */; };
 		FB9C1BC329D23277006058C4 /* statuses.json in Resources */ = {isa = PBXBuildFile; fileRef = FBDFD8A529CF19A50069A4C5 /* statuses.json */; };
 		FBBDA1B529D344870054A247 /* SubjectsTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBDA1B429D344870054A247 /* SubjectsTable.swift */; };
 		FBBDA1B729D345C70054A247 /* subjects.json in Resources */ = {isa = PBXBuildFile; fileRef = FBBDA1B629D345C70054A247 /* subjects.json */; };
@@ -51,6 +55,8 @@
 		FB04859829CE588C0086323D /* StatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusCell.swift; sourceTree = "<group>"; };
 		FB172B8E29D32889000AC842 /* SubjectListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectListViewModel.swift; sourceTree = "<group>"; };
 		FB2CF1BF29D2208000BC9DF0 /* StatusPreviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusPreviewData.swift; sourceTree = "<group>"; };
+		FB2D636A29DC9621007D707A /* SimultaneouslyScrollViewHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimultaneouslyScrollViewHandler.swift; sourceTree = "<group>"; };
+		FB2D636C29DCB097007D707A /* FilterBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBar.swift; sourceTree = "<group>"; };
 		FBBDA1B429D344870054A247 /* SubjectsTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectsTable.swift; sourceTree = "<group>"; };
 		FBBDA1B629D345C70054A247 /* subjects.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = subjects.json; sourceTree = "<group>"; };
 		FBDFD8A129CEFD1D0069A4C5 /* StatusListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusListViewModel.swift; sourceTree = "<group>"; };
@@ -63,6 +69,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB04859729CE45BD0086323D /* SwiftUIFontIcon in Frameworks */,
+				FB2490D729D884810052AA40 /* SimultaneouslyScrollView in Frameworks */,
+				FB2490D229D8818D0052AA40 /* Introspect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,6 +105,7 @@
 				FB04857529CE37C20086323D /* Preview Content */,
 				FBDFD8A529CF19A50069A4C5 /* statuses.json */,
 				FBBDA1B629D345C70054A247 /* subjects.json */,
+				FB2D636A29DC9621007D707A /* SimultaneouslyScrollViewHandler.swift */,
 			);
 			path = "Semester Tracker SwiftUI";
 			sourceTree = "<group>";
@@ -136,6 +145,7 @@
 		FB172B9029D328B5000AC842 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FB2D636C29DCB097007D707A /* FilterBar.swift */,
 				FB04857129CE37BF0086323D /* ContentView.swift */,
 				FB04859329CE43A10086323D /* SubjectRow.swift */,
 				FB04859829CE588C0086323D /* StatusCell.swift */,
@@ -171,6 +181,8 @@
 			name = "Semester Tracker SwiftUI";
 			packageProductDependencies = (
 				FB04859629CE45BD0086323D /* SwiftUIFontIcon */,
+				FB2490D129D8818D0052AA40 /* Introspect */,
+				FB2490D629D884810052AA40 /* SimultaneouslyScrollView */,
 			);
 			productName = "Semester Tracker SwiftUI";
 			productReference = FB04856C29CE37BF0086323D /* Semester Tracker SwiftUI.app */;
@@ -202,6 +214,8 @@
 			mainGroup = FB04856329CE37BF0086323D;
 			packageReferences = (
 				FB04859529CE45BD0086323D /* XCRemoteSwiftPackageReference "SwiftUIFontIcon" */,
+				FB2490D029D8818D0052AA40 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+				FB2490D529D884810052AA40 /* XCRemoteSwiftPackageReference "SimultaneouslyScrollView" */,
 			);
 			productRefGroup = FB04856D29CE37BF0086323D /* Products */;
 			projectDirPath = "";
@@ -232,6 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB04857229CE37BF0086323D /* ContentView.swift in Sources */,
+				FB2D636D29DCB097007D707A /* FilterBar.swift in Sources */,
 				FB04858229CE38950086323D /* GeneralEvent.swift in Sources */,
 				FB2CF1C029D2208000BC9DF0 /* StatusPreviewData.swift in Sources */,
 				FBBDA1B529D344870054A247 /* SubjectsTable.swift in Sources */,
@@ -248,6 +263,7 @@
 				FB172B8F29D32889000AC842 /* SubjectListViewModel.swift in Sources */,
 				FB04859929CE588C0086323D /* StatusCell.swift in Sources */,
 				FB04858429CE39210086323D /* Event.swift in Sources */,
+				FB2D636B29DC9622007D707A /* SimultaneouslyScrollViewHandler.swift in Sources */,
 				FB04857029CE37BF0086323D /* Semester_Tracker_SwiftUIApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -457,6 +473,22 @@
 				kind = branch;
 			};
 		};
+		FB2490D029D8818D0052AA40 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		FB2490D529D884810052AA40 /* XCRemoteSwiftPackageReference "SimultaneouslyScrollView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stonko1994/SimultaneouslyScrollView";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -464,6 +496,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FB04859529CE45BD0086323D /* XCRemoteSwiftPackageReference "SwiftUIFontIcon" */;
 			productName = SwiftUIFontIcon;
+		};
+		FB2490D129D8818D0052AA40 /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB2490D029D8818D0052AA40 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = Introspect;
+		};
+		FB2490D629D884810052AA40 /* SimultaneouslyScrollView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB2490D529D884810052AA40 /* XCRemoteSwiftPackageReference "SimultaneouslyScrollView" */;
+			productName = SimultaneouslyScrollView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

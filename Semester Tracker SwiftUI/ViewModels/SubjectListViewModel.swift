@@ -9,7 +9,7 @@ import Foundation
 
 final class SubjectListViewModel: ObservableObject {
     @Published var subjectList: [Subject] = []
-    
+    @Published var searchSubject: String = ""
     init() {
          getSubjects()
     }
@@ -29,5 +29,10 @@ final class SubjectListViewModel: ObservableObject {
             return nil
         }
         self.subjectList = loadJSON() ?? []
+        
+        $searchSubject
+            .sink { (returnedText) in
+                self.subjectList
+            }
     }
 }

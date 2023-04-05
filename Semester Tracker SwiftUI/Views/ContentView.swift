@@ -4,29 +4,30 @@
 //
 //  Created by Anesa Fazlagić on 24. 3. 2023..
 //
-
 import SwiftUI
 
 struct ContentView: View {
+    @State private var searchSubject = ""
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
                 //takes size of biggest child bydefault
                 VStack(alignment: .leading, spacing: 24) {
-                    //Title
-                    Text("Welcome!")
-                        .font(.title2)
-                        .bold()
+                    //MARK: Filter bars by lecture & by attendence
+                    FilterBar()
+                    //MARK: Scrollable table of subjects
+                    SubjectsTable()
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
                 //to make ScrollView scrollable
                 //TODO: login/sign up page
             }
+            .searchable(text: $searchSubject)
             .background(Color.background)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                //NotificationItem in the right
+                //MARK: NotificationItem in the right
                 ToolbarItem {
                     Image(systemName: "bell.badge")
                         .symbolRenderingMode(.palette)
@@ -35,7 +36,6 @@ struct ContentView: View {
                 }
             }
         }
-        .navigationViewStyle(.stack)
     }
 }
 

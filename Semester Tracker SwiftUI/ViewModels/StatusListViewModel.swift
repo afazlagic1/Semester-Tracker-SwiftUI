@@ -12,6 +12,7 @@ final class StatusListViewModel: ObservableObject {
     @Published var statusList: [Status] = []
     
     init() {
+        //self.statusList = statusListPreviewData
         getAllStatuses()
     }
     
@@ -27,7 +28,7 @@ final class StatusListViewModel: ObservableObject {
                     }
                     let decoder = JSONDecoder()
                     guard let statuses = try? decoder.decode([Status].self, from: data) else {
-                            return [Status(id: 1, studentId: 2, eventId: 1, attendance: "absence", points: 1, raiting: "1")]
+                            return nil
                         }
                         statusList = statuses
                     return statusList

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftUIFontIcon
+import Introspect
 
 struct SubjectRow: View {
     var subject: Subject
@@ -48,6 +49,7 @@ struct SubjectRow: View {
                     {
                          index, status in
                         StatusCell(status: status)
+                        
                     }
                 }
                 .padding([.horizontal])
