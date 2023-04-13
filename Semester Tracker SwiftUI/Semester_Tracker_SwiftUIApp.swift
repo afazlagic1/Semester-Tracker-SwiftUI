@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Introspect
 
 @main
 struct Semester_Tracker_SwiftUIApp: App {
@@ -21,3 +22,4 @@ struct Semester_Tracker_SwiftUIApp: App {
         }
     }
 }
+

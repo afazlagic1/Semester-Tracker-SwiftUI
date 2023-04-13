@@ -43,5 +43,14 @@
  "academicYear": 2023,
  "semesterType": "spring"
 }
+},
+{"id": 6,
+ "name": "Math",
+ "subjectCode": "PA667",
+ "semester": {
+ "id": 1,
+ "academicYear": 2023,
+ "semesterType": "spring"
+}
 }
 ]

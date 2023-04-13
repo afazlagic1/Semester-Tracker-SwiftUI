@@ -1,52 +1,257 @@
-[{
-    "id": 1,
-    "studentId": 1,
-    "eventId": 1,
-    "attendance": "presence",
-    "points": 2,
-    "raiting": "3"
+[
+{
+"id": 1,
+"student": {
+        "id": 1,
+        "name": "Harry",
+        "surname": "Potter",
+        "username": "teamgriff1",
+        "password": "12345"
+    },
+"event": {
+    "id": 2,
+    "date": "02/02/2023",
+    "generalEvent": {
+        "id": 1,
+        "eventType": "lecture",
+        "subject": {
+            "id": 3,
+            "name": "Potions",
+            "subjectCode": "PA444",
+            "semester": {
+                "id": 1,
+                "academicYear": 2023,
+                "semesterType": "spring"
+                }
+            },
+        "teacher": {
+            "id": 1,
+            "name": "Albus",
+            "surname": "Dumbledore",
+            "role": "professor"
+            },
+        "maxPoints": 0
+        }
+    },
+"attendance": "presence",
+"points": 0,
+"raiting": "3"
 },
-    {   "id": 2,
-        "studentId": 1,
-        "eventId": 2,
-        "attendance": "presence",
-        "points": 0,
-        "raiting": "1"
+{"id": 2,
+"student": {
+        "id": 1,
+        "name": "Harry",
+        "surname": "Potter",
+        "username": "teamgriff1",
+        "password": "12345"
     },
-    {
-        "id": 3,
-        "studentId": 1,
-        "eventId": 3,
-        "attendance": "distraction",
-        "points": 0,
-        "raiting": "2"
+"event": {
+    "id": 2,
+    "date": "21/03/2023",
+    "generalEvent": {
+        "id": 1,
+        "eventType": "lecture",
+        "subject": {"id": 3,
+        "name": "Potions",
+        "subjectCode": "PA444",
+        "semester": {
+            "id": 1,
+            "academicYear": 2023,
+            "semesterType": "spring"
+            }
+        },
+        "teacher": {
+            "id": 1,
+            "name": "Albus",
+            "surname": "Dumbledore",
+            "role": "professor"
+            },
+        "maxPoints": 0
+        }
     },
-    {   "id": 4,
-        "studentId": 1,
-        "eventId": 4,
-        "attendance": "absence",
-        "points": 5,
-        "raiting": "5"
+"attendance": "presence",
+"points": 0,
+"raiting": "1"
+},
+{
+"id": 3,
+"student": {
+        "id": 1,
+        "name": "Harry",
+        "surname": "Potter",
+        "username": "teamgriff1",
+        "password": "12345"
     },
-    {   "id": 5,
-        "studentId": 1,
-        "eventId": 5,
-        "attendance": "absence",
-        "points": 5,
-        "raiting": "5"
+"event": {
+    "id": 2,
+    "date": "21/04/2023",
+    "generalEvent": {
+        "id": 1,
+        "eventType": "lecture",
+        "subject": {"id": 3,
+        "name": "Potions",
+        "subjectCode": "PA444",
+        "semester": {
+            "id": 1,
+            "academicYear": 2023,
+            "semesterType": "spring"
+            }
+        },
+        "teacher": {
+            "id": 1,
+            "name": "Albus",
+            "surname": "Dumbledore",
+            "role": "professor"
+            },
+        "maxPoints": 0
+        }
     },
-    {   "id": 6,
-        "studentId": 1,
-        "eventId": 6,
-        "attendance": "presence",
-        "points": 5,
-        "raiting": "5"
+"attendance": "distraction",
+"points": 0,
+"raiting": "2"
+},
+{"id": 4,
+"student": {
+        "id": 1,
+        "name": "Harry",
+        "surname": "Potter",
+        "username": "teamgriff1",
+        "password": "12345"
     },
-    {   "id": 7,
-        "studentId": 1,
-        "eventId": 7,
-        "attendance": "distraction",
-        "points": 5,
-        "raiting": "5"
-    }
+"event": {
+    "id": 2,
+    "date": "02/05/2023",
+    "generalEvent": {
+        "id": 1,
+        "eventType": "lecture",
+        "subject": {"id": 3,
+        "name": "Potions",
+        "subjectCode": "PA444",
+        "semester": {
+            "id": 1,
+            "academicYear": 2023,
+            "semesterType": "spring"
+            }
+        },
+        "teacher": {
+            "id": 1,
+            "name": "Albus",
+            "surname": "Dumbledore",
+            "role": "professor"
+            },
+        "maxPoints": 0
+        }
+    },
+"attendance": "absence",
+"points": 5,
+"raiting": "5"
+},
+{   "id": 5,
+    "student": {
+            "id": 1,
+            "name": "Harry",
+            "surname": "Potter",
+            "username": "teamgriff1",
+            "password": "12345"
+        },
+    "event": {
+        "id": 2,
+        "date": "10/06/2023",
+        "generalEvent": {
+            "id": 1,
+            "eventType": "lecture",
+            "subject": {"id": 3,
+            "name": "Potions",
+            "subjectCode": "PA444",
+            "semester": {
+                "id": 1,
+                "academicYear": 2023,
+                "semesterType": "spring"
+                }
+            },
+            "teacher": {
+                "id": 1,
+                "name": "Albus",
+                "surname": "Dumbledore",
+                "role": "professor"
+                },
+            "maxPoints": 0
+            }
+        },
+"attendance": "absence",
+"points": 5,
+"raiting": "5"
+},
+{   "id": 6,
+    "student": {
+            "id": 1,
+            "name": "Harry",
+            "surname": "Potter",
+            "username": "teamgriff1",
+            "password": "12345"
+        },
+    "event": {
+        "id": 2,
+        "date": "11/06/2023",
+        "generalEvent": {
+            "id": 1,
+            "eventType": "lecture",
+            "subject": {"id": 3,
+            "name": "Potions",
+            "subjectCode": "PA444",
+            "semester": {
+                "id": 1,
+                "academicYear": 2023,
+                "semesterType": "spring"
+                }
+            },
+            "teacher": {
+                "id": 1,
+                "name": "Albus",
+                "surname": "Dumbledore",
+                "role": "professor"
+                },
+            "maxPoints": 0
+            }
+        },
+"attendance": "presence",
+"points": 5,
+"raiting": "5"
+},
+{   "id": 7,
+    "student": {
+            "id": 1,
+            "name": "Harry",
+            "surname": "Potter",
+            "username": "teamgriff1",
+            "password": "12345"
+        },
+    "event": {
+        "id": 2,
+        "date": "12/06/2023",
+        "generalEvent": {
+            "id": 1,
+            "eventType": "lecture",
+            "subject": {"id": 3,
+            "name": "Potions",
+            "subjectCode": "PA444",
+            "semester": {
+                "id": 1,
+                "academicYear": 2023,
+                "semesterType": "spring"
+                }
+            },
+            "teacher": {
+                "id": 1,
+                "name": "Albus",
+                "surname": "Dumbledore",
+                "role": "professor"
+                },
+            "maxPoints": 0
+            }
+        },
+"attendance": "distraction",
+"points": 5,
+"raiting": "5"
+}
 ]

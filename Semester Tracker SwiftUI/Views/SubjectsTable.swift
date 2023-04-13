@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Introspect
 
 struct SubjectsTable: View {
     @EnvironmentObject var subjectListViewModel: SubjectListViewModel
@@ -15,13 +16,14 @@ struct SubjectsTable: View {
         //TODO: Sort by date asc/dsc, subject name...
         //TODO: labels week1, week2...
         //MARK: Subject List
-        VStack {
+        ScrollView {
             ForEach(Array(subjectListViewModel.subjectList.enumerated()), id: \.element)
             {
                 index, subject in
                 SubjectRow(subject: subject)
             }
         }
+        .frame(height: 370)
         .padding([.top, .bottom])
         .background(Color.systemBackground)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))

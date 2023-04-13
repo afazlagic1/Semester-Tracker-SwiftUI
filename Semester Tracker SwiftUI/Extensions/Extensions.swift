@@ -22,6 +22,11 @@ extension DateFormatter {
         formater.dateFormat = "dd/MM/yyyy"
         return formater
     }()
+    static let dayMonthFormat: DateFormatter = {
+        let formater = DateFormatter()
+        formater.dateFormat = "d MMM"
+        return formater
+    }()
 }
 extension String {
     func dateParsed() -> Date {

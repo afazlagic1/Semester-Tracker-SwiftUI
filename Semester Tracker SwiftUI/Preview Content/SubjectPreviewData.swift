@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import Introspect
 
 var semester = Semester(id: 1, academicYear: 2023, semesterType: "spring")
 var subjectPreviewData = Subject(id: 1, name: "Defence Against the Dark Arts", subjectCode: "PA111", semester: semester)
