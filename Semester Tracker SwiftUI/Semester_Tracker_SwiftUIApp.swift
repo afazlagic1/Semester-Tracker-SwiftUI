@@ -6,10 +6,16 @@
 //
 
 import SwiftUI
+import Firebase
 import Introspect
 
 @main
 struct Semester_Tracker_SwiftUIApp: App {
+    init() {
+        FirebaseApp.configure()
+        var d = DataSource()
+    }
+    
     //this object follows the lifecycle of an app
     @StateObject var statusListViewModel = StatusListViewModel()
     @StateObject var subjectListViewModel = SubjectListViewModel()

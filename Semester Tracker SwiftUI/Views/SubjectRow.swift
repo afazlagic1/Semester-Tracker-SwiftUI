@@ -13,6 +13,7 @@ struct SubjectRow: View {
     var subject: Subject
     @EnvironmentObject var statusListViewModel: StatusListViewModel
     @EnvironmentObject var subjectListViewModel: SubjectListViewModel
+
     var body: some View {
         HStack {
             SubjectTitle(subject: subject)

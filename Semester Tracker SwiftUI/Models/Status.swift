@@ -7,16 +7,24 @@
 
 import Foundation
 
-struct Status: Identifiable, Decodable, Hashable {
-    
+struct Status: Identifiable, Decodable, Hashable, ModelEntity {
     private(set) var id: Int //Identifiable
     private(set) var student: Student
     private(set) var event: Event
-    //private(set) var studentId: Int
-    //private(set) var eventId: Int
     private(set) var attendance: AttendanceType.RawValue
     private(set) var points: Int
-    private(set) var raiting: Raiting.RawValue
+    private(set) var rating: Rating.RawValue
+    
+    func dictionary() -> [String: Any] {
+        return [
+            "id": id,
+            "student": student.id,
+            "event": event.id,
+            "attendance": attendance,
+            "points": points,
+            "rating": rating
+        ];
+    }
 }
 
 enum AttendanceType: String {
@@ -25,7 +33,7 @@ enum AttendanceType: String {
     case distraction = "distraction"
 }
 
-enum Raiting: String {
+enum Rating: String {
     case one1 = "1"
     case two2 = "2"
     case three3 = "3"

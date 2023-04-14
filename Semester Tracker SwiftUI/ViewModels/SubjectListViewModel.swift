@@ -10,6 +10,7 @@ import Foundation
 final class SubjectListViewModel: ObservableObject {
     @Published var subjectList: [Subject] = []
     @Published var searchSubject: String = ""
+
     init() {
          getSubjects()
     }
