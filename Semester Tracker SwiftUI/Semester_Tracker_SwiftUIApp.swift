@@ -22,4 +22,3 @@ struct Semester_Tracker_SwiftUIApp: App {
         }
     }
 }
-

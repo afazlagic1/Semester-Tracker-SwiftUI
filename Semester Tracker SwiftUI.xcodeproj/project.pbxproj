@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C7875F7129E837F700683BC2 /* SubjectTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7875F7029E837F700683BC2 /* SubjectTitle.swift */; };
 		FB04857029CE37BF0086323D /* Semester_Tracker_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB04856F29CE37BF0086323D /* Semester_Tracker_SwiftUIApp.swift */; };
 		FB04857229CE37BF0086323D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB04857129CE37BF0086323D /* ContentView.swift */; };
 		FB04857429CE37C20086323D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB04857329CE37C20086323D /* Assets.xcassets */; };
@@ -37,6 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C7875F7029E837F700683BC2 /* SubjectTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectTitle.swift; sourceTree = "<group>"; };
 		FB04856C29CE37BF0086323D /* Semester Tracker SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Semester Tracker SwiftUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB04856F29CE37BF0086323D /* Semester_Tracker_SwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Semester_Tracker_SwiftUIApp.swift; sourceTree = "<group>"; };
 		FB04857129CE37BF0086323D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				FB04859329CE43A10086323D /* SubjectRow.swift */,
 				FB04859829CE588C0086323D /* StatusCell.swift */,
 				FBBDA1B429D344870054A247 /* SubjectsTable.swift */,
+				C7875F7029E837F700683BC2 /* SubjectTitle.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 				FB04859029CE3E130086323D /* Extensions.swift in Sources */,
 				FB04857E29CE37EC0086323D /* Subject.swift in Sources */,
 				FB172B8F29D32889000AC842 /* SubjectListViewModel.swift in Sources */,
+				C7875F7129E837F700683BC2 /* SubjectTitle.swift in Sources */,
 				FB04859929CE588C0086323D /* StatusCell.swift in Sources */,
 				FB04858429CE39210086323D /* Event.swift in Sources */,
 				FB2D636B29DC9622007D707A /* SimultaneouslyScrollViewHandler.swift in Sources */,
@@ -407,6 +411,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "cz.muni.fi.Semester-Tracker-SwiftUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -435,6 +442,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "cz.muni.fi.Semester-Tracker-SwiftUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
