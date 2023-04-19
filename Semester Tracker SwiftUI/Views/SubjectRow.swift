@@ -10,27 +10,21 @@ import SwiftUIFontIcon
 import Introspect
 
 struct SubjectRow: View {
-//    var subject: Subject
-//    @EnvironmentObject var statusListViewModel: StatusListViewModel
-//    @EnvironmentObject var subjectListViewModel: SubjectListViewModel
-
+    var subject: Event
+    var weeks: [Week]
+    var events: [Event]? = []
+    
     var body: some View {
         HStack {
-//            SubjectTitle(subject: subject)
-//                .padding(.horizontal, 5);
-//            Spacer()
-//            //MARK: attendance check cells
-//            ScrollView(.horizontal, showsIndicators: false) {
-//                HStack {
-//                    ForEach(Array(statusListViewModel.statusList.enumerated()), id: \.element)
-//                    {
-//                         index, status in
-//                        StatusCell(status: status)
-//
-//                    }
-//                }
-//                .padding([.horizontal])
-//            }
+            SubjectTitle(subject: subject)
+                .padding(.horizontal, 5);
+            Spacer()
+            //            //MARK: attendance check cells
+            HStack {
+                ForEach(weeks, id: \.i) { week in
+                    StatusCell()
+                }
+            }
         }
     }
 }

@@ -27,7 +27,6 @@ struct ContentView: View {
                             Text(semester.name).tag(semester as Event?)
                         }
                     }
-
                     //MARK: Filter bars by lecture & by attendence
 //                    FilterBar()
                     //MARK: Scrollable table of subjects
@@ -41,18 +40,18 @@ struct ContentView: View {
                 //to make ScrollView scrollable
                 //TODO: login/sign up page
             }
-//            .searchable(text: $searchSubject)
+            .searchable(text: $searchSubject)
             .background(Color.background)
-//            .navigationBarTitleDisplayMode(.inline)
-//            .toolbar {
-//                //MARK: NotificationItem in the right
-//                ToolbarItem {
-//                    Image(systemName: "bell.badge")
-//                        .symbolRenderingMode(.palette)
-//                        .foregroundStyle(Color.icon, .primary)
-//
-//                }
-//            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                //MARK: NotificationItem in the right
+                ToolbarItem {
+                    Image(systemName: "bell.badge")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(Color.icon, .primary)
+
+                }
+            }
         }
     }
 }

@@ -10,6 +10,7 @@ import SwiftUIFontIcon
 
 struct StatusCell: View {
 //    var status: Status
+    var attendance: String? = nil // "presence"
     
     var body: some View {
         VStack {
@@ -18,24 +19,26 @@ struct StatusCell: View {
 //                .font(.subheadline)
 //                .fontDesign(.monospaced)
 //            //MARK: icon
-//            RoundedRectangle(cornerRadius: 5, style: .continuous)
-//                .fill(Color.icon.opacity(0.2))
-//                .frame(width: 55, height: 55)
-//                .overlay {
-//                    if(status.attendance == "presence") {
-//                        FontIcon.text(.awesome5Solid(code: .check), fontsize: 35, color: .green)
-//                    }
-//                    else if(status.attendance == "absence") {
-//                        FontIcon.text(.awesome5Solid(code: .plus), fontsize: 35, color: .red
-//                        )
-//                        .rotationEffect(Angle(degrees: 45))
-//                    }
-//                    else if(status.attendance == "distraction") {
-//                        FontIcon.text(.awesome5Solid(code: .meh_rolling_eyes), fontsize: 35, color: .orange
-//                        )
-//                    }
-//                }
-//                .shadow(radius: .pi)
+            RoundedRectangle(cornerRadius: 5, style: .continuous)
+                .fill(Color.icon.opacity(0.2))
+                .frame(width: 55, height: 55)
+                .overlay {
+                    if(attendance == "presence") {
+                        FontIcon.text(.awesome5Solid(code: .check), fontsize: 35, color: .green)
+                    }
+                    else if(attendance == "absence") {
+                        FontIcon.text(.awesome5Solid(code: .plus), fontsize: 35, color: .red
+                        )
+                        .rotationEffect(Angle(degrees: 45))
+                    }
+                    else if(attendance == "distraction") {
+                        FontIcon.text(.awesome5Solid(code: .question), fontsize: 35, color: .orange
+                        )
+                    } else if attendance == nil {
+                        FontIcon.text(.awesome5Solid(code: .minus), fontsize: 35, color: Color.icon.opacity(0.25))
+                    }
+                }
+                .shadow(radius: .pi)
         }
     }
 }

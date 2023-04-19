@@ -20,6 +20,7 @@ struct Event: Identifiable, Codable, Hashable {
     var end: Date
     var attributes: [String: Field]?
     var parent: DocumentReference?
+    var parentSubject: DocumentReference?
 }
 
 enum Field: Codable, Hashable {

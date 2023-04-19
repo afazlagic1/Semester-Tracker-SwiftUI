@@ -10,13 +10,66 @@ import Introspect
 import FirebaseFirestoreSwift
 import Firebase
 
+struct Week {
+    var i: Int
+    var week_i: Int
+    var start: Date
+    var end: Date
+}
+
 struct SubjectsTable: View {
     var semester: Event
     var fr = Firestore.firestore()
+    private let calendar = Calendar.current
 
     @FirestoreQuery(collectionPath: "events", predicates: [
         .whereField("type", isEqualTo: "subject")
     ]) private var subjects: [Event]
+
+    @FirestoreQuery(collectionPath: "events", predicates: [
+        .whereField("parentSubject", isLessThan: "")
+    ]) private var events: [Event]
+    
+    func get_week_start(date: Date) -> Date? {
+        if let newDate = calendar.date(
+            from: calendar.dateComponents([.weekOfYear, .yearForWeekOfYear], from: date)) {
+            return newDate
+        }
+        return nil
+    }
+
+    private var weeks: [Week] {
+        get {
+            var weeks: [Week] = []
+            var date = get_week_start(date: semester.start)!
+            var i = 0
+
+            while date < semester.end {
+                let week_i = calendar.component(.weekOfYear, from: date)
+                
+                guard let week_start_date = get_week_start(date: date) else {
+                    continue
+                }
+                
+                guard let week_end_date = calendar.date(byAdding: DateComponents(day: 6), to: week_start_date) else {
+                    continue
+                }
+
+                weeks.append(Week(
+                    i: i, week_i: week_i, start: week_start_date,
+                    end: week_end_date
+                ))
+                
+                if let nextStartDate = calendar.date(byAdding: .weekOfYear, value: 1, to: date) {
+                    date = nextStartDate
+                } else {
+                    break
+                }
+                i += 1
+            }
+            return weeks
+        }
+    }
 
     var body: some View {
         //TODO: Search bar
@@ -30,28 +83,37 @@ struct SubjectsTable: View {
             if $subjects.error != nil {
                 Text("Error loading subjects")
             } else {
-                ForEach(subjects) { subject in
-                    Text(subject.name)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    ForEach(subjects) { subject in
+                        SubjectRow(subject: subject, weeks: weeks)
+                    }
                 }
             }
-            
-            //            ForEach(Array(subjectListViewModel.subjectList.enumerated()), id: \.element)
-            //            {
-            //                index, subject in
-            //                SubjectRow(subject: subject)
-            //            }
         }.task(id: semester.id) {
             if let id = semester.id {
                 let parent = fr.document("/events/\(id)")
+
+                var parentSubjects = [DocumentReference]()
+                for subject in subjects {
+                    if let id = subject.id {
+                        parentSubjects.append(fr.document("/events/\(id)"))
+                    }
+                }
 
                 $subjects.predicates = [
                     .whereField("type", isEqualTo: "subject"),
                     .whereField("parent", isEqualTo: parent)
                 ]
+
+                if !parentSubjects.isEmpty {
+                    $events.predicates = [
+                        .whereField("parentSubject", isIn: parentSubjects)
+                    ]
+                }
             }
         }
         .frame(height: 370)
-        .padding([.top, .bottom])
+        .padding([.top, .bottom, .horizontal])
         .background(Color.systemBackground)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .shadow(color: Color.primary.opacity(0.2), radius: 10, x: 0, y: 5)

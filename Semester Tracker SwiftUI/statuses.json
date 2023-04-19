@@ -35,7 +35,7 @@
     },
 "attendance": "presence",
 "points": 0,
-"raiting": "3"
+"rating": "3"
 },
 {"id": 2,
 "student": {
@@ -71,7 +71,7 @@
     },
 "attendance": "presence",
 "points": 0,
-"raiting": "1"
+"rating": "1"
 },
 {
 "id": 3,
@@ -108,7 +108,7 @@
     },
 "attendance": "distraction",
 "points": 0,
-"raiting": "2"
+"rating": "2"
 },
 {"id": 4,
 "student": {
@@ -144,7 +144,7 @@
     },
 "attendance": "absence",
 "points": 5,
-"raiting": "5"
+"rating": "5"
 },
 {   "id": 5,
     "student": {
@@ -180,7 +180,7 @@
         },
 "attendance": "absence",
 "points": 5,
-"raiting": "5"
+"rating": "5"
 },
 {   "id": 6,
     "student": {
@@ -216,7 +216,7 @@
         },
 "attendance": "presence",
 "points": 5,
-"raiting": "5"
+"rating": "5"
 },
 {   "id": 7,
     "student": {
@@ -252,6 +252,6 @@
         },
 "attendance": "distraction",
 "points": 5,
-"raiting": "5"
+"rating": "5"
 }
 ]
