@@ -11,7 +11,7 @@ import UIKit
 class SimultaneouslyScrollViewHandler: NSObject, ObservableObject {
     @Published private var scrollViews: [UIScrollView] = []
     private var scrollingScrollView: UIScrollView?
-  
+
     func register(scrollView: UIScrollView) {
         guard !scrollViews.contains(scrollView) else {
             return

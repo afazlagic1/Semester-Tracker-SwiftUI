@@ -18,8 +18,8 @@ struct FilterBar: View {
 struct SearchBar: View {
     var body: some View {
         VStack {
-            FilterItem(name: "eventType", items: ["all", "lecture", "excercise", "description"])
-            FilterItem(name: "attendanceType", items: ["all", AttendanceType.presence.rawValue, AttendanceType.distraction.rawValue, AttendanceType.absence.rawValue])
+//            FilterItem(name: "eventType", items: ["all", "lecture", "excercise", "description"])
+//            FilterItem(name: "attendanceType", items: ["all", AttendanceType.presence.rawValue, AttendanceType.distraction.rawValue, AttendanceType.absence.rawValue])
         }
     }
 }

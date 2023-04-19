@@ -8,7 +8,5 @@
 import Foundation
 
 public protocol ModelEntity {
-    var id: Int { get }
-
     func dictionary() -> [String: Any];
 }

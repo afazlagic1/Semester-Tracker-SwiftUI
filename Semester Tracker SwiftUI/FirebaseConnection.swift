@@ -12,7 +12,7 @@ class FirebaseConnection {
     private var db = Firestore.firestore()
     
     func addDocument(collection: String, document: ModelEntity) {
-        db.collection(collection).document(String(document.id)).setData(document.dictionary())
+//        db.collection(collection).document(String(document.id)).setData(document.dictionary())
     }
         
 //    private func collectionExists(collection: String) -> Bool {

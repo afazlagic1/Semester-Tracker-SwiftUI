@@ -11,19 +11,13 @@
 		C78C76DB29E9311000FC4E3C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C78C76DA29E9311000FC4E3C /* FirebaseFirestore */; };
 		C78C76DD29E9311000FC4E3C /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C78C76DC29E9311000FC4E3C /* FirebaseFirestoreSwift */; };
 		C78C76DF29E9323D00FC4E3C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C78C76DE29E9323D00FC4E3C /* GoogleService-Info.plist */; };
-		C78C76E129E99E5600FC4E3C /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78C76E029E99E5600FC4E3C /* DataSource.swift */; };
-		C78C76E329E9A54900FC4E3C /* ModelEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78C76E229E9A54900FC4E3C /* ModelEntity.swift */; };
-		C78C76E529E9A8C500FC4E3C /* FirebaseConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78C76E429E9A8C500FC4E3C /* FirebaseConnection.swift */; };
+		C7D5B1F229EE03C70066187F /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5B1F129EE03C70066187F /* Person.swift */; };
+		C7D5B1F429EF50A80066187F /* EventStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5B1F329EF50A80066187F /* EventStatus.swift */; };
 		FB04857029CE37BF0086323D /* Semester_Tracker_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB04856F29CE37BF0086323D /* Semester_Tracker_SwiftUIApp.swift */; };
 		FB04857229CE37BF0086323D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB04857129CE37BF0086323D /* ContentView.swift */; };
 		FB04857429CE37C20086323D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB04857329CE37C20086323D /* Assets.xcassets */; };
 		FB04857729CE37C20086323D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB04857629CE37C20086323D /* Preview Assets.xcassets */; };
-		FB04857E29CE37EC0086323D /* Subject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB04857D29CE37EC0086323D /* Subject.swift */; };
-		FB04858029CE382D0086323D /* Semester.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB04857F29CE382D0086323D /* Semester.swift */; };
 		FB04858429CE39210086323D /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB04858329CE39210086323D /* Event.swift */; };
-		FB04858829CE39FF0086323D /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB04858729CE39FF0086323D /* Status.swift */; };
-		FB04858A29CE3A500086323D /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB04858929CE3A500086323D /* Student.swift */; };
-		FB04858C29CE3AA80086323D /* Teacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB04858B29CE3AA80086323D /* Teacher.swift */; };
 		FB04859029CE3E130086323D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB04858F29CE3E130086323D /* Extensions.swift */; };
 		FB04859229CE41490086323D /* SubjectPreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB04859129CE41490086323D /* SubjectPreviewData.swift */; };
 		FB04859429CE43A10086323D /* SubjectRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB04859329CE43A10086323D /* SubjectRow.swift */; };
@@ -45,20 +39,14 @@
 /* Begin PBXFileReference section */
 		C7875F7029E837F700683BC2 /* SubjectTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectTitle.swift; sourceTree = "<group>"; };
 		C78C76DE29E9323D00FC4E3C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		C78C76E029E99E5600FC4E3C /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
-		C78C76E229E9A54900FC4E3C /* ModelEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelEntity.swift; sourceTree = "<group>"; };
-		C78C76E429E9A8C500FC4E3C /* FirebaseConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConnection.swift; sourceTree = "<group>"; };
+		C7D5B1F129EE03C70066187F /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		C7D5B1F329EF50A80066187F /* EventStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStatus.swift; sourceTree = "<group>"; };
 		FB04856C29CE37BF0086323D /* Semester Tracker SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Semester Tracker SwiftUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB04856F29CE37BF0086323D /* Semester_Tracker_SwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Semester_Tracker_SwiftUIApp.swift; sourceTree = "<group>"; };
 		FB04857129CE37BF0086323D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FB04857329CE37C20086323D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FB04857629CE37C20086323D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		FB04857D29CE37EC0086323D /* Subject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subject.swift; sourceTree = "<group>"; };
-		FB04857F29CE382D0086323D /* Semester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Semester.swift; sourceTree = "<group>"; };
 		FB04858329CE39210086323D /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		FB04858729CE39FF0086323D /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
-		FB04858929CE3A500086323D /* Student.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
-		FB04858B29CE3AA80086323D /* Teacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teacher.swift; sourceTree = "<group>"; };
 		FB04858F29CE3E130086323D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		FB04859129CE41490086323D /* SubjectPreviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectPreviewData.swift; sourceTree = "<group>"; };
 		FB04859329CE43A10086323D /* SubjectRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectRow.swift; sourceTree = "<group>"; };
@@ -119,8 +107,6 @@
 				FBDFD8A529CF19A50069A4C5 /* statuses.json */,
 				FBBDA1B629D345C70054A247 /* subjects.json */,
 				FB2D636A29DC9621007D707A /* SimultaneouslyScrollViewHandler.swift */,
-				C78C76E029E99E5600FC4E3C /* DataSource.swift */,
-				C78C76E429E9A8C500FC4E3C /* FirebaseConnection.swift */,
 			);
 			path = "Semester Tracker SwiftUI";
 			sourceTree = "<group>";
@@ -138,13 +124,9 @@
 		FB172B8B29D32760000AC842 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				FB04857D29CE37EC0086323D /* Subject.swift */,
-				FB04857F29CE382D0086323D /* Semester.swift */,
 				FB04858329CE39210086323D /* Event.swift */,
-				FB04858729CE39FF0086323D /* Status.swift */,
-				FB04858929CE3A500086323D /* Student.swift */,
-				FB04858B29CE3AA80086323D /* Teacher.swift */,
-				C78C76E229E9A54900FC4E3C /* ModelEntity.swift */,
+				C7D5B1F129EE03C70066187F /* Person.swift */,
+				C7D5B1F329EF50A80066187F /* EventStatus.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -269,24 +251,18 @@
 				FB2D636D29DCB097007D707A /* FilterBar.swift in Sources */,
 				FB2CF1C029D2208000BC9DF0 /* StatusPreviewData.swift in Sources */,
 				FBBDA1B529D344870054A247 /* SubjectsTable.swift in Sources */,
-				FB04858029CE382D0086323D /* Semester.swift in Sources */,
 				FBDFD8A629CF19A50069A4C5 /* statuses.json in Sources */,
+				C7D5B1F229EE03C70066187F /* Person.swift in Sources */,
+				C7D5B1F429EF50A80066187F /* EventStatus.swift in Sources */,
 				FB04859429CE43A10086323D /* SubjectRow.swift in Sources */,
-				FB04858829CE39FF0086323D /* Status.swift in Sources */,
-				C78C76E329E9A54900FC4E3C /* ModelEntity.swift in Sources */,
-				FB04858A29CE3A500086323D /* Student.swift in Sources */,
 				FB04859229CE41490086323D /* SubjectPreviewData.swift in Sources */,
 				FBDFD8A229CEFD1D0069A4C5 /* StatusListViewModel.swift in Sources */,
-				FB04858C29CE3AA80086323D /* Teacher.swift in Sources */,
 				FB04859029CE3E130086323D /* Extensions.swift in Sources */,
-				FB04857E29CE37EC0086323D /* Subject.swift in Sources */,
 				FB172B8F29D32889000AC842 /* SubjectListViewModel.swift in Sources */,
-				C78C76E529E9A8C500FC4E3C /* FirebaseConnection.swift in Sources */,
 				C7875F7129E837F700683BC2 /* SubjectTitle.swift in Sources */,
 				FB04859929CE588C0086323D /* StatusCell.swift in Sources */,
 				FB04858429CE39210086323D /* Event.swift in Sources */,
 				FB2D636B29DC9622007D707A /* SimultaneouslyScrollViewHandler.swift in Sources */,
-				C78C76E129E99E5600FC4E3C /* DataSource.swift in Sources */,
 				FB04857029CE37BF0086323D /* Semester_Tracker_SwiftUIApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

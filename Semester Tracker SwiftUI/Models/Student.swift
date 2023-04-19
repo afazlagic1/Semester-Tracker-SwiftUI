@@ -12,6 +12,7 @@ struct Student: Identifiable, Decodable, Hashable, ModelEntity {
     private(set) var name: String
     private(set) var surname: String
     private(set) var username: String
+    private(set) var subjects: [Subject] = []
     //in future handle password properly
     // this could be handled directly using firebase email logins!
     private(set) var password: String
@@ -21,7 +22,8 @@ struct Student: Identifiable, Decodable, Hashable, ModelEntity {
             "id": id,
             "name": name,
             "surname": surname,
-            "username": username
+            "username": username,
+            "subjects": subjects.map { $0.id }
         ]
     }
 }
