@@ -18,6 +18,7 @@ struct Semester_Tracker_SwiftUIApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+            //EventListView(eventListViewModel: EventListViewModel())
         }
     }
 }

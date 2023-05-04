@@ -15,3 +15,6 @@ import Introspect
 //
 //var subjectPreviewDataList = [Subject](repeating: subjectPreviewData, count: 10)
 //var subjectPreviewDataList = [subjectPreviewData, subjectPreviewData2]
+//events/A1CfHJtB3CGXYtUw8Nyk
+var eventPreviewData = Event(id: "ZpZrWs47NGQtRQ7safBq", shortcut: "PA1100", name: "History of Magic", description: "History of Magic was the study of the history of the Wizarding world. The lessons in this class were only lectures about significant names, dates and events in wizarding history. Topics had included the Goblin Rebellions, the Witch-hunts, the Giant wars and the origin of the International Statute of Wizarding Secrecy. The class was considered very boring due to Binns' droning voice.", type: EventType.subject.rawValue, start: Date(), end: Date(), attributes: nil, parent: nil, parentSubject: nil)
+var eventPreviewDataList = [Event](repeating: eventPreviewData, count: 10)
