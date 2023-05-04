@@ -27,9 +27,9 @@ struct SubjectsTable: View {
     ]) private var subjects: [Event]
 
     @FirestoreQuery(collectionPath: "events", predicates: [
-        .whereField("parentSubject", isLessThan: "")
+            .whereField("type", isNotIn: ["subject", "semester"])
     ]) private var events: [Event]
-    
+
     func get_week_start(date: Date) -> Date? {
         if let newDate = calendar.date(
             from: calendar.dateComponents([.weekOfYear, .yearForWeekOfYear], from: date)) {
@@ -70,6 +70,32 @@ struct SubjectsTable: View {
             return weeks
         }
     }
+    
+    private func changeSemesterPredicates() {
+        if let id = semester.id {
+            let parent = fr.document("/events/\(id)")
+
+            $subjects.predicates = [
+                .whereField("type", isEqualTo: "subject"),
+                .whereField("parent", isEqualTo: parent)
+            ]
+        }
+    }
+    
+    private func changeSubjectPredicates() {
+        var parentSubjects = [DocumentReference]()
+        for subject in subjects {
+            if let id = subject.id {
+                parentSubjects.append(fr.document("/events/\(id)"))
+            }
+        }
+        
+        if !parentSubjects.isEmpty {
+            $events.predicates = [
+                .whereField("parentSubject", isIn: parentSubjects)
+            ]
+        }
+    }
 
     var body: some View {
         //TODO: Search bar
@@ -78,6 +104,11 @@ struct SubjectsTable: View {
         //TODO: labels week1, week2...
         //MARK: Subject List
         NavigationStack {
+            Text("Event count: \(events.count)").bold()
+            ForEach(events) { event in
+                Text("\(event.shortcut) \(event.parentSubject!.documentID)")
+            }
+            
             ScrollView {
                 Text(semester.name).bold()
                 
@@ -86,40 +117,35 @@ struct SubjectsTable: View {
                 } else {
                     ScrollView(.horizontal, showsIndicators: false) {
                         ForEach(subjects) { subject in
-                            NavigationLink(destination: DetailView(subject: subject)) {
-                                SubjectRow(subject: subject, weeks: weeks)
-                            }
+                            viewForSubjectRow(subject: subject)
                         }
                     }
                 }
-            }.task(id: semester.id) {
-                if let id = semester.id {
-                    let parent = fr.document("/events/\(id)")
-                    
-                    var parentSubjects = [DocumentReference]()
-                    for subject in subjects {
-                        if let id = subject.id {
-                            parentSubjects.append(fr.document("/events/\(id)"))
-                        }
-                    }
-                    
-                    $subjects.predicates = [
-                        .whereField("type", isEqualTo: "subject"),
-                        .whereField("parent", isEqualTo: parent)
-                    ]
-                    
-                    if !parentSubjects.isEmpty {
-                        $events.predicates = [
-                            .whereField("parentSubject", isIn: parentSubjects)
-                        ]
-                    }
-                }
+            }.onChange(of: semester.id) { _ in
+                changeSemesterPredicates()
+            }.onChange(of: subjects) { _ in
+                changeSubjectPredicates()
+            }
+            .task(id: semester.id) {
+                changeSubjectPredicates()
+                changeSubjectPredicates()
             }
             .frame(height: 370)
             .padding([.top, .bottom, .horizontal])
             .background(Color.systemBackground)
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
             .shadow(color: Color.primary.opacity(0.2), radius: 10, x: 0, y: 5)
+        }
+    }
+    
+    @ViewBuilder
+    private func viewForSubjectRow(subject: Event) -> some View {
+        let filteredEvents = events.filter {
+            $0.parentSubject?.path == "events/\(subject.id!)"
+        }
+    
+        NavigationLink(destination: DetailView(subject: subject)) {
+            SubjectRow(subject: subject, weeks: weeks, events: filteredEvents)
         }
     }
 }

@@ -22,9 +22,22 @@ struct SubjectRow: View {
             //            //MARK: attendance check cells
             HStack {
                 ForEach(weeks, id: \.i) { week in
-                    StatusCell()
+                    viewForStatusCell(week: week)
                 }
             }
+        }
+    }
+    
+    @ViewBuilder
+    private func viewForStatusCell(week: Week) -> some View {
+        let weekEvents = events!.filter {
+            $0.start >= week.start && $0.start < week.end
+        }
+
+        if weekEvents.count > 0 {
+            StatusCell(attendance: "presence")
+        } else {
+            StatusCell()
         }
     }
 }
