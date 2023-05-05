@@ -27,6 +27,7 @@ struct SubjectTitle: View {
                     .font(.subheadline)
                     .bold()
                     .lineLimit(1)
+                    .underline()
             }
         }
     }

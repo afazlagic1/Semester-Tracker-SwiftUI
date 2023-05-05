@@ -133,11 +133,11 @@ struct SubjectsTable: View {
         }
         
         VStack {
-            Text("Event count: \(events.count)").bold()
+            Text("DEBUG Event count: \(events.count)").bold()
             ForEach(events) { event in
                 Text("\(event.shortcut) \(event.parentSubject!.documentID)")
             }
-        }
+        }.border(Color.black, width: 1)
     }
     
     @ViewBuilder
@@ -145,10 +145,8 @@ struct SubjectsTable: View {
         let filteredEvents = events.filter {
             $0.parentSubject?.path == "events/\(subject.id!)"
         }
-    
-        NavigationLink(destination: DetailView(subject: subject)) {
-            SubjectRow(subject: subject, weeks: weeks, events: filteredEvents)
-        }
+
+        SubjectRow(subject: subject, weeks: weeks, events: filteredEvents)
     }
 }
 

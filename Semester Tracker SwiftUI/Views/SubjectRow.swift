@@ -16,10 +16,10 @@ struct SubjectRow: View {
     
     var body: some View {
         HStack {
-            SubjectTitle(subject: subject)
-                .padding(.horizontal, 5);
+            NavigationLink(destination: DetailView(subject: subject)) {
+                SubjectTitle(subject: subject).padding(.horizontal, 5)
+            }
             Spacer()
-            //            //MARK: attendance check cells
             HStack {
                 ForEach(weeks, id: \.i) { week in
                     viewForStatusCell(week: week)

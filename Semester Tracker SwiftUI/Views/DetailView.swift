@@ -15,7 +15,7 @@ struct DetailView: View {
                 VStack(alignment: .center, spacing: 20) {
                     VStack(alignment: .leading, spacing: 20) {
                         //TITLE
-                        Text(subject.name)
+                        Text("\(subject.shortcut): \(subject.name)")
                             .font(.largeTitle)
                             .fontWeight(.heavy)
                             .foregroundColor(Color.text)
