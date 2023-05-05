@@ -104,16 +104,11 @@ struct SubjectsTable: View {
         //TODO: labels week1, week2...
         //MARK: Subject List
         NavigationStack {
-            Text("Event count: \(events.count)").bold()
-            ForEach(events) { event in
-                Text("\(event.shortcut) \(event.parentSubject!.documentID)")
-            }
-            
             ScrollView {
                 Text(semester.name).bold()
                 
                 if $subjects.error != nil {
-                    Text("Error loading subjects")
+                    Text("Error loading subjects: \($subjects.error.debugDescription)")
                 } else {
                     ScrollView(.horizontal, showsIndicators: false) {
                         ForEach(subjects) { subject in
@@ -127,7 +122,7 @@ struct SubjectsTable: View {
                 changeSubjectPredicates()
             }
             .task(id: semester.id) {
-                changeSubjectPredicates()
+                changeSemesterPredicates()
                 changeSubjectPredicates()
             }
             .frame(height: 370)
@@ -135,6 +130,13 @@ struct SubjectsTable: View {
             .background(Color.systemBackground)
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
             .shadow(color: Color.primary.opacity(0.2), radius: 10, x: 0, y: 5)
+        }
+        
+        VStack {
+            Text("Event count: \(events.count)").bold()
+            ForEach(events) { event in
+                Text("\(event.shortcut) \(event.parentSubject!.documentID)")
+            }
         }
     }
     

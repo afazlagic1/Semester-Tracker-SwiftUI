@@ -28,7 +28,7 @@ struct ContentView: View {
                         }
                     }
                     //MARK: Filter bars by lecture & by attendence
-//                    FilterBar()
+                    FilterBar()
                     //MARK: Scrollable table of subjects
                     if let semester = selectedSemester {
                         SubjectsTable(semester: semester)

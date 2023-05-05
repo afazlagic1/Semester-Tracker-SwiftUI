@@ -40,7 +40,7 @@ struct OptionsField: Codable, Hashable {
     var values: [String]
 }
 
-enum EventType: String {
+enum EventType: String, CaseIterable {
     case semester = "semester"
     case subject = "subject"
     case lecture = "lecture"
