@@ -21,7 +21,7 @@ struct SubjectRow: View {
             }
             Spacer()
             HStack {
-                ForEach(weeks, id: \.i) { week in
+                ForEach(weeks) { week in
                     viewForStatusCell(week: week)
                 }
             }
@@ -35,9 +35,9 @@ struct SubjectRow: View {
         }
 
         if weekEvents.count > 0 {
-            StatusCell(attendance: "presence")
+            StatusCell(attendance: "presence", week: week)
         } else {
-            StatusCell()
+            StatusCell(week: week)
         }
     }
 }

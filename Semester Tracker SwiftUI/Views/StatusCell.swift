@@ -9,34 +9,70 @@ import SwiftUI
 import SwiftUIFontIcon
 
 struct StatusCell: View {
-//    var status: Status
-    let iconSize: CGFloat = 55
-    var attendance: String? = nil
+    let fontsize: CGFloat = 35
+    @State var attendance: String? = nil
+    var week: Week
+
+    var backgroundColor: Color {
+        switch attendance {
+        case "presence":
+            return .green
+        case "distraction":
+            return .orange
+        case "absence":
+            return .red
+        default:
+            return .gray
+        }
+    }
+    
+    var icon: FontCode {
+        // TODO: we could also use the Image(systemName: ...)
+        switch attendance {
+        case "presence":
+            return .awesome5Solid(code: .check)
+        case "distraction":
+            return .awesome5Solid(code: .question)
+        case "absence":
+            return .awesome5Solid(code: .times)
+        default:
+            return .awesome5Solid(code: .minus)
+        }
+    }
     
     var body: some View {
-//        //MARK: date
-//        Text(DateFormatter.dayMonthFormat.string(from: status.event.dateParse))
-//            .font(.subheadline)
-//            .fontDesign(.monospaced)
-        // MARK: icon
+        Button(action: {
+            switch attendance {
+            case "presence":
+                attendance = "absence"
+            case "absence":
+                attendance = "distraction"
+            case "distraction":
+                attendance = "presence"
+            default:
+                break
+            }
+        }) {
+            let icon = FontIcon.text(icon, fontsize: fontsize, color: backgroundColor)
+            CellRectangle(backgroundColor: backgroundColor.opacity(0.25), content: icon, fixedHeight: true)
+                .shadow(radius: .pi).opacity(week.ended ? 0.5 : 1)
+        }.disabled(attendance == nil)
+    }
+}
+
+struct CellRectangle: View {
+    var backgroundColor: Color = Color.white
+    let iconSize: CGFloat = 55
+    var content: Text
+    var fixedHeight: Bool = false
+
+    var body: some View {
         RoundedRectangle(cornerRadius: 5, style: .continuous)
-            .fill(Color.icon.opacity(0.2))
-            .frame(width: iconSize, height: iconSize)
+            .fill(backgroundColor)
+            .frame(width: iconSize, height: fixedHeight ? iconSize : 15)
             .overlay {
-                if(attendance == "presence") {
-                    FontIcon.text(.awesome5Solid(code: .check), fontsize: 35, color: .green)
-                }
-                else if(attendance == "absence") {
-                    FontIcon.text(.awesome5Solid(code: .plus), fontsize: 35, color: .red
-                    ).rotationEffect(Angle(degrees: 45))
-                }
-                else if(attendance == "distraction") {
-                    FontIcon.text(.awesome5Solid(code: .question), fontsize: 35, color: .orange
-                    )
-                } else if attendance == nil {
-                    FontIcon.text(.awesome5Solid(code: .minus), fontsize: 35, color: Color.icon.opacity(0.25))
-                }
-            }.shadow(radius: .pi)
+                content
+            }
     }
 }
 

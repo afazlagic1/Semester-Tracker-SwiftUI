@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C786A3AA2A04FA450007667C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C786A3A92A04FA450007667C /* GoogleService-Info.plist */; };
 		C786A3AC2A0544990007667C /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C786A3AB2A0544990007667C /* WeekView.swift */; };
+		C786A3AE2A0586EF0007667C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C786A3AD2A0586EF0007667C /* SettingsView.swift */; };
 		C7875F7129E837F700683BC2 /* SubjectTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7875F7029E837F700683BC2 /* SubjectTitle.swift */; };
 		C78C76DB29E9311000FC4E3C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C78C76DA29E9311000FC4E3C /* FirebaseFirestore */; };
 		C78C76DD29E9311000FC4E3C /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C78C76DC29E9311000FC4E3C /* FirebaseFirestoreSwift */; };
@@ -44,6 +45,7 @@
 /* Begin PBXFileReference section */
 		C786A3A92A04FA450007667C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C786A3AB2A0544990007667C /* WeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekView.swift; sourceTree = "<group>"; };
+		C786A3AD2A0586EF0007667C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C7875F7029E837F700683BC2 /* SubjectTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectTitle.swift; sourceTree = "<group>"; };
 		C7D5B1F129EE03C70066187F /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		C7D5B1F329EF50A80066187F /* EventStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStatus.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				C7875F7029E837F700683BC2 /* SubjectTitle.swift */,
 				FBB01CEC29FB97F0005B3A07 /* DetailView.swift */,
 				C786A3AB2A0544990007667C /* WeekView.swift */,
+				C786A3AD2A0586EF0007667C /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB04857229CE37BF0086323D /* ContentView.swift in Sources */,
+				C786A3AE2A0586EF0007667C /* SettingsView.swift in Sources */,
 				FB2D636D29DCB097007D707A /* FilterBar.swift in Sources */,
 				FB2CF1C029D2208000BC9DF0 /* StatusPreviewData.swift in Sources */,
 				FBBDA1B529D344870054A247 /* SubjectsTable.swift in Sources */,

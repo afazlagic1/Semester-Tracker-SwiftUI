@@ -10,11 +10,20 @@ import Introspect
 import FirebaseFirestoreSwift
 import Firebase
 
-struct Week {
-    var i: Int
+struct Week: Identifiable {
+    var id: Int
     var week_i: Int
     var start: Date
     var end: Date
+    
+    var ended: Bool {
+        return end < Date()
+    }
+    
+    var isCurrentWeek: Bool {
+        let currDate = Date()
+        return start <= currDate && currDate <= end
+    }
 }
 
 struct SubjectsTable: View {
@@ -57,7 +66,7 @@ struct SubjectsTable: View {
                 }
 
                 weeks.append(Week(
-                    i: i, week_i: week_i, start: week_start_date,
+                    id: i, week_i: week_i, start: week_start_date,
                     end: week_end_date
                 ))
                 
@@ -73,6 +82,8 @@ struct SubjectsTable: View {
     }
     
     private func changeSemesterPredicates() {
+        NSLog("Changed semester filtering to '\(semester.name)'")
+
         if let id = semester.id {
             let parent = fr.document("/events/\(id)")
 
@@ -91,6 +102,8 @@ struct SubjectsTable: View {
             }
         }
         
+        NSLog("Changed event filtering to subjects '\(subjects.map { $0.shortcut })'")
+        
         if !parentSubjects.isEmpty {
             $events.predicates = [
                 .whereField("parentSubject", isIn: parentSubjects)
@@ -105,14 +118,16 @@ struct SubjectsTable: View {
         //TODO: labels week1, week2...
         //MARK: Subject List
         NavigationStack {
-            ScrollView {
+            VStack {
                 //MARK: Filter bars by lecture & by attendence
-                FilterBar(selection: $selection).padding([.bottom], 15)
+                FilterBar(selection: $selection).padding([.bottom], 10)
 
                 if $subjects.error != nil {
                     Text("Error loading subjects: \($subjects.error.debugDescription)")
                 } else {
                     ScrollView(.horizontal, showsIndicators: false) {
+                        SubjectsTableHeader(weeks: weeks)
+
                         ForEach(subjects) { subject in
                             viewForSubjectRow(subject: subject)
                         }
@@ -127,19 +142,18 @@ struct SubjectsTable: View {
                 changeSemesterPredicates()
                 changeSubjectPredicates()
             }
-            .frame(height: 370)
-            .padding([.top, .bottom, .horizontal])
+            .padding()
             .background(Color.systemBackground)
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
             .shadow(color: Color.primary.opacity(0.2), radius: 10, x: 0, y: 5)
         }
         
-        VStack {
-            Text("DEBUG Event count: \(events.count)").bold()
-            ForEach(events) { event in
-                Text("\(event.shortcut) \(event.parentSubject!.documentID)")
-            }
-        }.border(Color.black, width: 1)
+//        VStack {
+//            Text("DEBUG Event count: \(events.count)").bold()
+//            ForEach(events) { event in
+//                Text("\(event.shortcut) \(event.parentSubject!.documentID)")
+//            }
+//        }.border(Color.black, width: 1)
     }
     
     @ViewBuilder
@@ -149,7 +163,26 @@ struct SubjectsTable: View {
             && $0.type == selection
         }
 
-        SubjectRow(subject: subject, weeks: weeks, events: filteredEvents)
+        if filteredEvents.count > 0 {
+            SubjectRow(subject: subject, weeks: weeks, events: filteredEvents)
+        }
+    }
+}
+
+struct SubjectsTableHeader: View {
+    var weeks: [Week]
+
+    var body: some View {
+        HStack {
+            Spacer()
+            ForEach(weeks) { week in
+                CellRectangle(
+                    backgroundColor: Color.white,
+                    content: Text("W\(week.id + 1)").bold().font(.body)
+                        .foregroundColor(week.isCurrentWeek ? .purple : .text)
+                ).opacity(week.ended ? 0.5 : 1).strikethrough(week.ended)
+            }
+        }
     }
 }
 

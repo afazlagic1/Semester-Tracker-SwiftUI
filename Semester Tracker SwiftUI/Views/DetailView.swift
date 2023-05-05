@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DetailView: View {
     var subject: Event
+
     var body: some View {
         NavigationStack {
             ScrollView(.vertical,  showsIndicators: false) {
@@ -23,7 +24,9 @@ struct DetailView: View {
                         .font(.headline)
                 }
             }
-        }.navigationBarTitleDisplayMode(.inline)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .navigationBarTitleDisplayMode(.inline)
             .padding().background(Color.background)
     }
 }

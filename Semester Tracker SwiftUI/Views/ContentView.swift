@@ -17,40 +17,43 @@ struct ContentView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                //takes size of biggest child bydefault
-                VStack(alignment: .center) {
-                    Picker(selection: $selectedSemester, label: Text("Semester")) {
-                        let semesters = semesters.sorted(by: { $0.start < $1.start })
-                        
-                        ForEach(semesters) { semester in
-                            Text(semester.name).font(.system(size: 32))
-                                .tag(semester as Event?)
-                        }
-                    }.pickerStyle(MenuPickerStyle())
+            //takes size of biggest child bydefault
+            VStack(alignment: .center) {
+                Picker(selection: $selectedSemester, label: Text("Semester")) {
+                    let semesters = semesters.sorted(by: { $0.start < $1.start })
                     
-                    //MARK: Scrollable table of subjects
-                    if let semester = selectedSemester {
-                        SubjectsTable(semester: semester)
+                    ForEach(semesters) { semester in
+                        Text(semester.name).tag(semester as Event?)
                     }
-                }.padding().frame(maxWidth: .infinity).task {
-                    selectedSemester = semesters[0]
+                }.pickerStyle(MenuPickerStyle())
+                
+                //MARK: Scrollable table of subjects
+                if let semester = selectedSemester {
+                    SubjectsTable(semester: semester)
                 }
-                //to make ScrollView scrollable
-                //TODO: login/sign up page
-            }
-            .searchable(text: $searchSubject)
-            .background(Color.background)
-            .navigationBarTitleDisplayMode(.inline)
-//            .toolbar {
+                Spacer()
+            }.padding().frame(maxWidth: .infinity, maxHeight: .infinity).task {
+                selectedSemester = semesters[0]
+            }.background(Color.background)
+//            .searchable(text: $searchSubject)
+//            .navigationBarTitleDisplayMode(.inline)
+            //TODO: login/sign up page
+            .toolbar {
                 //MARK: NotificationItem in the right
+                ToolbarItem {
+                    NavigationLink(destination: SettingsView()) {
+                        Image(systemName: "gearshape").fontWeight(.bold)
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(Color.icon, .primary)
+                    }
+                }
 //                ToolbarItem {
 //                    Image(systemName: "bell.badge")
 //                        .symbolRenderingMode(.palette)
 //                        .foregroundStyle(Color.icon, .primary)
 
 //                }
-//            }
+            }
         }
     }
 }
