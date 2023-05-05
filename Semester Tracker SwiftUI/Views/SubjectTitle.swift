@@ -14,15 +14,15 @@ struct SubjectTitle: View {
 
     var body: some View {
         HStack {
-//            MARK: icon
+            // MARK: icon
             RoundedRectangle(cornerRadius: 20, style: .continuous)
                 .fill(Color.icon.opacity(0.2))
                 .frame(width: 46, height: 46)
                 .overlay {
                     FontIcon.text(.awesome5Solid(code: .book_open), fontsize: 24, color: Color.icon)
-                }
+            }
             VStack(spacing: 4) {
-//                MARK: title subject
+                // MARK: title subject
                 Text(subject.shortcut)
                     .font(.subheadline)
                     .bold()

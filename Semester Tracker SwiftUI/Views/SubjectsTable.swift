@@ -21,6 +21,7 @@ struct SubjectsTable: View {
     var semester: Event
     var fr = Firestore.firestore()
     private let calendar = Calendar.current
+    @State var selection = "lecture"
 
     @FirestoreQuery(collectionPath: "events", predicates: [
         .whereField("type", isEqualTo: "subject")
@@ -105,8 +106,9 @@ struct SubjectsTable: View {
         //MARK: Subject List
         NavigationStack {
             ScrollView {
-                Text(semester.name).bold()
-                
+                //MARK: Filter bars by lecture & by attendence
+                FilterBar(selection: $selection).padding([.bottom], 15)
+
                 if $subjects.error != nil {
                     Text("Error loading subjects: \($subjects.error.debugDescription)")
                 } else {
@@ -144,6 +146,7 @@ struct SubjectsTable: View {
     private func viewForSubjectRow(subject: Event) -> some View {
         let filteredEvents = events.filter {
             $0.parentSubject?.path == "events/\(subject.id!)"
+            && $0.type == selection
         }
 
         SubjectRow(subject: subject, weeks: weeks, events: filteredEvents)

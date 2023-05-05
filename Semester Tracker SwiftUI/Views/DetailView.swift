@@ -13,24 +13,18 @@ struct DetailView: View {
         NavigationStack {
             ScrollView(.vertical,  showsIndicators: false) {
                 VStack(alignment: .center, spacing: 20) {
-                    VStack(alignment: .leading, spacing: 20) {
-                        //TITLE
-                        Text("\(subject.shortcut): \(subject.name)")
-                            .font(.largeTitle)
-                            .fontWeight(.heavy)
-                            .foregroundColor(Color.text)
-                        //DESCRIPTION
-                        Text(subject.description)
-                            .font(.headline)
-//                        multilineTextAlignment(.leading )
-                    }
-//                    .padding(.horizontal, 20)
-//                    .frame(maxWidth: 640, alignment: .center)
+                    // MARK: TITLE
+                    Text("\(subject.shortcut): \(subject.name)")
+                        .font(.largeTitle)
+                        .fontWeight(.heavy)
+                        .foregroundColor(Color.text)
+                    // MARK: DESCRIPTION
+                    Text(subject.description)
+                        .font(.headline)
                 }
             }
-        }
-        .background(Color.background)
-        .navigationBarTitleDisplayMode(.inline)
+        }.navigationBarTitleDisplayMode(.inline)
+            .padding().background(Color.background)
     }
 }
 

@@ -8,32 +8,39 @@
 import SwiftUI
 
 struct FilterBar: View {
+    @Binding var selection: String
+    
     var body: some View {
         VStack {
             VStack {
-                FilterItem(name: "eventType", items: ["lecture", "exercise", "exam"] )
+                FilterItem(
+                    selection: $selection,
+                    name: "eventType",
+                    items: ["lecture", "exercise", "exam"]
+                )
             }
         }
     }
 }
 
 struct FilterItem: View {
+    @Binding var selection: String
     let name: String
-    @State private var selection = "lecture"
     let items: [String]
-    
+
     var body: some View {
             Picker("Pick event type.", selection: $selection) {
                 ForEach(items, id: \.self) {
                     Text($0)
                 }
             }.pickerStyle(.segmented)
-            .background(Color.cyan.opacity(0.7))
     }
 }
 
-struct FilterBar_Previews: PreviewProvider {
-    static var previews: some View {
-        FilterBar()
-    }
-}
+//struct FilterBar_Previews: PreviewProvider {
+//    @State var selection = "lecture"
+//
+//    static var previews: some View {
+//        FilterBar(selection: $selection)
+//    }
+//}

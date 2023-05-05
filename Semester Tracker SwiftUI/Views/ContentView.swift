@@ -19,39 +19,38 @@ struct ContentView: View {
         NavigationStack {
             ScrollView {
                 //takes size of biggest child bydefault
-                VStack(alignment: .leading, spacing: 24) {
+                VStack(alignment: .center) {
                     Picker(selection: $selectedSemester, label: Text("Semester")) {
                         let semesters = semesters.sorted(by: { $0.start < $1.start })
                         
                         ForEach(semesters) { semester in
-                            Text(semester.name).tag(semester as Event?)
+                            Text(semester.name).font(.system(size: 32))
+                                .tag(semester as Event?)
                         }
-                    }
-                    //MARK: Filter bars by lecture & by attendence
-                    FilterBar()
+                    }.pickerStyle(MenuPickerStyle())
+                    
                     //MARK: Scrollable table of subjects
                     if let semester = selectedSemester {
                         SubjectsTable(semester: semester)
                     }
-                }.padding()
-                    .frame(maxWidth: .infinity).task {
-                        selectedSemester = semesters[0]
-                    }
+                }.padding().frame(maxWidth: .infinity).task {
+                    selectedSemester = semesters[0]
+                }
                 //to make ScrollView scrollable
                 //TODO: login/sign up page
             }
             .searchable(text: $searchSubject)
             .background(Color.background)
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
+//            .toolbar {
                 //MARK: NotificationItem in the right
-                ToolbarItem {
-                    Image(systemName: "bell.badge")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(Color.icon, .primary)
+//                ToolbarItem {
+//                    Image(systemName: "bell.badge")
+//                        .symbolRenderingMode(.palette)
+//                        .foregroundStyle(Color.icon, .primary)
 
-                }
-            }
+//                }
+//            }
         }
     }
 }
