@@ -112,11 +112,6 @@ struct SubjectsTable: View {
     }
 
     var body: some View {
-        //TODO: Search bar
-        //TODO: Filter by (show all/lectures only/seminars only)
-        //TODO: Sort by date asc/dsc, subject name...
-        //TODO: labels week1, week2...
-        //MARK: Subject List
         NavigationStack {
             VStack {
                 //MARK: Filter bars by lecture & by attendence
