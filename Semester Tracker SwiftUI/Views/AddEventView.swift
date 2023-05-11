@@ -14,6 +14,7 @@ struct AddEventView: View {
     @State private var startD = Date.now
     @State private var endD = Date.now
     @State private var attendance = "presence"
+    @State private var eventType: EventType = .lecture
     private var allOptions = ["presence", "absence", "distraction"]
     
     var body: some View {
@@ -48,6 +49,18 @@ struct AddEventView: View {
                     }
                 }
                 //MARK event type picker
+                HStack {
+                    Text("Event:")
+                    Spacer()
+                    Picker("Selection", selection: $eventType) {
+                        ForEach(EventType.allCases, id: \.self) {
+                            option in
+                            if (String(describing: option) != "semester" && String(describing: option) != "subject") {
+                                Text(String(describing: option))
+                            }
+                        }
+                    }.pickerStyle(DefaultPickerStyle())
+                }
                 //MARK attendance picker
                 HStack {
                     Text("Attendance:")
@@ -60,18 +73,16 @@ struct AddEventView: View {
                     }.pickerStyle(DefaultPickerStyle())
                 }
                 //MARK button add
-                NavigationLink(destination: AddEventView()) {
-                    Button {
-                        
-                    } label: {
-                        HStack {
-                            Divider()
-                            Text("Add")
-                            Divider()
-                        }
-                        .fixedSize()
-                    }
-                    .buttonStyle(.borderedProminent)
+                NavigationLink {
+                    ContentView()
+                } label: {
+                    Text("Add")
+                }
+                .buttonStyle(.borderedProminent)
+                .onTapGesture {
+                    //TODO attributes optionField
+                    let newEvent = Event(shortcut: "lec3", name: "lecture 3", description: "lecture 3", type: "lecture", start: startD, end: endD, attributes: nil )
+                    dataManager.addAttendance(event: newEvent)
                 }
             }
         }.padding().frame(maxWidth: .infinity)

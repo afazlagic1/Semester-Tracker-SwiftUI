@@ -41,11 +41,13 @@ struct OptionsField: Codable, Hashable {
     var picked_val: String?
 }
 
-enum EventType: String, CaseIterable {
+enum EventType: String, CaseIterable, Identifiable {
     case semester = "semester"
     case subject = "subject"
     case lecture = "lecture"
     case excercise = "excercise"
     case exam = "exam"
     case project = "project"
+    
+    var id: Self { self }
 }

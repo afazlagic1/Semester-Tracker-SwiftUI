@@ -42,4 +42,11 @@ class DataManager: ObservableObject {
             }
         }
     }
+    
+    func addAttendance(event: Event) {
+//        print(event.name)
+//        let db = Firestore.firestore()
+//        let ref = db.collection("events").document("new")
+//        ref.setData([""])
+    }
 }
