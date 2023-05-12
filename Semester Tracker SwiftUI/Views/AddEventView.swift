@@ -10,11 +10,15 @@ import FirebaseFirestoreSwift
 
 struct AddEventView: View {
     @EnvironmentObject var dataManager: DataManager
+    @State private var showingConfirmation = false
     @State private var selectedSubject: Event?
     @State private var startD = Date.now
     @State private var endD = Date.now
     @State private var attendance = "presence"
     @State private var eventType: EventType = .lecture
+    @State private var eventShortcut: String = ""
+    @State private var eventName: String = ""
+    @State private var eventDesc: String = ""
     private var allOptions = ["presence", "absence", "distraction"]
     
     var body: some View {
@@ -31,24 +35,24 @@ struct AddEventView: View {
                     Spacer()
                     Picker(selection: $selectedSubject, label: Text("Subject")) {
                         ForEach(dataManager.subjects, id: \.self) { subject in
-                            Text(subject.name)
+                            Text(subject.name ?? "subject")
                                 .tag(subject as Event?)
                         }
                     }.pickerStyle(DefaultPickerStyle())
                 }
-                //MARK start date picker
+                //MARK: start date picker
                 HStack {
                     DatePicker(selection: $startD, in: ...Date.now, displayedComponents: .date) {
                         Text("Start date: ")
                     }
                 }
-                //MARK end date picker
+                //MARK: end date picker
                 HStack {
                     DatePicker(selection: $endD, in: startD...Date.now, displayedComponents: .date) {
                         Text("End date: ")
                     }
                 }
-                //MARK event type picker
+                //MARK: event type picker
                 HStack {
                     Text("Event:")
                     Spacer()
@@ -61,7 +65,24 @@ struct AddEventView: View {
                         }
                     }.pickerStyle(DefaultPickerStyle())
                 }
-                //MARK attendance picker
+                HStack {
+                    VStack {
+                        Text("Event name:")
+                        Spacer().frame(height: 10)
+                        Text("Event shortcut:")
+                        Spacer().frame(height: 10)
+                        Text("Event description:")
+                    }
+                    VStack {
+                        //MARK: enter event name
+                        TextField("Enter event name", text: $eventName)
+                        //MARK: enter event shortcut
+                        TextField("Enter event shortcut", text: $eventShortcut)
+                        //MARK: enter description
+                        TextField("Enter event description", text: $eventDesc)
+                    }
+                }
+                //MARK: attendance picker
                 HStack {
                     Text("Attendance:")
                     Spacer()
@@ -72,7 +93,7 @@ struct AddEventView: View {
                         }
                     }.pickerStyle(DefaultPickerStyle())
                 }
-                //MARK button add
+                //MARK: button add
                 NavigationLink {
                     ContentView()
                 } label: {
@@ -80,9 +101,15 @@ struct AddEventView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .onTapGesture {
-                    //TODO attributes optionField
-                    let newEvent = Event(shortcut: "lec3", name: "lecture 3", description: "lecture 3", type: "lecture", start: startD, end: endD, attributes: nil )
-                    dataManager.addAttendance(event: newEvent)
+                    showingConfirmation = true
+                    if let selectedSubject = selectedSubject {
+                        let docRef = dataManager.getDocumentReference(documentId: selectedSubject.id ?? "")
+                        let optionsField = OptionsField(default_val: "presence", picked_val: attendance)
+                        let field2 = Field.optionsField(optionsField)
+                        let attributes: [String: Field] = ["optionsField": field2]
+                        let newEvent = Event(shortcut: eventShortcut, name: eventName, description: eventDesc, type: eventType.rawValue, start: startD, end: endD, attributes: attributes, parent: docRef, parentSubject: docRef)
+                        dataManager.addAttendance(event: newEvent)
+                    }
                 }
             }
         }.padding().frame(maxWidth: .infinity)
