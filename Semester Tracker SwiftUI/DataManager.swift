@@ -53,13 +53,20 @@ class DataManager: ObservableObject {
     }
     
     func addAttendance(event: Event) {
+        print("attendance adding")
         let db = Firestore.firestore()
-        let ref = db.collection("events").document("new")
-        ref.setData(["attributes": event.attributes ?? "", "description": event.description, "end": event.end, "name": event.name, "parent": event.parent ?? "", "parentSubject": event.parentSubject, "shortcut": event.shortcut, "start": event.start, "type": event.type]) {
-            error in
-            if let error = error {
-                print(error.localizedDescription)
-            }
+        do {
+            let _ = try db.collection("events").addDocument(from: event)
         }
+        catch {
+            print(error)
+        }
+//        let ref = db.collection("events").document("new")
+//        ref.setData(["attributes": event.attributes ?? "", "description": event.description, "end": event.end, "name": event.name, "parent": event.parent ?? "", "parentSubject": event.parentSubject ?? "", "shortcut": event.shortcut, "start": event.start, "type": event.type]) {
+//            error in
+//            if let error = error {
+//                print(error.localizedDescription)
+//            }
+//        }
     }
 }

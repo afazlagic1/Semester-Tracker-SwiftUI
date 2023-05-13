@@ -10,6 +10,7 @@ import FirebaseFirestoreSwift
 
 struct AddEventView: View {
     @EnvironmentObject var dataManager: DataManager
+    @State private var showingAlert = false
     @State private var showingConfirmation = false
     @State private var selectedSubject: Event?
     @State private var startD = Date.now
@@ -19,6 +20,7 @@ struct AddEventView: View {
     @State private var eventShortcut: String = ""
     @State private var eventName: String = ""
     @State private var eventDesc: String = ""
+    @State private var navigateToNewView = false
     private var allOptions = ["presence", "absence", "distraction"]
     
     var body: some View {
@@ -35,10 +37,12 @@ struct AddEventView: View {
                     Spacer()
                     Picker(selection: $selectedSubject, label: Text("Subject")) {
                         ForEach(dataManager.subjects, id: \.self) { subject in
-                            Text(subject.name ?? "subject")
+                            Text(subject.name )
                                 .tag(subject as Event?)
                         }
                     }.pickerStyle(DefaultPickerStyle())
+                }.task {
+                    selectedSubject = dataManager.subjects[0]
                 }
                 //MARK: start date picker
                 HStack {
@@ -93,24 +97,34 @@ struct AddEventView: View {
                         }
                     }.pickerStyle(DefaultPickerStyle())
                 }
-                //MARK: button add
-                NavigationLink {
-                    ContentView()
-                } label: {
-                    Text("Add")
+                VStack {
+                    Button {
+                        self.showingAlert = true
+                        print("Tuuu")
+                        if let selectedSubject = selectedSubject {
+                            print("Aha")
+                            let docRef = dataManager.getDocumentReference(documentId: selectedSubject.id ?? "")
+                            let optionsField = OptionsField(default_val: "presence", picked_val: attendance)
+                            let field2 = Field.optionsField(optionsField)
+                            let attributes: [String: Field] = ["field": field2]
+                            let newEvent = Event(shortcut: eventShortcut, name: eventName, description: eventDesc, type: eventType.rawValue, start: startD, end: endD, attributes: attributes, parent: docRef, parentSubject: docRef)
+                            dataManager.addAttendance(event: newEvent)
+                        }
+                    } label: { Text("Add") }
+                        .alert(isPresented: $showingAlert) {
+                            Alert(title: Text("Alert"), message: Text("Are you sure you want to add this event?"), primaryButton: .default(Text("OK"), action: {
+                                navigateToNewView = true
+                            }), secondaryButton: .cancel())
+                        }
                 }
-                .buttonStyle(.borderedProminent)
-                .onTapGesture {
-                    showingConfirmation = true
-                    if let selectedSubject = selectedSubject {
-                        let docRef = dataManager.getDocumentReference(documentId: selectedSubject.id ?? "")
-                        let optionsField = OptionsField(default_val: "presence", picked_val: attendance)
-                        let field2 = Field.optionsField(optionsField)
-                        let attributes: [String: Field] = ["optionsField": field2]
-                        let newEvent = Event(shortcut: eventShortcut, name: eventName, description: eventDesc, type: eventType.rawValue, start: startD, end: endD, attributes: attributes, parent: docRef, parentSubject: docRef)
-                        dataManager.addAttendance(event: newEvent)
-                    }
-                }
+                .foregroundColor(.white)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(Color.blue)
+                        .cornerRadius(8)
+                NavigationLink(destination: ContentView(), isActive: $navigateToNewView) {
+                                EmptyView()
+                            }
             }
         }.padding().frame(maxWidth: .infinity)
     }
