@@ -13,8 +13,8 @@ struct AddEventView: View {
     @State private var showingAlert = false
     @State private var showingConfirmation = false
     @State private var selectedSubject: Event?
-    @State private var startD = Date.now
-    @State private var endD = Date.now
+    @State private var startD = GetDefaultDate()
+    @State private var endD = GetDefaultDate()
     @State private var attendance = "presence"
     @State private var eventType: EventType = .lecture
     @State private var eventShortcut: String = ""
@@ -22,111 +22,128 @@ struct AddEventView: View {
     @State private var eventDesc: String = ""
     @State private var navigateToNewView = false
     private var allOptions = ["presence", "absence", "distraction"]
+
+    static func GetDefaultDate() -> Date {
+        let date = Date.now
+        var components = Calendar.current.dateComponents(
+            [.year, .month, .day, .hour, .minute, .second], from: date
+        )
+
+        components.hour = 12
+        components.minute = 0
+        components.second = 0
+
+        if let finalDate = Calendar.current.date(from: components) {
+            return finalDate
+        } else {
+            return date
+        }
+    }
+
+    private func Submit() {
+        self.showingAlert = true
+
+        if let selectedSubject = selectedSubject {
+            let docRef = dataManager.getDocumentReference(documentId: selectedSubject.id ?? "")
+            let optionsField = OptionsField(default_val: "presence", picked_val: attendance)
+            let field2 = Field.optionsField(optionsField)
+            let attributes: [String: Field] = ["field": field2]
+            let newEvent = Event(
+                shortcut: eventShortcut, name: eventName,
+                description: eventDesc, type: eventType.rawValue, start: startD,
+                end: endD, attributes: attributes, parent: docRef, parentSubject: docRef
+            )
+            dataManager.addAttendance(event: newEvent)
+        }
+        
+        ResetForm()
+    }
     
+    private func ResetForm() {
+        eventName = ""
+        eventShortcut = ""
+        eventDesc = ""
+        startD = AddEventView.GetDefaultDate()
+        endD = AddEventView.GetDefaultDate()
+        attendance = "presence"
+    }
+
     var body: some View {
-        //background
-//        ZStack {
-//            Color.background.edgesIgnoringSafeArea(.all)
-//        }
-        //foreground
         NavigationStack {
-            VStack(alignment: .center) {
-                //MARK: subject picker
-                HStack {
-                    Text("Subject:")
-                    Spacer()
+            Form {
+                Section(header: Text("Subject details")) {
+                    //MARK: subject picker
                     Picker(selection: $selectedSubject, label: Text("Subject")) {
                         ForEach(dataManager.subjects, id: \.self) { subject in
-                            Text(subject.name )
+                            Text("\(subject.shortcut) - \(subject.name)")
                                 .tag(subject as Event?)
                         }
-                    }.pickerStyle(DefaultPickerStyle())
-                }.task {
-                    selectedSubject = dataManager.subjects[0]
-                }
-                //MARK: start date picker
-                HStack {
-                    DatePicker(selection: $startD, in: ...Date.now, displayedComponents: .date) {
-                        Text("Start date: ")
+                    }.pickerStyle(DefaultPickerStyle()).task {
+                        selectedSubject = dataManager.subjects[0]
                     }
-                }
-                //MARK: end date picker
-                HStack {
-                    DatePicker(selection: $endD, in: startD...Date.now, displayedComponents: .date) {
-                        Text("End date: ")
-                    }
-                }
-                //MARK: event type picker
-                HStack {
-                    Text("Event:")
-                    Spacer()
-                    Picker("Selection", selection: $eventType) {
-                        ForEach(EventType.allCases, id: \.self) {
-                            option in
-                            if (String(describing: option) != "semester" && String(describing: option) != "subject") {
-                                Text(String(describing: option))
+
+                    Picker(selection: $eventType, label: Text("Type")) {
+                        ForEach(EventType.allCases, id: \.self) { option in
+                            let optionDescription = String(describing: option)
+                            
+                            if (optionDescription != "semester" && optionDescription != "subject") {
+                                Text(optionDescription.capitalized)
                             }
                         }
                     }.pickerStyle(DefaultPickerStyle())
                 }
-                HStack {
-                    VStack {
-                        Text("Event name:")
-                        Spacer().frame(height: 10)
-                        Text("Event shortcut:")
-                        Spacer().frame(height: 10)
-                        Text("Event description:")
-                    }
-                    VStack {
-                        //MARK: enter event name
-                        TextField("Enter event name", text: $eventName)
-                        //MARK: enter event shortcut
-                        TextField("Enter event shortcut", text: $eventShortcut)
-                        //MARK: enter description
-                        TextField("Enter event description", text: $eventDesc)
-                    }
-                }
-                //MARK: attendance picker
-                HStack {
-                    Text("Attendance:")
-                    Spacer()
+
+                Section(header: Text("Event details")) {
+                    TextField("Name", text: $eventName)
+                    TextField("Shortcut", text: $eventShortcut)
                     Picker(selection: $attendance, label: Text("Attendance")) {
-                        ForEach(self.allOptions, id: \.self) {
-                            option in
-                            Text(option)
+                        ForEach(self.allOptions, id: \.self) { option in
+                            Text(option.capitalized)
                         }
                     }.pickerStyle(DefaultPickerStyle())
                 }
-                VStack {
-                    Button {
-                        self.showingAlert = true
-                        print("Tuuu")
-                        if let selectedSubject = selectedSubject {
-                            print("Aha")
-                            let docRef = dataManager.getDocumentReference(documentId: selectedSubject.id ?? "")
-                            let optionsField = OptionsField(default_val: "presence", picked_val: attendance)
-                            let field2 = Field.optionsField(optionsField)
-                            let attributes: [String: Field] = ["field": field2]
-                            let newEvent = Event(shortcut: eventShortcut, name: eventName, description: eventDesc, type: eventType.rawValue, start: startD, end: endD, attributes: attributes, parent: docRef, parentSubject: docRef)
-                            dataManager.addAttendance(event: newEvent)
+
+                Section(header: Text("Time details")) {
+                    // TODO: not sure if this is working
+                    if let selectedSubject = selectedSubject {
+                        //MARK: start date picker
+                        DatePicker(selection: $startD, in: selectedSubject.start...) {
+                            Text("Start date")
                         }
-                    } label: { Text("Add") }
-                        .alert(isPresented: $showingAlert) {
-                            Alert(title: Text("Alert"), message: Text("Are you sure you want to add this event?"), primaryButton: .default(Text("OK"), action: {
-                                navigateToNewView = true
-                            }), secondaryButton: .cancel())
+                        //MARK: end date picker
+                        DatePicker(selection: $endD, in: startD...selectedSubject.end) {
+                            Text("End date")
                         }
+                    }
                 }
-                .foregroundColor(.white)
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 4)
-                        .background(Color.blue)
-                        .cornerRadius(8)
-                NavigationLink(destination: ContentView(), isActive: $navigateToNewView) {
-                                EmptyView()
-                            }
-            }
-        }.padding().frame(maxWidth: .infinity)
+
+                Section(header: Text("Description")) {
+                    TextEditor(text: $eventDesc).frame(height: 100)
+                }
+
+                Section {
+                    //TODO: disable button if required fields are not filled
+                    Button {
+                        //TODO: only call this after the alert is confirmed
+                        Submit()
+                    } label: {
+                        HStack {
+                            Spacer()
+                            Text("Add event").bold()
+                            Spacer()
+                        }
+                    }.alert(isPresented: $showingAlert) {
+                        Alert(
+                            title: Text("Alert"),
+                            message: Text("Are you sure you want to add this event?"),
+                            primaryButton: .default(Text("OK"),
+                            action: { navigateToNewView = true }),
+                            secondaryButton: .cancel()
+                        )
+                    }
+                }
+            }.navigationTitle(Text("New event"))
+        }.frame(maxWidth: .infinity)
     }
 }
 

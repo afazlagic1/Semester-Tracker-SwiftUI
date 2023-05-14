@@ -48,6 +48,6 @@ enum EventType: String, CaseIterable, Identifiable {
     case excercise = "excercise"
     case exam = "exam"
     case project = "project"
-    
+
     var id: Self { self }
 }

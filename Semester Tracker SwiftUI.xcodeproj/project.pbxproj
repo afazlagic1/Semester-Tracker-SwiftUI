@@ -65,7 +65,6 @@
 		FB2D636A29DC9621007D707A /* SimultaneouslyScrollViewHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimultaneouslyScrollViewHandler.swift; sourceTree = "<group>"; };
 		FB2D636C29DCB097007D707A /* FilterBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBar.swift; sourceTree = "<group>"; };
 		FB707C4D2A0B754900DFD1F2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		FB707C4F2A0B758500DFD1F2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FB707C502A0B87CC00DFD1F2 /* AddEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventView.swift; sourceTree = "<group>"; };
 		FBB01CE529FB8B24005B3A07 /* EventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
 		FBB01CE729FB8C88005B3A07 /* EventListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListViewModel.swift; sourceTree = "<group>"; };
@@ -97,7 +96,6 @@
 		FB04856329CE37BF0086323D = {
 			isa = PBXGroup;
 			children = (
-				FB707C4F2A0B758500DFD1F2 /* GoogleService-Info.plist */,
 				FB04856E29CE37BF0086323D /* Semester Tracker SwiftUI */,
 				FB04856D29CE37BF0086323D /* Products */,
 			);
