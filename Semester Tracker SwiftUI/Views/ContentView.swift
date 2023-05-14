@@ -37,7 +37,6 @@ struct ContentView: View {
             }.background(Color.background)
 //            .searchable(text: $searchSubject)
 //            .navigationBarTitleDisplayMode(.inline)
-            //TODO: login/sign up page
             .toolbar {
                 //MARK: NotificationItem in the right
                 ToolbarItem {
@@ -47,21 +46,22 @@ struct ContentView: View {
                         .foregroundStyle(Color.icon, .primary)
                     }
                 }
-//                ToolbarItem {
-//                    Image(systemName: "bell.badge")
-//                        .symbolRenderingMode(.palette)
-//                        .foregroundStyle(Color.icon, .primary)
-
-//                }
             }
+            NavigationLink {
+                AddEventView()
+            } label: {
+                Text("Add Event")
+            }
+            .buttonStyle(.borderedProminent)
         }
     }
 }
 
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView()
-//            .environmentObject(SubjectListViewModel())
-//            .environmentObject(StatusListViewModel())
-//    }
-//}
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+            .environmentObject(SubjectListViewModel())
+            .environmentObject(StatusListViewModel())
+            .environmentObject(DataManager())
+    }
+}

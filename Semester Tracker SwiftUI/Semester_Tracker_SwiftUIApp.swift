@@ -11,6 +11,7 @@ import Firebase
 
 @main
 struct Semester_Tracker_SwiftUIApp: App {
+    @StateObject var dataManager = DataManager()
     init() {
         FirebaseApp.configure()
     }
@@ -18,6 +19,7 @@ struct Semester_Tracker_SwiftUIApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(dataManager)
         }
     }
 }

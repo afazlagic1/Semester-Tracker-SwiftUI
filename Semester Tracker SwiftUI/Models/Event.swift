@@ -37,14 +37,17 @@ struct RangeField: Codable, Hashable {
 
 struct OptionsField: Codable, Hashable {
     var default_val: String?
-    var values: [String]
+    //var values: [String]
+    var picked_val: String?
 }
 
-enum EventType: String, CaseIterable {
+enum EventType: String, CaseIterable, Identifiable {
     case semester = "semester"
     case subject = "subject"
     case lecture = "lecture"
     case excercise = "excercise"
     case exam = "exam"
     case project = "project"
+    
+    var id: Self { self }
 }
