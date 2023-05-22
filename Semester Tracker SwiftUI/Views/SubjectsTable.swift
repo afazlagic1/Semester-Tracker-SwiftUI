@@ -15,11 +15,11 @@ struct Week: Identifiable {
     var week_i: Int
     var start: Date
     var end: Date
-    
+
     var ended: Bool {
         return end < Date()
     }
-    
+
     var isCurrentWeek: Bool {
         let currDate = Date()
         return start <= currDate && currDate <= end
@@ -34,11 +34,11 @@ struct SubjectsTable: View {
 
     @FirestoreQuery(collectionPath: "events", predicates: [
         .whereField("type", isEqualTo: "subject")
-    ]) private var subjects: [Event]
+    ], decodingFailureStrategy: .raise) private var subjects: [Event]
 
     @FirestoreQuery(collectionPath: "events", predicates: [
             .whereField("type", isNotIn: ["subject", "semester"])
-    ]) private var events: [Event]
+    ], decodingFailureStrategy: .raise) private var events: [Event]
 
     func get_week_start(date: Date) -> Date? {
         if let newDate = calendar.date(
@@ -56,11 +56,11 @@ struct SubjectsTable: View {
 
             while date < semester.end {
                 let week_i = calendar.component(.weekOfYear, from: date)
-                
+
                 guard let week_start_date = get_week_start(date: date) else {
                     continue
                 }
-                
+
                 guard let week_end_date = calendar.date(byAdding: DateComponents(day: 6), to: week_start_date) else {
                     continue
                 }
@@ -69,7 +69,7 @@ struct SubjectsTable: View {
                     id: i, week_i: week_i, start: week_start_date,
                     end: week_end_date
                 ))
-                
+
                 if let nextStartDate = calendar.date(byAdding: .weekOfYear, value: 1, to: date) {
                     date = nextStartDate
                 } else {
@@ -80,12 +80,19 @@ struct SubjectsTable: View {
             return weeks
         }
     }
-    
-    private func changeSemesterPredicates() {
-        NSLog("Changed semester filtering to '\(semester.name)'")
 
+    private func changeSemesterPredicates() {
         if let id = semester.id {
-            let parent = fr.document("/events/\(id)")
+            let parentRef = "/events/\(id)"
+            let parent = parentRef
+
+            NSLog("Changed semester filtering to '\(semester.name)' parentRef=\(parentRef) type=subject")
+
+            if ($subjects.error != nil) {
+                NSLog($subjects.error!.localizedDescription);
+                NSLog($subjects.error.debugDescription)
+                return;
+            }
 
             $subjects.predicates = [
                 .whereField("type", isEqualTo: "subject"),
@@ -93,17 +100,17 @@ struct SubjectsTable: View {
             ]
         }
     }
-    
+
     private func changeSubjectPredicates() {
-        var parentSubjects = [DocumentReference]()
+        var parentSubjects = [String]()
         for subject in subjects {
             if let id = subject.id {
-                parentSubjects.append(fr.document("/events/\(id)"))
+                parentSubjects.append("/events/\(id)")
             }
         }
-        
+
         NSLog("Changed event filtering to subjects '\(subjects.map { $0.shortcut })'")
-        
+
         if !parentSubjects.isEmpty {
             $events.predicates = [
                 .whereField("parentSubject", isIn: parentSubjects)
@@ -142,7 +149,7 @@ struct SubjectsTable: View {
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
             .shadow(color: Color.primary.opacity(0.2), radius: 10, x: 0, y: 5)
         }
-        
+
 //        VStack {
 //            Text("DEBUG Event count: \(events.count)").bold()
 //            ForEach(events) { event in
@@ -150,11 +157,11 @@ struct SubjectsTable: View {
 //            }
 //        }.border(Color.black, width: 1)
     }
-    
+
     @ViewBuilder
     private func viewForSubjectRow(subject: Event) -> some View {
         let filteredEvents = events.filter {
-            $0.parentSubject?.path == "events/\(subject.id!)"
+            $0.parentSubject == "/events/\(subject.id!)"
             && $0.type == selection
         }
 

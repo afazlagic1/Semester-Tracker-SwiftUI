@@ -44,21 +44,21 @@ struct AddEventView: View {
         self.showingAlert = true
 
         if let selectedSubject = selectedSubject {
-            let docRef = dataManager.getDocumentReference(documentId: selectedSubject.id ?? "")
+            let docRef = "/events/\(selectedSubject.id)";
             let optionsField = OptionsField(default_val: "presence", picked_val: attendance)
             let field2 = Field.optionsField(optionsField)
             let attributes: [String: Field] = ["field": field2]
-            let newEvent = Event(
-                shortcut: eventShortcut, name: eventName,
-                description: eventDesc, type: eventType.rawValue, start: startD,
-                end: endD, attributes: attributes, parent: docRef, parentSubject: docRef
-            )
-            dataManager.addAttendance(event: newEvent)
+           let newEvent = Event(
+               shortcut: eventShortcut, name: eventName,
+               description: eventDesc, type: eventType.rawValue, start: startD,
+               end: endD, attributes: attributes, parent: docRef, parentSubject: docRef
+           )
+           dataManager.addAttendance(event: newEvent)
         }
-        
+
         ResetForm()
     }
-    
+
     private func ResetForm() {
         eventName = ""
         eventShortcut = ""
@@ -79,13 +79,14 @@ struct AddEventView: View {
                                 .tag(subject as Event?)
                         }
                     }.pickerStyle(DefaultPickerStyle()).task {
+                        //FIXME: Error here if no subjects
                         selectedSubject = dataManager.subjects[0]
                     }
 
                     Picker(selection: $eventType, label: Text("Type")) {
                         ForEach(EventType.allCases, id: \.self) { option in
                             let optionDescription = String(describing: option)
-                            
+
                             if (optionDescription != "semester" && optionDescription != "subject") {
                                 Text(optionDescription.capitalized)
                             }

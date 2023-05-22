@@ -11,8 +11,8 @@ struct ContentView: View {
     @State private var searchSubject = ""
     @State private var selectedSemester: Event?
 
-    @FirestoreQuery(collectionPath: "events", predicates: [
-        .whereField("type", isEqualTo: "semester")]
+    @FirestoreQuery(collectionPath: "events",
+                    predicates: [.whereField("type", isEqualTo: "semester")], decodingFailureStrategy: .raise
     ) private var semesters: [Event]
 
     var body: some View {
@@ -33,7 +33,14 @@ struct ContentView: View {
                 }
                 Spacer()
             }.padding().frame(maxWidth: .infinity, maxHeight: .infinity).task {
-                selectedSemester = semesters[0]
+                if ($semesters.error != nil) {
+                    print($semesters.error!.localizedDescription);
+                    return;
+                }
+
+                if (semesters.count > 0) {
+                    selectedSemester = semesters[0]
+                }
             }.background(Color.background)
 //            .searchable(text: $searchSubject)
 //            .navigationBarTitleDisplayMode(.inline)
