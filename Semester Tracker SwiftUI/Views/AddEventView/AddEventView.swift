@@ -22,6 +22,11 @@ struct AddEventView: View {
     @State private var eventDesc: String = ""
     @State private var navigateToNewView = false
     private var allOptions = ["presence", "absence", "distraction"]
+    var subjects: [Event]
+    
+    init(subjects: [Event]) {
+        self.subjects = subjects
+    }
 
     static func GetDefaultDate() -> Date {
         let date = Date.now
@@ -44,7 +49,7 @@ struct AddEventView: View {
         self.showingAlert = true
 
         if let selectedSubject = selectedSubject {
-            let docRef = "/events/\(selectedSubject.id)";
+            let docRef = "/events/\(selectedSubject.id)"
             let optionsField = OptionsField(default_val: "presence", picked_val: attendance)
             let field2 = Field.optionsField(optionsField)
             let attributes: [String: Field] = ["field": field2]
@@ -79,8 +84,8 @@ struct AddEventView: View {
                                 .tag(subject as Event?)
                         }
                     }.pickerStyle(DefaultPickerStyle()).task {
-                        if (!dataManager.subjects.isEmpty) {
-                            selectedSubject = dataManager.subjects[0]
+                        if (!subjects.isEmpty) {
+                            selectedSubject = subjects[0]
                         }
                     }
 
@@ -149,14 +154,5 @@ struct AddEventView: View {
         // TODO: disable the Add event button in the MainView if
         // there are no subjects not to confuse the user
             .disabled(dataManager.subjects.isEmpty)
-
-
-    }
-}
-
-struct AddEventView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddEventView()
-            .environmentObject(DataManager())
     }
 }

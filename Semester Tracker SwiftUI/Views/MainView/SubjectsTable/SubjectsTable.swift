@@ -32,13 +32,8 @@ struct SubjectsTable: View {
     private let calendar = Calendar.current
     @State var eventTypeSelection = "lecture"
 
-    @FirestoreQuery(collectionPath: "events", predicates: [
-        .whereField("type", isEqualTo: "subject")
-    ], decodingFailureStrategy: .raise) private var subjects: [Event]
-
-    @FirestoreQuery(collectionPath: "events", predicates: [
-            .whereField("type", isNotIn: ["subject", "semester"])
-    ], decodingFailureStrategy: .raise) private var events: [Event]
+    var subjects: [Event]
+    var events: [Event]
 
     func get_week_start(date: Date) -> Date? {
         if let newDate = calendar.date(
@@ -81,26 +76,20 @@ struct SubjectsTable: View {
         }
     }
     
-    func getSelectableEventTypes() -> [String] {
-        return Array(Set(events.map { $0.type })).sorted().reversed()
+    private var selectableEventTypes: [String] {
+        get {
+            return Array(Set(events.map { $0.type })).sorted().reversed()
+        }
     }
 
     var body: some View {
         NavigationStack {
             VStack {
                 //MARK: Filter bars by lecture & by attendence
-                FilterBar(selection: $eventTypeSelection, items: getSelectableEventTypes()
+                FilterBar(selection: $eventTypeSelection, items: selectableEventTypes
                 ).padding([.bottom], 10).disabled(subjects.isEmpty)
 
                 SubjectsTableView()
-            }.onChange(of: semester.id) { _ in
-                changeSemesterPredicates()
-            }.onChange(of: subjects) { _ in
-                changeSubjectPredicates()
-            }
-            .task(id: semester.id) {
-                changeSemesterPredicates()
-                changeSubjectPredicates()
             }
             .padding()
             .background(Color.systemBackground)
@@ -121,9 +110,10 @@ struct SubjectsTable: View {
     @ViewBuilder
     private func SubjectsTableView() -> some View {
         VStack {
-            if $subjects.error != nil {
-                Text("Error loading subjects: \($subjects.error.debugDescription)")
-            } else if (subjects.isEmpty) {
+//            if subjects.error != nil {
+//                Text("Error loading subjects: \(subjects.error.debugDescription)")
+//            } else
+        if (subjects.isEmpty) {
                 Text("No subjects for selected semester")
             } else {
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -134,43 +124,6 @@ struct SubjectsTable: View {
                     }
                 }
             }
-        }
-    }
-
-    private func changeSemesterPredicates() {
-        if let id = semester.id {
-            let parentRef = "/events/\(id)"
-            let parent = parentRef
-
-            NSLog("Changed semester filtering to '\(semester.name)' parentRef=\(parentRef) type=subject")
-
-            if ($subjects.error != nil) {
-                NSLog($subjects.error!.localizedDescription);
-                NSLog($subjects.error.debugDescription)
-                return;
-            }
-
-            $subjects.predicates = [
-                .whereField("type", isEqualTo: "subject"),
-                .whereField("parent", isEqualTo: parent)
-            ]
-        }
-    }
-
-    private func changeSubjectPredicates() {
-        var parentSubjects = [String]()
-        for subject in subjects {
-            if let id = subject.id {
-                parentSubjects.append("/events/\(id)")
-            }
-        }
-
-        NSLog("Changed event filtering to subjects '\(subjects.map { $0.shortcut })'")
-
-        if !parentSubjects.isEmpty {
-            $events.predicates = [
-                .whereField("parentSubject", isIn: parentSubjects)
-            ]
         }
     }
 

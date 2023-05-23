@@ -10,11 +10,20 @@ import FirebaseFirestoreSwift
 struct MainView: View {
     @State private var searchSubject = ""
     @State private var selectedSemester: Event?
+    @State private var initialLoad: Bool = true
 
     @FirestoreQuery(collectionPath: "events",
                     predicates: [.whereField("type", isEqualTo: "semester")],
                     decodingFailureStrategy: .raise
     ) private var semesters: [Event]
+
+    @FirestoreQuery(collectionPath: "events", predicates: [
+        .whereField("type", isEqualTo: "subject")
+    ], decodingFailureStrategy: .raise) private var subjects: [Event]
+
+    @FirestoreQuery(collectionPath: "events", predicates: [
+            .whereField("type", isNotIn: ["subject", "semester"])
+    ], decodingFailureStrategy: .raise) private var events: [Event]
 
     var body: some View {
         NavigationStack {
@@ -33,9 +42,48 @@ struct MainView: View {
                 }
             }.task {
                 SemesterSwitchedTask()
-
             }
             NavigationLinkView()
+        }
+    }
+
+    private func changeSemesterPredicates() {
+        if let semester = selectedSemester {
+            if let id = semester.id {
+                let parentRef = "/events/\(id)"
+                let parent = parentRef
+
+                NSLog("Changed semester filtering to '\(semester.name)' parentRef=\(parentRef) type=subject")
+
+                if ($subjects.error != nil) {
+                    NSLog($subjects.error!.localizedDescription)
+                    NSLog($subjects.error.debugDescription)
+                    return
+                }
+
+                $subjects.predicates = [
+                    .whereField("type", isEqualTo: "subject"),
+                    .whereField("parent", isEqualTo: parent)
+                ]
+            }
+        }
+
+    }
+
+    private func changeSubjectPredicates() {
+        var parentSubjects = [String]()
+        for subject in subjects {
+            if let id = subject.id {
+                parentSubjects.append("/events/\(id)")
+            }
+        }
+
+        NSLog("Changed event filtering to subjects '\(subjects.map { $0.shortcut })'")
+
+        if !parentSubjects.isEmpty {
+            $events.predicates = [
+                .whereField("parentSubject", isIn: parentSubjects)
+            ]
         }
     }
 
@@ -64,7 +112,14 @@ struct MainView: View {
         VStack {
             //MARK: Scrollable table of subjects
             if let semester = selectedSemester {
-                SubjectsTable(semester: semester)
+                SubjectsTable(semester: semester, subjects: subjects, events: events)
+                .onChange(of: semester.id) { _ in
+                    changeSemesterPredicates()
+                }.onChange(of: subjects) { _ in
+                    changeSubjectPredicates()
+                }.task(id: semester.id) {
+                    changeSemesterPredicates()
+                }
             }
         }
     }
@@ -72,10 +127,10 @@ struct MainView: View {
     @ViewBuilder
     func NavigationLinkView() -> some View {
         NavigationLink {
-            AddEventView()
+            AddEventView(subjects: subjects)
         } label: {
             Text("🗓️ Add Event").bold()
-        }.buttonStyle(.borderedProminent).disabled(semesters.isEmpty)
+        }.buttonStyle(.borderedProminent).disabled(semesters.isEmpty || subjects.isEmpty)
     }
 
     @ViewBuilder
