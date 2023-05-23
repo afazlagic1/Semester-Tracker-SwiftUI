@@ -21,6 +21,8 @@ struct StatusCell: View {
             return .orange
         case "absence":
             return .red
+        case "unfilled":
+            return .gray
         default:
             return .gray
         }
@@ -31,7 +33,7 @@ struct StatusCell: View {
         switch attendance {
         case "presence":
             return .awesome5Solid(code: .check)
-        case "distraction":
+        case "distraction", "unfilled":
             return .awesome5Solid(code: .question)
         case "absence":
             return .awesome5Solid(code: .times)
@@ -39,10 +41,12 @@ struct StatusCell: View {
             return .awesome5Solid(code: .minus)
         }
     }
-    
+
     var body: some View {
         Button(action: {
             switch attendance {
+            case "unfilled":
+                attendance = "presence"
             case "presence":
                 attendance = "absence"
             case "absence":

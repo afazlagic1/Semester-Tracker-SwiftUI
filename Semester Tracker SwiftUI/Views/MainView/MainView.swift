@@ -7,7 +7,7 @@
 import SwiftUI
 import FirebaseFirestoreSwift
 
-struct ContentView: View {
+struct MainView: View {
     @State private var searchSubject = ""
     @State private var selectedSemester: Event?
 
@@ -35,12 +35,12 @@ struct ContentView: View {
                 SemesterSwitchedTask()
 
             }
-
             NavigationLinkView()
         }
     }
 
-    func SemesterPickerView() -> some View {
+    @ViewBuilder
+    private func SemesterPickerView() -> some View {
         VStack {
             // MARK: Semester picker
             if (semesters.isEmpty) {
@@ -59,7 +59,8 @@ struct ContentView: View {
         }
     }
 
-    func SubjectsTableView() -> some View {
+    @ViewBuilder
+    private func SubjectsTableView() -> some View {
         VStack {
             //MARK: Scrollable table of subjects
             if let semester = selectedSemester {
@@ -68,6 +69,7 @@ struct ContentView: View {
         }
     }
     
+    @ViewBuilder
     func NavigationLinkView() -> some View {
         NavigationLink {
             AddEventView()
@@ -75,8 +77,9 @@ struct ContentView: View {
             Text("🗓️ Add Event").bold()
         }.buttonStyle(.borderedProminent).disabled(semesters.isEmpty)
     }
-    
-    func ToolbarView() -> some View {
+
+    @ViewBuilder
+    private func ToolbarView() -> some View {
         //MARK: NotificationItem in the right
         NavigationLink(destination: SettingsView()) {
             Image(systemName: "gearshape").fontWeight(.bold)
@@ -84,8 +87,8 @@ struct ContentView: View {
             .foregroundStyle(Color.icon, .primary)
         }
     }
-    
-    func SemesterSwitchedTask() {
+
+    private func SemesterSwitchedTask() {
         if ($semesters.error != nil) {
             print($semesters.error!.localizedDescription);
             return;
@@ -97,9 +100,9 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        MainView()
             .environmentObject(SubjectListViewModel())
             .environmentObject(StatusListViewModel())
             .environmentObject(DataManager())

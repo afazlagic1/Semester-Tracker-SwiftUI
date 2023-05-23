@@ -79,8 +79,9 @@ struct AddEventView: View {
                                 .tag(subject as Event?)
                         }
                     }.pickerStyle(DefaultPickerStyle()).task {
-                        //FIXME: Error here if no subjects
-                        selectedSubject = dataManager.subjects[0]
+                        if (!dataManager.subjects.isEmpty) {
+                            selectedSubject = dataManager.subjects[0]
+                        }
                     }
 
                     Picker(selection: $eventType, label: Text("Type")) {
@@ -145,6 +146,11 @@ struct AddEventView: View {
                 }
             }.navigationTitle(Text("🗓️ New event"))
         }.frame(maxWidth: .infinity)
+        // TODO: disable the Add event button in the MainView if
+        // there are no subjects not to confuse the user
+            .disabled(dataManager.subjects.isEmpty)
+
+
     }
 }
 

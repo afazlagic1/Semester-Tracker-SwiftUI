@@ -80,6 +80,60 @@ struct SubjectsTable: View {
             return weeks
         }
     }
+    
+    func getSelectableEventTypes() -> [String] {
+        return Array(Set(events.map { $0.type })).sorted().reversed()
+    }
+
+    var body: some View {
+        NavigationStack {
+            VStack {
+                //MARK: Filter bars by lecture & by attendence
+                FilterBar(selection: $eventTypeSelection, items: getSelectableEventTypes()
+                ).padding([.bottom], 10).disabled(subjects.isEmpty)
+
+                SubjectsTableView()
+            }.onChange(of: semester.id) { _ in
+                changeSemesterPredicates()
+            }.onChange(of: subjects) { _ in
+                changeSubjectPredicates()
+            }
+            .task(id: semester.id) {
+                changeSemesterPredicates()
+                changeSubjectPredicates()
+            }
+            .padding()
+            .background(Color.systemBackground)
+            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+            .shadow(color: Color.primary.opacity(0.2), radius: 10, x: 0, y: 5)
+        }
+
+//        VStack {
+//            Text("DEBUG Event count: \(events.count)").bold()
+//            ForEach(events) { event in
+//                Text("\(event.shortcut) \(event.parentSubject!.documentID)")
+//            }
+//        }.border(Color.black, width: 1)
+    }
+
+    @ViewBuilder
+    private func SubjectsTableView() -> some View {
+        VStack {
+            if $subjects.error != nil {
+                Text("Error loading subjects: \($subjects.error.debugDescription)")
+            } else if (subjects.isEmpty) {
+                Text("No subjects for selected semester")
+            } else {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    SubjectsTableHeader(weeks: weeks)
+
+                    ForEach(subjects) { subject in
+                        viewForSubjectRow(subject: subject)
+                    }
+                }
+            }
+        }
+    }
 
     private func changeSemesterPredicates() {
         if let id = semester.id {
@@ -116,46 +170,6 @@ struct SubjectsTable: View {
                 .whereField("parentSubject", isIn: parentSubjects)
             ]
         }
-    }
-
-    var body: some View {
-        NavigationStack {
-            VStack {
-                //MARK: Filter bars by lecture & by attendence
-                FilterBar(selection: $eventTypeSelection).padding([.bottom], 10)
-
-                if $subjects.error != nil {
-                    Text("Error loading subjects: \($subjects.error.debugDescription)")
-                } else {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        SubjectsTableHeader(weeks: weeks)
-
-                        ForEach(subjects) { subject in
-                            viewForSubjectRow(subject: subject)
-                        }
-                    }
-                }
-            }.onChange(of: semester.id) { _ in
-                changeSemesterPredicates()
-            }.onChange(of: subjects) { _ in
-                changeSubjectPredicates()
-            }
-            .task(id: semester.id) {
-                changeSemesterPredicates()
-                changeSubjectPredicates()
-            }
-            .padding()
-            .background(Color.systemBackground)
-            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-            .shadow(color: Color.primary.opacity(0.2), radius: 10, x: 0, y: 5)
-        }
-
-//        VStack {
-//            Text("DEBUG Event count: \(events.count)").bold()
-//            ForEach(events) { event in
-//                Text("\(event.shortcut) \(event.parentSubject!.documentID)")
-//            }
-//        }.border(Color.black, width: 1)
     }
 
     @ViewBuilder

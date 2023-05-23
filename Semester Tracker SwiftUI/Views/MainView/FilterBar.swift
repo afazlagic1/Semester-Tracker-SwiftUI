@@ -9,31 +9,16 @@ import SwiftUI
 
 struct FilterBar: View {
     @Binding var selection: String
+    var items: [String]
     
     var body: some View {
         VStack {
-            VStack {
-                FilterItem(
-                    selection: $selection,
-                    name: "eventType",
-                    items: ["lecture", "exercise", "exam"]
-                )
-            }
-        }
-    }
-}
-
-struct FilterItem: View {
-    @Binding var selection: String
-    let name: String
-    let items: [String]
-
-    var body: some View {
             Picker("Pick event type.", selection: $selection) {
                 ForEach(items, id: \.self) {
                     Text($0.capitalized)
                 }
             }.pickerStyle(.segmented)
+        }
     }
 }
 

@@ -18,7 +18,7 @@ struct Semester_Tracker_SwiftUIApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
                 .environmentObject(dataManager)
         }
     }

@@ -35,7 +35,7 @@ struct SubjectRow: View {
         }
 
         if weekEvents.count > 0 {
-            StatusCell(attendance: "presence", week: week)
+            StatusCell(attendance: "unfilled", week: week)
         } else {
             StatusCell(week: week)
         }
