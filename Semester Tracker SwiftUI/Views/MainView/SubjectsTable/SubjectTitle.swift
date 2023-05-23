@@ -30,6 +30,8 @@ struct SubjectTitle: View {
                     .bold()
                     .lineLimit(1)
                     .underline()
+                // TODO: make this auto change with calculated value
+                ProgressDisplay(progress: 10, maxValue: 100)
             }
         }
     }

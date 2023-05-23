@@ -13,7 +13,7 @@ struct DetailView: View {
     var body: some View {
         NavigationStack {
             ScrollView(.vertical,  showsIndicators: false) {
-                VStack(alignment: .center, spacing: 20) {
+                VStack(spacing: 20) {
                     // MARK: TITLE
                     Text("\(subject.shortcut): \(subject.name)")
                         .font(.largeTitle)
@@ -22,6 +22,9 @@ struct DetailView: View {
                     // MARK: DESCRIPTION
                     Text(subject.description)
                         .font(.headline)
+                    Text("Total completion: ").font(.title)
+                    // TODO: calculate total progress
+                    ProgressDisplay(progress: 10, maxValue: 100)
                 }
             }
         }

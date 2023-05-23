@@ -67,7 +67,6 @@ struct MainView: View {
                 ]
             }
         }
-
     }
 
     private func changeSubjectPredicates() {
@@ -97,12 +96,10 @@ struct MainView: View {
                 Text("Contact your school administrator for more information.")
             } else {
                 Picker(selection: $selectedSemester, label: Text("Semester")) {
-                    let semesters = semesters.sorted(by: { $0.start < $1.start })
-
-                    ForEach(semesters) { semester in
+                    ForEach(semesters.sorted(by: { $0.start < $1.start })) { semester in
                         Text("🎓 \(semester.name)").tag(semester as Event?)
                     }
-                }.pickerStyle(MenuPickerStyle())
+                }.pickerStyle(.menu).labelsHidden()
             }
         }
     }
@@ -123,7 +120,7 @@ struct MainView: View {
             }
         }
     }
-    
+
     @ViewBuilder
     func NavigationLinkView() -> some View {
         NavigationLink {

@@ -75,7 +75,7 @@ struct SubjectsTable: View {
             return weeks
         }
     }
-    
+
     private var selectableEventTypes: [String] {
         get {
             return Array(Set(events.map { $0.type })).sorted().reversed()
@@ -114,7 +114,7 @@ struct SubjectsTable: View {
 //                Text("Error loading subjects: \(subjects.error.debugDescription)")
 //            } else
         if (subjects.isEmpty) {
-                Text("No subjects for selected semester")
+                Text("🤔📚 No subjects for selected semester")
             } else {
                 ScrollView(.horizontal, showsIndicators: false) {
                     SubjectsTableHeader(weeks: weeks)
