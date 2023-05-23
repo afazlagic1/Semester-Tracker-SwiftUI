@@ -21,11 +21,3 @@ struct FilterBar: View {
         }
     }
 }
-
-//struct FilterBar_Previews: PreviewProvider {
-//    @State var selection = "lecture"
-//
-//    static var previews: some View {
-//        FilterBar(selection: $selection)
-//    }
-//}

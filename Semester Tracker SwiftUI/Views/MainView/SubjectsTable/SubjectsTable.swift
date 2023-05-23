@@ -108,12 +108,14 @@ struct SubjectsTable: View {
             .shadow(color: Color.primary.opacity(0.2), radius: 10, x: 0, y: 5)
         }
 
-//        VStack {
+//        #if DEBUG
+//        ScrollView {
 //            Text("DEBUG Event count: \(events.count)").bold()
 //            ForEach(events) { event in
-//                Text("\(event.shortcut) \(event.parentSubject!.documentID)")
+//                Text("shortcut=\(event.shortcut) parent=\(event.parentSubject ?? "unknown parent")")
 //            }
 //        }.border(Color.black, width: 1)
+//        #endif
     }
 
     @ViewBuilder
@@ -201,16 +203,3 @@ struct SubjectsTableHeader: View {
         }
     }
 }
-
-//struct SubjectsTable_Previews: PreviewProvider {
-//    static let subjs: SubjectListViewModel = {
-//        var s = SubjectListViewModel()
-//        s.subjectList = subjectPreviewDataList
-//        return s
-//    }()
-//    static var previews: some View {
-//        SubjectsTable()
-//            .environmentObject(SubjectListViewModel())
-//            .environmentObject(StatusListViewModel())
-//    }
-//}

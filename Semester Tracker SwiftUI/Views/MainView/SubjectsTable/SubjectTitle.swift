@@ -34,9 +34,3 @@ struct SubjectTitle: View {
         }
     }
 }
-
-//class SubjectTitle_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SubjectTitle(subject: {});
-//    }
-//}

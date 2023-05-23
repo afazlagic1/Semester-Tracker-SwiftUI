@@ -79,9 +79,3 @@ struct CellRectangle: View {
             }
     }
 }
-
-//struct StatusCell_Previews: PreviewProvider {
-//    static var previews: some View {
-//        StatusCell(status: statusPreviewData)
-//    }
-//}
