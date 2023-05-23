@@ -151,8 +151,5 @@ struct AddEventView: View {
                 }
             }.navigationTitle(Text("🗓️ New event"))
         }.frame(maxWidth: .infinity)
-        // TODO: disable the Add event button in the MainView if
-        // there are no subjects not to confuse the user
-            .disabled(dataManager.subjects.isEmpty)
     }
 }

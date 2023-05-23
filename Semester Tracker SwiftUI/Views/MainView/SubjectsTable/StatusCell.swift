@@ -10,7 +10,10 @@ import SwiftUIFontIcon
 
 struct StatusCell: View {
     let fontsize: CGFloat = 35
-    @State var attendance: String? = nil
+    // TODO: this must not be @State because it is synced with Firestore
+    var event: Event? = nil
+    var attendance: String? = nil
+    var setAttendance: (String) -> Void
     var week: Week
 
     var backgroundColor: Color {
@@ -46,13 +49,13 @@ struct StatusCell: View {
         Button(action: {
             switch attendance {
             case "unfilled":
-                attendance = "presence"
+                setAttendance("presence")
             case "presence":
-                attendance = "absence"
+                setAttendance("absence")
             case "absence":
-                attendance = "distraction"
+                setAttendance("distraction")
             case "distraction":
-                attendance = "presence"
+                setAttendance("presence")
             default:
                 break
             }
