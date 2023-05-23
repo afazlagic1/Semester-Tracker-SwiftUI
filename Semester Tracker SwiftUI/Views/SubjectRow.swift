@@ -17,7 +17,7 @@ struct SubjectRow: View {
     var body: some View {
         HStack {
             NavigationLink(destination: DetailView(subject: subject)) {
-                SubjectTitle(subject: subject).padding(.horizontal, 5)
+                SubjectTitle(subject: subject, icon: Text("📚")).padding(.horizontal, 5)
             }
             Spacer()
             HStack {

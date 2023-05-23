@@ -11,15 +11,17 @@ import SwiftUIFontIcon
 
 struct SubjectTitle: View {
     var subject: Event
+    var icon: Text
+    let iconSize: CGFloat = 50
 
     var body: some View {
         HStack {
             // MARK: icon
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(Color.icon.opacity(0.2))
-                .frame(width: 46, height: 46)
+            RoundedRectangle(cornerRadius: 15, style: .continuous)
+                .fill(Color.icon.opacity(0.1))
+                .frame(width: iconSize, height: iconSize)
                 .overlay {
-                    FontIcon.text(.awesome5Solid(code: .book_open), fontsize: 24, color: Color.icon)
+                    icon.font(.system(size: 40))
             }
             VStack(spacing: 4) {
                 // MARK: title subject

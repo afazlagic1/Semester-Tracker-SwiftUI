@@ -31,7 +31,7 @@ struct FilterItem: View {
     var body: some View {
             Picker("Pick event type.", selection: $selection) {
                 ForEach(items, id: \.self) {
-                    Text($0)
+                    Text($0.capitalized)
                 }
             }.pickerStyle(.segmented)
     }

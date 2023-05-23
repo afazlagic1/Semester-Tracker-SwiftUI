@@ -130,7 +130,7 @@ struct AddEventView: View {
                     } label: {
                         HStack {
                             Spacer()
-                            Text("Add event").bold()
+                            Text("🗓️ Add event").bold()
                             Spacer()
                         }
                     }.alert(isPresented: $showingAlert) {
@@ -143,7 +143,7 @@ struct AddEventView: View {
                         )
                     }
                 }
-            }.navigationTitle(Text("New event"))
+            }.navigationTitle(Text("🗓️ New event"))
         }.frame(maxWidth: .infinity)
     }
 }

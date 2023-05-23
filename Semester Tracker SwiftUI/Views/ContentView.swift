@@ -21,12 +21,12 @@ struct ContentView: View {
             VStack(alignment: .center) {
                 Picker(selection: $selectedSemester, label: Text("Semester")) {
                     let semesters = semesters.sorted(by: { $0.start < $1.start })
-                    
+
                     ForEach(semesters) { semester in
-                        Text(semester.name).tag(semester as Event?)
+                        Text("🎓 \(semester.name)").tag(semester as Event?)
                     }
                 }.pickerStyle(MenuPickerStyle())
-                
+
                 //MARK: Scrollable table of subjects
                 if let semester = selectedSemester {
                     SubjectsTable(semester: semester)
@@ -57,7 +57,7 @@ struct ContentView: View {
             NavigationLink {
                 AddEventView()
             } label: {
-                Text("Add Event")
+                Text("🗓️ Add Event")
             }
             .buttonStyle(.borderedProminent)
         }
