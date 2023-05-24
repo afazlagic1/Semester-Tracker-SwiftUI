@@ -12,6 +12,7 @@ import SwiftUIFontIcon
 struct SubjectTitle: View {
     var subject: Event
     var icon: Text
+    var progress: Double
     let iconSize: CGFloat = 50
 
     var body: some View {
@@ -30,8 +31,7 @@ struct SubjectTitle: View {
                     .bold()
                     .lineLimit(1)
                     .underline()
-                // TODO: make this auto change with calculated value
-                ProgressDisplay(progress: 10, maxValue: 100)
+                ProgressDisplay(progress: progress, maxValue: 100)
             }
         }
     }

@@ -15,6 +15,27 @@ struct SubjectRow: View {
     var events: [Event]? = []
     var eventStatus: [EventStatus]? = []
     @EnvironmentObject var dataManager: DataManager
+    
+    private var estimatedCompletion: Double {
+        get {
+            let eventCount = Double(events!.count)
+            let eventStatus = eventStatus!.map {
+                switch $0.attributes["attendance"] {
+                case "presence":
+                    return 1.0
+                case "distraction":
+                    return 0.5
+                default:
+                    return 0.0
+                }
+            }
+
+            let totalStatus = eventStatus.reduce(0, +)
+//            print("Event count: \(eventCount) eventStatus: \(eventStatus) -> \(totalStatus)")
+
+            return (totalStatus / eventCount) * 100
+        }
+    }
 
     private var weekEvents: [(Week, [Event])] {
         get {
@@ -27,8 +48,10 @@ struct SubjectRow: View {
 
     var body: some View {
         HStack {
-            NavigationLink(destination: DetailView(subject: subject)) {
-                SubjectTitle(subject: subject, icon: Text("📚")).padding(.horizontal, 5)
+            // TODO: this should show the estimated completion for all event types, not just the
+            // one currently filtered
+            NavigationLink(destination: DetailView(subject: subject, progress: estimatedCompletion)) {
+                SubjectTitle(subject: subject, icon: Text("📚"), progress: estimatedCompletion).padding(.horizontal, 5)
             }
             Spacer()
             HStack {
