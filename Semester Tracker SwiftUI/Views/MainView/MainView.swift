@@ -11,7 +11,7 @@ struct MainView: View {
     @State private var searchSubject = ""
     @State private var selectedSemester: Event?
     @State private var initialLoad: Bool = true
-    private var dataManager = DataManager()
+    @EnvironmentObject private var dataManager: DataManager
 
     // MARK: semesters
     @FirestoreQuery(collectionPath: "events",

@@ -10,7 +10,7 @@ import SwiftUI
 import SwiftUIFontIcon
 
 struct SubjectTitle: View {
-    var title: String
+    var title: Text
     var icon: Text
     var progress: Double?
     let iconSize: CGFloat = 50
@@ -26,11 +26,9 @@ struct SubjectTitle: View {
             }
             VStack(spacing: 4) {
                 // MARK: title subject
-                Text(title)
-                    .font(.subheadline)
+                title.font(.subheadline)
                     .bold()
                     .lineLimit(1)
-                    .underline()
                 
                 if let progress = progress {
                     ProgressDisplay(progress: progress, maxValue: 100)

@@ -93,17 +93,15 @@ struct SubjectRow: View {
         HStack {
             // TODO: this should show the estimated completion for all event types, not just the
             // one currently filtered
-            NavigationLink(destination: DetailView(subject: subject, events: events ?? [],
-                                                   eventStatus: eventStatus ?? [], weeks: weeks,
-                                                   progress: estimatedCompletion)) {
-
-//                switch filteredEventStatus {}
-                switch displayMode {
-                case .subject:
-                    SubjectTitle(title: subject.shortcut, icon: Text(eventTypeEmote), progress: estimatedCompletion).padding(.horizontal, 5)
-                case .eventType:
-                    SubjectTitle(title: eventTypeSelection.capitalized, icon: Text(eventTypeEmote), progress: estimatedCompletion).padding(.horizontal, 5)
+            switch displayMode {
+            case .subject:
+                NavigationLink(destination: DetailView(subject: subject, events: events ?? [],
+                                                       eventStatus: eventStatus ?? [], weeks: weeks)) {
+                    SubjectTitle(title: Text(subject.shortcut).underline(), icon: Text(eventTypeEmote), progress: estimatedCompletion).padding(.horizontal, 5)
                 }
+            case .eventType:
+                SubjectTitle(title: Text(eventTypeSelection.capitalized), icon: Text(eventTypeEmote)                    ,
+                             progress: estimatedCompletion).padding(.horizontal, 5)
             }
             Spacer()
             HStack {
@@ -113,7 +111,7 @@ struct SubjectRow: View {
             }
         }
     }
-    
+
     @ViewBuilder
     private func viewForStatusCell(week: Week, weekEvents: [Event]) -> some View {
 

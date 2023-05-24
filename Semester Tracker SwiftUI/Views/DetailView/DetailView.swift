@@ -12,8 +12,8 @@ struct DetailView: View {
     var events: [Event]
     var eventStatus: [EventStatus]
     var weeks: [Week]
-    var progress: Double
-
+    let eventTypes = ["lecture", "exercise", "exam"]
+    
     var body: some View {
         NavigationStack {
             ScrollView(.vertical,  showsIndicators: false) {
@@ -27,14 +27,15 @@ struct DetailView: View {
                     Text(subject.description)
                         .font(.headline)
                     Text("Total completion: ").font(.title)
-                    ProgressDisplay(progress: progress, maxValue: 100)
+                    ProgressDisplay(progress: 0, maxValue: 100)
 
                     ScrollView(.horizontal, showsIndicators: false) {
                         SubjectsTableHeader(weeks: weeks)
                         
-                        ForEach(["lecture", "exercise", "exam"], id: \.hashValue) { eventTypeSelection in
+                        ForEach(eventTypes.indices, id: \.hashValue) { index in
                             SubjectRow(subject: subject, weeks: weeks, events: events,
-                                       eventStatus: eventStatus, eventTypeSelection: eventTypeSelection, displayMode: .eventType)
+                                       eventStatus: eventStatus, eventTypeSelection: eventTypes[index],
+                                       displayMode: .eventType)
                         }
                     }.background(.white).clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
 
