@@ -50,7 +50,7 @@ struct AddEventView: View {
 
         if let selectedSubject = selectedSubject {
             let docRef = "/events/\(selectedSubject.id)"
-            let optionsField = OptionsField(default_val: "presence", picked_val: attendance)
+            let optionsField = OptionsField(default_val: "presence")
             let field2 = Field.optionsField(optionsField)
             let attributes: [String: Field] = ["field": field2]
            let newEvent = Event(

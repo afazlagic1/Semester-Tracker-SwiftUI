@@ -74,8 +74,11 @@ struct MainView: View {
             Text("Semesters \(semesters.count)")
             Text("Subjects \(subjects.count)")
             Text("Subject events \(events.count)")
+            if let error = $events.error {
+                Text("Subject event error: \(error.localizedDescription)").foregroundColor(.red)
+            }
             Text("Event status \(eventStatus.count)")
-        }.border(Color.black, width: 1).frame(height: 100)
+        }.border(Color.black, width: 1)
         #endif
     }
 

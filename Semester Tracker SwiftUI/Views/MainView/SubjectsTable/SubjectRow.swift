@@ -65,7 +65,7 @@ struct SubjectRow: View {
 
         let event = events[0]
 
-        if let eventStatus = eventStatus?.first(where: { $0.parent == "\(event.id)"}) {
+        if let eventStatus = eventStatus?.first(where: { $0.parent == "/events/\(event.id ?? "")"}) {
             return eventStatus.attributes["attendance"] ?? "unfilled"
         }
 
@@ -74,6 +74,6 @@ struct SubjectRow: View {
 
     private func setAttendance(event: Event, newAttendance: String) {
         dataManager.setEventStatus(event: event, attributes: ["attendance": newAttendance])
-        print("New attendance for event \(event.shortcut) = \(newAttendance)")
+        print("New attendance for event \(event.id ?? "") = \(newAttendance)")
     }
 }

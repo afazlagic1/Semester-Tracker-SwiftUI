@@ -25,6 +25,16 @@ struct DetailView: View {
                     Text("Total completion: ").font(.title)
                     // TODO: calculate total progress
                     ProgressDisplay(progress: 10, maxValue: 100)
+                    
+                    Text("Projects").font(.title)
+                    if let attributes = subject.attributes {
+                        ForEach(Array(attributes.keys), id: \.self) { fieldName in
+                            Text(fieldName).font(.title2)
+                            Text("TODO: field value selection")
+                        }
+                    } else {
+                        Text("No projects")
+                    }
                 }
             }
         }

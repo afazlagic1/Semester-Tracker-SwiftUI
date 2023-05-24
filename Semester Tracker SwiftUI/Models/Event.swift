@@ -26,19 +26,35 @@ struct Event: Identifiable, Codable, Hashable {
 enum Field: Codable, Hashable {
     case rangeField(RangeField)
     case optionsField(OptionsField)
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+
+        if let data = try? container.decode(RangeField.self) {
+            self = .rangeField(data)
+            return
+        }
+        
+        if let data = try? container.decode(OptionsField.self) {
+            self = .optionsField(data)
+            return
+        }
+
+        throw DecodingError.typeMismatch(Field.self, DecodingError.Context(
+            codingPath: decoder.codingPath, debugDescription: "Unable to parse Field type"))
+    }
 }
 
 struct RangeField: Codable, Hashable {
     var default_val: Int?
     var min: Int
     var max: Int
-    var aggregate: Bool
+    var aggregate: Bool?
 }
 
 struct OptionsField: Codable, Hashable {
     var default_val: String?
-    //var values: [String]
-    var picked_val: String?
+    var values: [String]?
 }
 
 enum EventType: String, CaseIterable, Identifiable {
