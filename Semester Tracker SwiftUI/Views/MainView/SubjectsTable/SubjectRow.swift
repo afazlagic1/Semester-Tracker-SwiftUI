@@ -13,6 +13,7 @@ struct SubjectRow: View {
     var subject: Event
     var weeks: [Week]
     var events: [Event]? = []
+    var eventStatus: [EventStatus]? = []
     @EnvironmentObject var dataManager: DataManager
 
     private var weekEvents: [(Week, [Event])] {
@@ -37,9 +38,10 @@ struct SubjectRow: View {
             }
         }
     }
-    
+
     @ViewBuilder
     private func viewForStatusCell(week: Week, weekEvents: [Event]) -> some View {
+
         // Partial specification of the callback for setting attendance in Firestore
         let attendanceCallback: (String) -> Void = { (newAttendance: String) in
             if (!weekEvents.isEmpty) {
@@ -47,11 +49,27 @@ struct SubjectRow: View {
             }
         }
 
+        let attendance = getAttendance(events: weekEvents)
+
         if weekEvents.count > 0 {
-            StatusCell(attendance: "unfilled", setAttendance: attendanceCallback, week: week)
+            StatusCell(attendance: attendance, setAttendance: attendanceCallback, week: week)
         } else {
             StatusCell(setAttendance: attendanceCallback, week: week)
         }
+    }
+
+    private func getAttendance(events: [Event]) -> String {
+        if (events.isEmpty) {
+            return "unfilled"
+        }
+
+        let event = events[0]
+
+        if let eventStatus = eventStatus?.first(where: { $0.parent == "\(event.id)"}) {
+            return eventStatus.attributes["attendance"] ?? "unfilled"
+        }
+
+        return "unfilled"
     }
 
     private func setAttendance(event: Event, newAttendance: String) {

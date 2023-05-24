@@ -27,13 +27,13 @@ struct Week: Identifiable {
 }
 
 struct SubjectsTable: View {
-    var semester: Event
-    var fr = Firestore.firestore()
     private let calendar = Calendar.current
-    @State var eventTypeSelection = "lecture"
+    @State private var eventTypeSelection = "lecture"
 
+    var semester: Event
     var subjects: [Event]
     var events: [Event]
+    var eventStatus: [EventStatus]
 
     func get_week_start(date: Date) -> Date? {
         if let newDate = calendar.date(
@@ -134,8 +134,14 @@ struct SubjectsTable: View {
             && $0.type == eventTypeSelection
         }
 
+        let filteredEventStatus = eventStatus.filter {
+            filteredEvents.map { "/events/\($0.id ?? "")"
+            }.contains($0.parent)
+        }
+
         if filteredEvents.count > 0 {
-            SubjectRow(subject: subject, weeks: weeks, events: filteredEvents)
+            SubjectRow(subject: subject, weeks: weeks,
+                       events: filteredEvents, eventStatus: filteredEventStatus)
         }
     }
 }

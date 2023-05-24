@@ -21,12 +21,14 @@ struct MainView: View {
 
     // MARK: subjects in selected semester
     @FirestoreQuery(collectionPath: "events", predicates: [
-        .whereField("type", isEqualTo: "subject")
+        .where("invalidField", isLessThan: "")
+//        .whereField("type", isEqualTo: "subject")
     ], decodingFailureStrategy: .raise) private var subjects: [Event]
 
     // MARK: events in selected subjects
     @FirestoreQuery(collectionPath: "events", predicates: [
-            .whereField("type", isNotIn: ["subject", "semester"])
+            .where("invalidField", isLessThan: "")
+//            .whereField("type", isNotIn: ["subject", "semester"])
     ], decodingFailureStrategy: .raise) private var events: [Event]
 
     // MARK: event statuses
@@ -66,6 +68,15 @@ struct MainView: View {
             }
             NavigationLinkView()
         }
+        
+        #if DEBUG
+        ScrollView {
+            Text("Semesters \(semesters.count)")
+            Text("Subjects \(subjects.count)")
+            Text("Subject events \(events.count)")
+            Text("Event status \(eventStatus.count)")
+        }.border(Color.black, width: 1).frame(height: 100)
+        #endif
     }
 
     private func changeSemesterPredicates() {
@@ -91,17 +102,23 @@ struct MainView: View {
     }
 
     private func changeSubjectPredicates() {
-        NSLog("Changed event filtering to subjects '\(subjects.map { $0.shortcut })'")
+        NSLog("Changed event filtering to subjects '\(parentSubjects)'")
 
-        $events.predicates = [
-            .whereField("parentSubject", isIn: parentSubjects)
-        ]
+        if (!parentSubjects.isEmpty) {
+            $events.predicates = [
+                .whereField("parentSubject", isIn: parentSubjects)
+            ]
+        }
     }
-    
+
     private func changeEventStatusPredicates() {
-        $events.predicates = [
-            .whereField("parentSubject", isIn: parentSubjects)
-        ]
+        NSLog("Changed event status filtering to subjects '\(parentSubjects)'")
+
+        if (!parentSubjects.isEmpty) {
+            $eventStatus.predicates = [
+                .whereField("parentSubject", isIn: parentSubjects)
+            ]
+        }
     }
 
     @ViewBuilder
@@ -127,7 +144,8 @@ struct MainView: View {
         VStack {
             //MARK: Scrollable table of subjects
             if let semester = selectedSemester {
-                SubjectsTable(semester: semester, subjects: subjects, events: events)
+                SubjectsTable(semester: semester, subjects: subjects,
+                              events: events, eventStatus: eventStatus)
                 .onChange(of: semester.id) { _ in
                     changeSemesterPredicates()
                 }.onChange(of: subjects) { _ in
