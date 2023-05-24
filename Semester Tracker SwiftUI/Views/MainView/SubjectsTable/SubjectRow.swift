@@ -25,11 +25,23 @@ struct SubjectRow: View {
             return []
         }
     }
+    
+    private var filteredEventStatus: [EventStatus] {
+        get {
+            let filteredEventIds = filteredEvents.map { "/events/\($0.id ?? "")" }
+            if let eventStatus = eventStatus {
+                return eventStatus.filter({
+                    filteredEventIds.contains($0.parent)
+                })
+            }
+            return []
+        }
+    }
 
     private var estimatedCompletion: Double {
         get {
             let eventCount = Double(filteredEvents.count)
-            let eventStatus = eventStatus!.map {
+            let eventStatus = filteredEventStatus.map {
                 switch $0.attributes["attendance"] {
                 case "presence":
                     return 1.0
@@ -98,7 +110,7 @@ struct SubjectRow: View {
 
         let event = events[0]
 
-        if let eventStatus = eventStatus?.first(where: { $0.parent == "/events/\(event.id ?? "")"}) {
+        if let eventStatus = filteredEventStatus.first(where: { $0.parent == "/events/\(event.id ?? "")"}) {
             return eventStatus.attributes["attendance"] ?? "unfilled"
         }
 

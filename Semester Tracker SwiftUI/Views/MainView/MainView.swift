@@ -135,7 +135,9 @@ struct MainView: View {
             } else {
                 Picker(selection: $selectedSemester, label: Text("Semester")) {
                     ForEach(semesters.sorted(by: { $0.start < $1.start })) { semester in
-                        Text("🎓 \(semester.name)").tag(semester as Event?)
+                        let currentTime = Date.now
+                        let isCurrentSemester = semester.start <= currentTime && currentTime <= semester.end
+                        Text("🎓 \(semester.name)\(isCurrentSemester ? " (current)" : "")").tag(semester as Event?)
                     }
                 }.pickerStyle(.menu).labelsHidden()
             }

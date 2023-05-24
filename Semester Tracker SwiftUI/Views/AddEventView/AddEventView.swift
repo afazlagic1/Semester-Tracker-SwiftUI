@@ -23,7 +23,7 @@ struct AddEventView: View {
     @State private var navigateToNewView = false
     private var allOptions = ["presence", "absence", "distraction"]
     var subjects: [Event]
-    
+
     init(subjects: [Event]) {
         self.subjects = subjects
     }
@@ -49,7 +49,7 @@ struct AddEventView: View {
         self.showingAlert = true
 
         if let selectedSubject = selectedSubject {
-            let docRef = "/events/\(selectedSubject.id)"
+            let docRef = "/events/\(selectedSubject.id ?? "")"
             let optionsField = OptionsField(default_val: "presence")
             let field2 = Field.optionsField(optionsField)
             let attributes: [String: Field] = ["field": field2]
@@ -68,8 +68,7 @@ struct AddEventView: View {
         eventName = ""
         eventShortcut = ""
         eventDesc = ""
-        startD = AddEventView.GetDefaultDate()
-        endD = AddEventView.GetDefaultDate()
+        AdjustDateRange()
         attendance = "presence"
     }
 
@@ -107,6 +106,7 @@ struct AddEventView: View {
                         DatePicker(selection: $startD, in: selectedSubject.start...) {
                             Text("Start date")
                         }
+
                         //MARK: end date picker
                         DatePicker(selection: $endD, in: startD...selectedSubject.end) {
                             Text("End date")
@@ -142,7 +142,17 @@ struct AddEventView: View {
             }.navigationTitle(Text("🗓️ New event"))
         }.frame(maxWidth: .infinity)
     }
-    
+
+    private func AdjustDate(date: Date, adjustedDate: Date) -> Date {
+        if let endDate = selectedSubject?.end {
+            if (date > endDate) {
+                return adjustedDate
+            }
+        }
+
+        return date
+    }
+
     @ViewBuilder
     private func SubjectPickerView() -> some View {
         Picker(selection: $selectedSubject, label: Text("Subject")) {
@@ -154,6 +164,17 @@ struct AddEventView: View {
             if (!subjects.isEmpty) {
                 selectedSubject = subjects[0]
             }
+        }.task {
+            AdjustDateRange()
+        }.onChange(of: selectedSubject) { _ in
+            AdjustDateRange()
+        }
+    }
+
+    private func AdjustDateRange() {
+        if let selectedSubject = selectedSubject {
+            startD = AdjustDate(date: startD, adjustedDate: selectedSubject.start)
+            endD = AdjustDate(date: endD, adjustedDate: selectedSubject.end)
         }
     }
 }

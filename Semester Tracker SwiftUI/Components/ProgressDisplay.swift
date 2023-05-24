@@ -13,7 +13,12 @@ struct ProgressDisplay: View {
     
     private var formattedProgress: String {
         get {
-            return String(format: "%.0f", progress.rounded(.toNearestOrAwayFromZero))
+            var finalProgress = progress
+            if (finalProgress > maxValue) {
+                NSLog("Progress \(finalProgress) overflowed max value of \(maxValue)")
+                finalProgress = maxValue
+            }
+            return String(format: "%.0f", finalProgress.rounded(.toNearestOrAwayFromZero))
         }
     }
     
