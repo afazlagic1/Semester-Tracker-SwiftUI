@@ -29,6 +29,23 @@ struct MainView: View {
             .whereField("type", isNotIn: ["subject", "semester"])
     ], decodingFailureStrategy: .raise) private var events: [Event]
 
+    // MARK: event statuses
+    @FirestoreQuery(collectionPath: "event_status", predicates: [
+        .where("invalidField", isLessThan: "")
+    ], decodingFailureStrategy: .raise) private var eventStatus: [EventStatus]
+
+    private var parentSubjects: [String] {
+        get {
+            var parentSubjects = [String]()
+            for subject in subjects {
+                if let id = subject.id {
+                    parentSubjects.append("/events/\(id)")
+                }
+            }
+            return parentSubjects
+        }
+    }
+
     var body: some View {
         NavigationStack {
             // takes size of biggest child bydefault
@@ -74,20 +91,17 @@ struct MainView: View {
     }
 
     private func changeSubjectPredicates() {
-        var parentSubjects = [String]()
-        for subject in subjects {
-            if let id = subject.id {
-                parentSubjects.append("/events/\(id)")
-            }
-        }
-
         NSLog("Changed event filtering to subjects '\(subjects.map { $0.shortcut })'")
 
-        if !parentSubjects.isEmpty {
-            $events.predicates = [
-                .whereField("parentSubject", isIn: parentSubjects)
-            ]
-        }
+        $events.predicates = [
+            .whereField("parentSubject", isIn: parentSubjects)
+        ]
+    }
+    
+    private func changeEventStatusPredicates() {
+        $events.predicates = [
+            .whereField("parentSubject", isIn: parentSubjects)
+        ]
     }
 
     @ViewBuilder
@@ -118,6 +132,7 @@ struct MainView: View {
                     changeSemesterPredicates()
                 }.onChange(of: subjects) { _ in
                     changeSubjectPredicates()
+                    changeEventStatusPredicates()
                 }.task(id: semester.id) {
                     changeSemesterPredicates()
                 }

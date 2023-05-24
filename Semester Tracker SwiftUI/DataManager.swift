@@ -11,26 +11,20 @@ import Firebase
 class DataManager: ObservableObject {
     let db = Firestore.firestore()
 
-    init() {
-    }
-    
-    func getDocumentReference(documentId: String) -> DocumentReference {
-        let db = Firestore.firestore()
-        let collectionRef = db.collection("events")
-
-        // Get a reference to the document with the given ID
-        let documentRef = collectionRef.document(documentId)
-        return documentRef
-    }
-    
     func setEventStatus(event: Event, attributes: [String: Any]) {
         guard let eventId = event.id else {
             NSLog("Cannot set event status for event")
             return
         }
+        
+        guard let parentSubject = event.parentSubject else {
+            NSLog("Event has no parent subject")
+            return
+        }
 
         var eventStatus = [String: Any]()
-        eventStatus["event"] = eventId
+        eventStatus["parent"] = "/events/\(eventId)"
+        eventStatus["parentSubject"] = parentSubject
         eventStatus["attributes"] = attributes
 
         db.collection("event_status").document(eventId).setData(eventStatus) { error in
@@ -41,7 +35,7 @@ class DataManager: ObservableObject {
     }
 
     func addEvent(event: Event) {
-        print("attendance adding")
+        // TODO: does this method create the document twice?
         do {
             let _ = try db.collection("events").addDocument(from: event)
         }
@@ -49,6 +43,7 @@ class DataManager: ObservableObject {
             print(error)
         }
         let ref = db.collection("events").document("new")
+
         ref.setData(["attributes": event.attributes ?? "", "description": event.description, "end": event.end, "name": event.name, "parent": event.parent ?? "", "parentSubject": event.parentSubject ?? "", "shortcut": event.shortcut, "start": event.start, "type": event.type]) {
             error in
             if let error = error {

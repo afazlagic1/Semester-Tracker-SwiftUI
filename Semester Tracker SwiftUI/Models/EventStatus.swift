@@ -10,6 +10,7 @@ import FirebaseFirestoreSwift
 
 struct EventStatus: Identifiable, Codable, Hashable {
     @DocumentID var id: String?
-    var event: String
+    var parent: String
+    var parentSubject: String
     var attributes: [String: String]
 }
