@@ -131,7 +131,6 @@ struct SubjectsTable: View {
     private func viewForSubjectRow(subject: Event) -> some View {
         let filteredEvents = events.filter {
             $0.parentSubject == "/events/\(subject.id!)"
-            && $0.type == eventTypeSelection
         }
 
         let filteredEventStatus = eventStatus.filter {
@@ -141,7 +140,8 @@ struct SubjectsTable: View {
 
         if filteredEvents.count > 0 {
             SubjectRow(subject: subject, weeks: weeks,
-                       events: filteredEvents, eventStatus: filteredEventStatus)
+                       events: filteredEvents, eventStatus: filteredEventStatus,
+                       eventTypeSelection: eventTypeSelection)
         }
     }
 }

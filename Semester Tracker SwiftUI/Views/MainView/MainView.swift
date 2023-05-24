@@ -68,7 +68,7 @@ struct MainView: View {
             }
             NavigationLinkView()
         }
-        
+    
         #if DEBUG
         ScrollView {
             Text("Semesters \(semesters.count)")

@@ -14,11 +14,21 @@ struct SubjectRow: View {
     var weeks: [Week]
     var events: [Event]? = []
     var eventStatus: [EventStatus]? = []
+    var eventTypeSelection: String
     @EnvironmentObject var dataManager: DataManager
-    
+
+    private var filteredEvents: [Event] {
+        get {
+            if let events = events {
+                return events.filter { $0.type == eventTypeSelection }
+            }
+            return []
+        }
+    }
+
     private var estimatedCompletion: Double {
         get {
-            let eventCount = Double(events!.count)
+            let eventCount = Double(filteredEvents.count)
             let eventStatus = eventStatus!.map {
                 switch $0.attributes["attendance"] {
                 case "presence":
@@ -40,7 +50,7 @@ struct SubjectRow: View {
     private var weekEvents: [(Week, [Event])] {
         get {
             return weeks.map { week in
-                (week, events!.filter {event in
+                (week, filteredEvents.filter {event in
                     event.start >= week.start && event.start < week.end})
             }
         }
