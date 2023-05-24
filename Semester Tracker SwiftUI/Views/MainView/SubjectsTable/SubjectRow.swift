@@ -13,6 +13,7 @@ struct SubjectRow: View {
     var subject: Event
     var weeks: [Week]
     var events: [Event]? = []
+    @EnvironmentObject var dataManager: DataManager
 
     private var weekEvents: [(Week, [Event])] {
         get {
@@ -53,9 +54,8 @@ struct SubjectRow: View {
         }
     }
 
-    // TODO: connect callback to setting attendance in Firestore
     private func setAttendance(event: Event, newAttendance: String) {
+        dataManager.setEventStatus(event: event, attributes: ["attendance": newAttendance])
         print("New attendance for event \(event.shortcut) = \(newAttendance)")
     }
 }
- 

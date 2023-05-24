@@ -11,16 +11,20 @@ struct MainView: View {
     @State private var searchSubject = ""
     @State private var selectedSemester: Event?
     @State private var initialLoad: Bool = true
+    private var dataManager = DataManager()
 
+    // MARK: semesters
     @FirestoreQuery(collectionPath: "events",
                     predicates: [.whereField("type", isEqualTo: "semester")],
                     decodingFailureStrategy: .raise
     ) private var semesters: [Event]
 
+    // MARK: subjects in selected semester
     @FirestoreQuery(collectionPath: "events", predicates: [
         .whereField("type", isEqualTo: "subject")
     ], decodingFailureStrategy: .raise) private var subjects: [Event]
 
+    // MARK: events in selected subjects
     @FirestoreQuery(collectionPath: "events", predicates: [
             .whereField("type", isNotIn: ["subject", "semester"])
     ], decodingFailureStrategy: .raise) private var events: [Event]
@@ -30,7 +34,7 @@ struct MainView: View {
             // takes size of biggest child bydefault
             VStack(alignment: .center) {
                 SemesterPickerView()
-                SubjectsTableView()
+                SubjectsTableView().environmentObject(dataManager)
                 Spacer()
             }.padding().frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color.background)

@@ -58,7 +58,7 @@ struct AddEventView: View {
                description: eventDesc, type: eventType.rawValue, start: startD,
                end: endD, attributes: attributes, parent: docRef, parentSubject: docRef
            )
-           dataManager.addAttendance(event: newEvent)
+           dataManager.addEvent(event: newEvent)
         }
 
         ResetForm()
@@ -77,17 +77,7 @@ struct AddEventView: View {
         NavigationStack {
             Form {
                 Section(header: Text("Subject details")) {
-                    //MARK: subject picker
-                    Picker(selection: $selectedSubject, label: Text("Subject")) {
-                        ForEach(dataManager.subjects, id: \.self) { subject in
-                            Text("\(subject.shortcut) - \(subject.name)")
-                                .tag(subject as Event?)
-                        }
-                    }.pickerStyle(DefaultPickerStyle()).task {
-                        if (!subjects.isEmpty) {
-                            selectedSubject = subjects[0]
-                        }
-                    }
+                    SubjectPickerView()
 
                     Picker(selection: $eventType, label: Text("Type")) {
                         ForEach(EventType.allCases, id: \.self) { option in
@@ -151,5 +141,19 @@ struct AddEventView: View {
                 }
             }.navigationTitle(Text("🗓️ New event"))
         }.frame(maxWidth: .infinity)
+    }
+    
+    @ViewBuilder
+    private func SubjectPickerView() -> some View {
+        Picker(selection: $selectedSubject, label: Text("Subject")) {
+            ForEach(subjects, id: \.self) { subject in
+                Text("\(subject.shortcut) - \(subject.name)")
+                    .tag(subject as Event?)
+            }
+        }.pickerStyle(DefaultPickerStyle()).task {
+            if (!subjects.isEmpty) {
+                selectedSubject = subjects[0]
+            }
+        }
     }
 }
