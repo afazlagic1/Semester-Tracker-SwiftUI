@@ -9,12 +9,18 @@ import SwiftUI
 import SwiftUIFontIcon
 import Introspect
 
+enum DisplayMode {
+    case subject
+    case eventType
+}
+
 struct SubjectRow: View {
     var subject: Event
     var weeks: [Week]
     var events: [Event]? = []
     var eventStatus: [EventStatus]? = []
     var eventTypeSelection: String
+    var displayMode: DisplayMode = .subject
     @EnvironmentObject var dataManager: DataManager
 
     private var filteredEvents: [Event] {
@@ -67,13 +73,37 @@ struct SubjectRow: View {
             }
         }
     }
+    
+    private var eventTypeEmote: String {
+        get {
+            switch eventTypeSelection {
+            case "lecture":
+                return "📚"
+            case "exercise":
+                return "🔬"
+            case "exam":
+                return "📝"
+            default:
+                return "📚"
+            }
+        }
+    }
 
     var body: some View {
         HStack {
             // TODO: this should show the estimated completion for all event types, not just the
             // one currently filtered
-            NavigationLink(destination: DetailView(subject: subject, progress: estimatedCompletion)) {
-                SubjectTitle(subject: subject, icon: Text("📚"), progress: estimatedCompletion).padding(.horizontal, 5)
+            NavigationLink(destination: DetailView(subject: subject, events: events ?? [],
+                                                   eventStatus: eventStatus ?? [], weeks: weeks,
+                                                   progress: estimatedCompletion)) {
+
+//                switch filteredEventStatus {}
+                switch displayMode {
+                case .subject:
+                    SubjectTitle(title: subject.shortcut, icon: Text(eventTypeEmote), progress: estimatedCompletion).padding(.horizontal, 5)
+                case .eventType:
+                    SubjectTitle(title: eventTypeSelection.capitalized, icon: Text(eventTypeEmote), progress: estimatedCompletion).padding(.horizontal, 5)
+                }
             }
             Spacer()
             HStack {
@@ -83,7 +113,7 @@ struct SubjectRow: View {
             }
         }
     }
-
+    
     @ViewBuilder
     private func viewForStatusCell(week: Week, weekEvents: [Event]) -> some View {
 

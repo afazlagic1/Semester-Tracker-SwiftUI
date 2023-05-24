@@ -10,9 +10,9 @@ import SwiftUI
 import SwiftUIFontIcon
 
 struct SubjectTitle: View {
-    var subject: Event
+    var title: String
     var icon: Text
-    var progress: Double
+    var progress: Double?
     let iconSize: CGFloat = 50
 
     var body: some View {
@@ -26,12 +26,15 @@ struct SubjectTitle: View {
             }
             VStack(spacing: 4) {
                 // MARK: title subject
-                Text(subject.shortcut)
+                Text(title)
                     .font(.subheadline)
                     .bold()
                     .lineLimit(1)
                     .underline()
-                ProgressDisplay(progress: progress, maxValue: 100)
+                
+                if let progress = progress {
+                    ProgressDisplay(progress: progress, maxValue: 100)
+                }
             }
         }
     }

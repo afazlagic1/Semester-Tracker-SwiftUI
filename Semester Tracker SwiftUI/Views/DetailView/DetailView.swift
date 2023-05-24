@@ -9,6 +9,9 @@ import SwiftUI
 
 struct DetailView: View {
     var subject: Event
+    var events: [Event]
+    var eventStatus: [EventStatus]
+    var weeks: [Week]
     var progress: Double
 
     var body: some View {
@@ -25,11 +28,20 @@ struct DetailView: View {
                         .font(.headline)
                     Text("Total completion: ").font(.title)
                     ProgressDisplay(progress: progress, maxValue: 100)
-                    
+
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        SubjectsTableHeader(weeks: weeks)
+                        
+                        ForEach(["lecture", "exercise", "exam"], id: \.hashValue) { eventTypeSelection in
+                            SubjectRow(subject: subject, weeks: weeks, events: events,
+                                       eventStatus: eventStatus, eventTypeSelection: eventTypeSelection, displayMode: .eventType)
+                        }
+                    }.background(.white).clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+
                     Text("Projects").font(.title)
                     if let attributes = subject.attributes {
                         ForEach(Array(attributes.keys), id: \.self) { fieldName in
-                            Text(fieldName).font(.title2)
+                            Text(fieldName).font(.title3)
                             Text("TODO: field value selection")
                         }
                     } else {

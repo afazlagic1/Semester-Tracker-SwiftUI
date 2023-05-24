@@ -35,16 +35,9 @@ class DataManager: ObservableObject {
     }
 
     func addEvent(event: Event) {
-        // TODO: does this method create the document twice?
-        do {
-            let _ = try db.collection("events").addDocument(from: event)
-        }
-        catch {
-            print(error)
-        }
-        let ref = db.collection("events").document("new")
-
-        ref.setData(["attributes": event.attributes ?? "", "description": event.description, "end": event.end, "name": event.name, "parent": event.parent ?? "", "parentSubject": event.parentSubject ?? "", "shortcut": event.shortcut, "start": event.start, "type": event.type]) {
+        // TODO: this create a document with id "new" in firestore
+        let ref = db.collection("events").document("anesa")
+        ref.setData(["attributes": [String: Field](), "description": event.description, "end": event.end, "name": event.name, "parent": event.parent ?? "", "parentSubject": event.parentSubject ?? "", "shortcut": event.shortcut, "start": event.start, "type": event.type]) {
             error in
             if let error = error {
                 print(error.localizedDescription)

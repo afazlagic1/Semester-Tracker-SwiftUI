@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C77426562A1D2EA700F10090 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C77426552A1D2EA700F10090 /* GoogleService-Info.plist */; };
 		C774265E2A1D6D9400F10090 /* ProgressDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C774265D2A1D6D9400F10090 /* ProgressDisplay.swift */; };
+		C77426602A1E68D600F10090 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C774265F2A1E68D600F10090 /* GoogleService-Info.plist */; };
+		C77426622A1E6B5E00F10090 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77426612A1E6B5E00F10090 /* Utils.swift */; };
+		C77426642A1E70F900F10090 /* SubjectTableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77426632A1E70F900F10090 /* SubjectTableHeader.swift */; };
 		C786A3AE2A0586EF0007667C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C786A3AD2A0586EF0007667C /* SettingsView.swift */; };
 		C7875F7129E837F700683BC2 /* SubjectTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7875F7029E837F700683BC2 /* SubjectTitle.swift */; };
 		C78C76DB29E9311000FC4E3C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C78C76DA29E9311000FC4E3C /* FirebaseFirestore */; };
@@ -44,8 +46,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C77426552A1D2EA700F10090 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C774265D2A1D6D9400F10090 /* ProgressDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDisplay.swift; sourceTree = "<group>"; };
+		C774265F2A1E68D600F10090 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C77426612A1E6B5E00F10090 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		C77426632A1E70F900F10090 /* SubjectTableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectTableHeader.swift; sourceTree = "<group>"; };
 		C786A3AD2A0586EF0007667C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C7875F7029E837F700683BC2 /* SubjectTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectTitle.swift; sourceTree = "<group>"; };
 		C7D5B1F129EE03C70066187F /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
@@ -95,7 +99,6 @@
 			isa = PBXGroup;
 			children = (
 				C77426582A1D486600F10090 /* SubjectsTable */,
-				FB2D636C29DCB097007D707A /* FilterBar.swift */,
 				FB04857129CE37BF0086323D /* MainView.swift */,
 			);
 			path = MainView;
@@ -108,6 +111,7 @@
 				FB04859329CE43A10086323D /* SubjectRow.swift */,
 				C7875F7029E837F700683BC2 /* SubjectTitle.swift */,
 				FBBDA1B429D344870054A247 /* SubjectsTable.swift */,
+				C77426632A1E70F900F10090 /* SubjectTableHeader.swift */,
 			);
 			path = SubjectsTable;
 			sourceTree = "<group>";
@@ -139,6 +143,7 @@
 		C774265C2A1D6D6E00F10090 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				FB2D636C29DCB097007D707A /* FilterBar.swift */,
 				C774265D2A1D6D9400F10090 /* ProgressDisplay.swift */,
 			);
 			path = Components;
@@ -163,8 +168,8 @@
 		FB04856E29CE37BF0086323D /* Semester Tracker SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				C774265F2A1E68D600F10090 /* GoogleService-Info.plist */,
 				C774265C2A1D6D6E00F10090 /* Components */,
-				C77426552A1D2EA700F10090 /* GoogleService-Info.plist */,
 				FBCCE2E92A0C18D80036C1A1 /* DataManager.swift */,
 				FBB01CEB29FB8E2F005B3A07 /* Repository */,
 				FBBDA1B329D343500054A247 /* ViewModels */,
@@ -177,6 +182,7 @@
 				FBDFD8A529CF19A50069A4C5 /* statuses.json */,
 				FBBDA1B629D345C70054A247 /* subjects.json */,
 				FB2D636A29DC9621007D707A /* SimultaneouslyScrollViewHandler.swift */,
+				C77426612A1E6B5E00F10090 /* Utils.swift */,
 			);
 			path = "Semester Tracker SwiftUI";
 			sourceTree = "<group>";
@@ -311,7 +317,7 @@
 			files = (
 				FB9C1BC329D23277006058C4 /* statuses.json in Resources */,
 				FB04857729CE37C20086323D /* Preview Assets.xcassets in Resources */,
-				C77426562A1D2EA700F10090 /* GoogleService-Info.plist in Resources */,
+				C77426602A1E68D600F10090 /* GoogleService-Info.plist in Resources */,
 				FB04857429CE37C20086323D /* Assets.xcassets in Resources */,
 				FBBDA1B729D345C70054A247 /* subjects.json in Resources */,
 			);
@@ -329,6 +335,8 @@
 				FB2D636D29DCB097007D707A /* FilterBar.swift in Sources */,
 				FB2CF1C029D2208000BC9DF0 /* StatusPreviewData.swift in Sources */,
 				FBBDA1B529D344870054A247 /* SubjectsTable.swift in Sources */,
+				C77426622A1E6B5E00F10090 /* Utils.swift in Sources */,
+				C77426642A1E70F900F10090 /* SubjectTableHeader.swift in Sources */,
 				FBB01CE629FB8B24005B3A07 /* EventRepository.swift in Sources */,
 				FBDFD8A629CF19A50069A4C5 /* statuses.json in Sources */,
 				C7D5B1F229EE03C70066187F /* Person.swift in Sources */,

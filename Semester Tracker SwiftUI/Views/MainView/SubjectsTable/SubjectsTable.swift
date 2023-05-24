@@ -10,69 +10,18 @@ import Introspect
 import FirebaseFirestoreSwift
 import Firebase
 
-struct Week: Identifiable {
-    var id: Int
-    var week_i: Int
-    var start: Date
-    var end: Date
-
-    var ended: Bool {
-        return end < Date()
-    }
-
-    var isCurrentWeek: Bool {
-        let currDate = Date()
-        return start <= currDate && currDate <= end
-    }
-}
 
 struct SubjectsTable: View {
-    private let calendar = Calendar.current
-    @State private var eventTypeSelection = "lecture"
-
     var semester: Event
     var subjects: [Event]
     var events: [Event]
     var eventStatus: [EventStatus]
-
-    func get_week_start(date: Date) -> Date? {
-        if let newDate = calendar.date(
-            from: calendar.dateComponents([.weekOfYear, .yearForWeekOfYear], from: date)) {
-            return newDate
-        }
-        return nil
-    }
+    
+    @State private var eventTypeSelection = "lecture"
 
     private var weeks: [Week] {
         get {
-            var weeks: [Week] = []
-            var date = get_week_start(date: semester.start)!
-            var i = 0
-
-            while date < semester.end {
-                let week_i = calendar.component(.weekOfYear, from: date)
-
-                guard let week_start_date = get_week_start(date: date) else {
-                    continue
-                }
-
-                guard let week_end_date = calendar.date(byAdding: DateComponents(day: 6), to: week_start_date) else {
-                    continue
-                }
-
-                weeks.append(Week(
-                    id: i, week_i: week_i, start: week_start_date,
-                    end: week_end_date
-                ))
-
-                if let nextStartDate = calendar.date(byAdding: .weekOfYear, value: 1, to: date) {
-                    date = nextStartDate
-                } else {
-                    break
-                }
-                i += 1
-            }
-            return weeks
+            return TimeUtils.getWeeks(event: semester)
         }
     }
 
@@ -142,23 +91,6 @@ struct SubjectsTable: View {
             SubjectRow(subject: subject, weeks: weeks,
                        events: filteredEvents, eventStatus: filteredEventStatus,
                        eventTypeSelection: eventTypeSelection)
-        }
-    }
-}
-
-struct SubjectsTableHeader: View {
-    var weeks: [Week]
-
-    var body: some View {
-        HStack {
-            Spacer()
-            ForEach(weeks) { week in
-                CellRectangle(
-                    backgroundColor: Color.white,
-                    content: Text("W\(week.id + 1)").bold().font(.body)
-                        .foregroundColor(week.isCurrentWeek ? .purple : .text)
-                ).opacity(week.ended ? 0.5 : 1).strikethrough(week.ended)
-            }
         }
     }
 }
