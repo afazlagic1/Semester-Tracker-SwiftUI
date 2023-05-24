@@ -24,7 +24,6 @@ struct Week: Identifiable {
     }
 }
 
-
 class TimeUtils {
     private static let calendar = Calendar.current
 
@@ -65,5 +64,50 @@ class TimeUtils {
             i += 1
         }
         return weeks
+    }
+}
+
+class EventUtils {
+    static func filterEventsByType(events: [Event]?, eventTypeSelection: String) -> [Event] {
+        if let events = events {
+            return events.filter { $0.type == eventTypeSelection }
+        }
+        return []
+    }
+    
+    static func getEstimatedCompletionForType(events: [Event]?, eventStatus: [EventStatus], eventTypeSelection: String) -> Double {
+        let filteredEvents = EventUtils.filterEventsByType(events: events, eventTypeSelection: eventTypeSelection)
+        let filteredEventStatus = EventUtils.filterEventStatus(events: filteredEvents, eventStatus: eventStatus)
+        return EventUtils.getEstimatedCompletion(events: filteredEvents,
+                                                 eventStatus: filteredEventStatus)
+    }
+
+    static func filterEventStatus(events: [Event], eventStatus: [EventStatus]?) -> [EventStatus] {
+        let filteredEventIds = events.map { "/events/\($0.id ?? "")" }
+        if let eventStatus = eventStatus {
+            return eventStatus.filter({
+                filteredEventIds.contains($0.parent)
+            })
+        }
+        return []
+    }
+
+    static func getEstimatedCompletion(events: [Event], eventStatus: [EventStatus]) -> Double {
+        let eventCount = Double(events.count)
+        let eventStatus = eventStatus.map {
+            switch $0.attributes["attendance"] {
+            case "presence":
+                return 1.0
+            case "distraction":
+                return 0.5
+            default:
+                return 0.0
+            }
+        }
+
+        let totalStatus = eventStatus.reduce(0, +)
+        print("Event count: \(eventCount) eventStatus: \(eventStatus) -> \(totalStatus)")
+
+        return (totalStatus / eventCount) * 100
     }
 }

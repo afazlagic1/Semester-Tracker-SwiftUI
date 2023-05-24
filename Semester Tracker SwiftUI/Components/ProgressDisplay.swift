@@ -24,11 +24,11 @@ struct ProgressDisplay: View {
     
     private var progressColor: Color {
         switch (progress / maxValue) * 100 {
-        case 0...25:
+        case ...25:
             return Color.red
-        case 26...75:
+        case 25...75:
             return Color.orange
-        case 76...100:
+        case 75...:
             return Color.green
         default:
             return Color.red

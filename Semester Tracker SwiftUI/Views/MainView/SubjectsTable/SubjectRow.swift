@@ -17,58 +17,18 @@ enum DisplayMode {
 struct SubjectRow: View {
     var subject: Event
     var weeks: [Week]
-    var events: [Event]? = []
-    var eventStatus: [EventStatus]? = []
+    var events: [Event] = []
+    var displayedEvents: [Event] = []
+    var eventStatus: [EventStatus] = []
     var eventTypeSelection: String
     var displayMode: DisplayMode = .subject
+    var estimatedCompletion: Double
     @EnvironmentObject var dataManager: DataManager
-
-    private var filteredEvents: [Event] {
-        get {
-            if let events = events {
-                return events.filter { $0.type == eventTypeSelection }
-            }
-            return []
-        }
-    }
-    
-    private var filteredEventStatus: [EventStatus] {
-        get {
-            let filteredEventIds = filteredEvents.map { "/events/\($0.id ?? "")" }
-            if let eventStatus = eventStatus {
-                return eventStatus.filter({
-                    filteredEventIds.contains($0.parent)
-                })
-            }
-            return []
-        }
-    }
-
-    private var estimatedCompletion: Double {
-        get {
-            let eventCount = Double(filteredEvents.count)
-            let eventStatus = filteredEventStatus.map {
-                switch $0.attributes["attendance"] {
-                case "presence":
-                    return 1.0
-                case "distraction":
-                    return 0.5
-                default:
-                    return 0.0
-                }
-            }
-
-            let totalStatus = eventStatus.reduce(0, +)
-//            print("Event count: \(eventCount) eventStatus: \(eventStatus) -> \(totalStatus)")
-
-            return (totalStatus / eventCount) * 100
-        }
-    }
 
     private var weekEvents: [(Week, [Event])] {
         get {
             return weeks.map { week in
-                (week, filteredEvents.filter {event in
+                (week, displayedEvents.filter {event in
                     event.start >= week.start && event.start < week.end})
             }
         }
@@ -95,13 +55,13 @@ struct SubjectRow: View {
             // one currently filtered
             switch displayMode {
             case .subject:
-                NavigationLink(destination: DetailView(subject: subject, events: events ?? [],
-                                                       eventStatus: eventStatus ?? [], weeks: weeks)) {
-                    SubjectTitle(title: Text(subject.shortcut).underline(), icon: Text(eventTypeEmote), progress: estimatedCompletion).padding(.horizontal, 5)
+                NavigationLink(destination: DetailView(subject: subject, events: events,
+                                                       eventStatus: eventStatus, weeks: weeks)) {
+                    SubjectTitle(title: Text(subject.shortcut).underline(), icon: Text(eventTypeEmote),
+                                 progress: estimatedCompletion).padding(.horizontal, 5)
                 }
             case .eventType:
-                SubjectTitle(title: Text(eventTypeSelection.capitalized), icon: Text(eventTypeEmote)                    ,
-                             progress: estimatedCompletion).padding(.horizontal, 5)
+                SubjectTitle(title: Text(eventTypeSelection.capitalized), icon: Text(eventTypeEmote)                    ,progress: estimatedCompletion).padding(.horizontal, 5)
             }
             Spacer()
             HStack {
@@ -138,7 +98,7 @@ struct SubjectRow: View {
 
         let event = events[0]
 
-        if let eventStatus = filteredEventStatus.first(where: { $0.parent == "/events/\(event.id ?? "")"}) {
+        if let eventStatus = eventStatus.first(where: { $0.parent == "/events/\(event.id ?? "")"}) {
             return eventStatus.attributes["attendance"] ?? "unfilled"
         }
 

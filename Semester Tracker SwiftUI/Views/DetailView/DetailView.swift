@@ -14,6 +14,12 @@ struct DetailView: View {
     var weeks: [Week]
     let eventTypes = ["lecture", "exercise", "exam"]
     
+    private var totalEstimatedAttendanceCompletion: Double {
+        get {
+            return EventUtils.getEstimatedCompletion(events: events, eventStatus: eventStatus)
+        }
+    }
+
     var body: some View {
         NavigationStack {
             ScrollView(.vertical,  showsIndicators: false) {
@@ -27,15 +33,20 @@ struct DetailView: View {
                     Text(subject.description)
                         .font(.headline)
                     Text("Total completion: ").font(.title)
-                    ProgressDisplay(progress: 0, maxValue: 100)
+                    ProgressDisplay(progress: totalEstimatedAttendanceCompletion, maxValue: 100)
 
                     ScrollView(.horizontal, showsIndicators: false) {
                         SubjectsTableHeader(weeks: weeks)
                         
                         ForEach(eventTypes.indices, id: \.hashValue) { index in
-                            SubjectRow(subject: subject, weeks: weeks, events: events,
-                                       eventStatus: eventStatus, eventTypeSelection: eventTypes[index],
-                                       displayMode: .eventType)
+                            let filteredEvents = EventUtils.filterEventsByType(events: events, eventTypeSelection: eventTypes[index])
+                            let filteredEventStatus = EventUtils.filterEventStatus(events: events, eventStatus: eventStatus)
+
+                            let estimatedCompletion = EventUtils.getEstimatedCompletion(events: filteredEvents, eventStatus: filteredEventStatus)
+
+                            SubjectRow(subject: subject, weeks: weeks, events: events, displayedEvents: filteredEvents,
+                                       eventStatus: filteredEventStatus, eventTypeSelection: eventTypes[index],
+                                       displayMode: .eventType, estimatedCompletion: estimatedCompletion)
                         }
                     }.background(.white).clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
 

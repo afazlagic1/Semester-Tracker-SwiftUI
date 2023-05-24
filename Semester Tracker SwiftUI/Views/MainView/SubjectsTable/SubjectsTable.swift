@@ -88,9 +88,15 @@ struct SubjectsTable: View {
         }
 
         if filteredEvents.count > 0 {
+            let filteredEventsFinal = EventUtils.filterEventsByType(events: filteredEvents, eventTypeSelection: eventTypeSelection)
+            let filteredEventStatusFinal = EventUtils.filterEventStatus(events: filteredEventsFinal, eventStatus: filteredEventStatus)
+
+            let estimatedCompletion = EventUtils.getEstimatedCompletion(events: filteredEventsFinal,
+                                                                        eventStatus: filteredEventStatusFinal)
+
             SubjectRow(subject: subject, weeks: weeks,
-                       events: filteredEvents, eventStatus: filteredEventStatus,
-                       eventTypeSelection: eventTypeSelection)
+                       events: filteredEvents, displayedEvents: filteredEventsFinal, eventStatus: filteredEventStatus,
+                       eventTypeSelection: eventTypeSelection, estimatedCompletion: estimatedCompletion)
         }
     }
 }
