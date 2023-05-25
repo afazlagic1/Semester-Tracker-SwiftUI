@@ -33,8 +33,8 @@
 		FB2D636B29DC9622007D707A /* SimultaneouslyScrollViewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2D636A29DC9621007D707A /* SimultaneouslyScrollViewHandler.swift */; };
 		FB2D636D29DCB097007D707A /* FilterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2D636C29DCB097007D707A /* FilterBar.swift */; };
 		FB707C512A0B87CC00DFD1F2 /* AddEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB707C502A0B87CC00DFD1F2 /* AddEventView.swift */; };
+		FB7CD7622A1FB706006F9C58 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB7CD7612A1FB706006F9C58 /* GoogleService-Info.plist */; };
 		FB9C1BC329D23277006058C4 /* statuses.json in Resources */ = {isa = PBXBuildFile; fileRef = FBDFD8A529CF19A50069A4C5 /* statuses.json */; };
-		FBAFD6902A1E9CCC0025148D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FBAFD68F2A1E9CCC0025148D /* GoogleService-Info.plist */; };
 		FBB01CE629FB8B24005B3A07 /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB01CE529FB8B24005B3A07 /* EventRepository.swift */; };
 		FBB01CE829FB8C88005B3A07 /* EventListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB01CE729FB8C88005B3A07 /* EventListViewModel.swift */; };
 		FBB01CED29FB97F0005B3A07 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB01CEC29FB97F0005B3A07 /* DetailView.swift */; };
@@ -68,7 +68,7 @@
 		FB2D636A29DC9621007D707A /* SimultaneouslyScrollViewHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimultaneouslyScrollViewHandler.swift; sourceTree = "<group>"; };
 		FB2D636C29DCB097007D707A /* FilterBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBar.swift; sourceTree = "<group>"; };
 		FB707C502A0B87CC00DFD1F2 /* AddEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventView.swift; sourceTree = "<group>"; };
-		FBAFD68F2A1E9CCC0025148D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FB7CD7612A1FB706006F9C58 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FBB01CE529FB8B24005B3A07 /* EventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
 		FBB01CE729FB8C88005B3A07 /* EventListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListViewModel.swift; sourceTree = "<group>"; };
 		FBB01CEC29FB97F0005B3A07 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
@@ -168,7 +168,7 @@
 		FB04856E29CE37BF0086323D /* Semester Tracker SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
-				FBAFD68F2A1E9CCC0025148D /* GoogleService-Info.plist */,
+				FB7CD7612A1FB706006F9C58 /* GoogleService-Info.plist */,
 				C774265C2A1D6D6E00F10090 /* Components */,
 				FBCCE2E92A0C18D80036C1A1 /* DataManager.swift */,
 				FBB01CEB29FB8E2F005B3A07 /* Repository */,
@@ -315,10 +315,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB7CD7622A1FB706006F9C58 /* GoogleService-Info.plist in Resources */,
 				FB9C1BC329D23277006058C4 /* statuses.json in Resources */,
 				FB04857729CE37C20086323D /* Preview Assets.xcassets in Resources */,
 				FB04857429CE37C20086323D /* Assets.xcassets in Resources */,
-				FBAFD6902A1E9CCC0025148D /* GoogleService-Info.plist in Resources */,
 				FBBDA1B729D345C70054A247 /* subjects.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

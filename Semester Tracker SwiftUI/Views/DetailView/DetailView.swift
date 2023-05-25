@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct DetailView: View {
+    @EnvironmentObject var dataManager: DataManager
     var subject: Event
     var events: [Event]
     var eventStatus: [EventStatus]
     var weeks: [Week]
     let eventTypes = ["lecture", "exercise", "exam"]
-    @State private var pointsP1 = 0
-    @State private var pointsP2 = 0
+    @State private var pointsP1 = "0"
+    @State private var pointsP2 = "0"
+    let listPoints = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
     private var totalEstimatedAttendanceCompletion: Double {
         get {
             return EventUtils.getEstimatedCompletion(events: events, eventStatus: eventStatus)
@@ -57,6 +59,31 @@ struct DetailView: View {
                             Text(fieldName)
                             let projectF = attributes[fieldName]
                             Text("\(projectF.debugDescription)")
+                            if(fieldName == "Project 1") {
+                                Picker("Points picker", selection: $pointsP1) {
+                                    ForEach(self.listPoints, id: \.self) { option in
+                                        Text(option)
+                                    }
+                                }
+                                .pickerStyle(.wheel)
+                                .background(Color.white)
+                                .cornerRadius(10)
+                                .shadow(radius: 5)
+                                
+                                
+                            }
+                            else {
+                                Picker("Points picker", selection: $pointsP2) {
+                                    ForEach(self.listPoints, id: \.self) { option in
+                                        Text(option)
+                                    }
+                                }
+                                .pickerStyle(.wheel)
+                                .background(Color.white)
+                                .cornerRadius(10)
+                                .shadow(radius: 5)
+                                
+                            }
                             // TODO: fix this to generate pickers for project points (from the var subject)
                             // TODO: ideally this should also display for points from lectures/exercises (use the same logic but with var
                             // events which contains the individual lectures/exercises/exams)
@@ -77,6 +104,13 @@ struct DetailView: View {
                 }
             }
         }
+//        .onChange(of: pointsP1) { newValue in
+//            print("Selected value: \(newValue)")
+//            ForEach(eventStatus) { eventSt in
+//                var attr = ["points": pointsP1, "attendance": eventSt.attributes["attendance"] ]
+//                dataManager.setEventStatus(event: subject, attributes: attr)
+//            }
+//        }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .navigationBarTitleDisplayMode(.inline)
             .padding().background(Color.background)
