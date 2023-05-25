@@ -109,4 +109,9 @@ struct SubjectRow: View {
         dataManager.setEventStatus(event: event, attributes: ["attendance": newAttendance])
         print("New attendance for event \(event.id ?? "") = \(newAttendance)")
     }
+    
+    private func setPoints(event: Event, newPoints: Int) {
+        dataManager.setEventStatus(event: event, attributes: ["points": newPoints])
+        print("New points for event \(event.id ?? "") = \(newPoints)")
+    }
 }

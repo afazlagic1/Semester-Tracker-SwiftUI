@@ -13,7 +13,6 @@ struct DetailView: View {
     var eventStatus: [EventStatus]
     var weeks: [Week]
     let eventTypes = ["lecture", "exercise", "exam"]
-    
     private var totalEstimatedAttendanceCompletion: Double {
         get {
             return EventUtils.getEstimatedCompletion(events: events, eventStatus: eventStatus)
@@ -53,9 +52,26 @@ struct DetailView: View {
                     Text("Projects").font(.title)
                     if let attributes = subject.attributes {
                         ForEach(Array(attributes.keys), id: \.self) { fieldName in
-                            Text(fieldName).font(.title3)
-                            Text("TODO: field value selection")
+                            Text(fieldName)
+                            
                         }
+                        
+//                        ForEach(Array(attributes.keys), id: \.self) { fieldName in
+//                            Text(fieldName)
+////                            let projectF = attributes[fieldName] {
+////                                let p = projectF.rangeField
+////                            }
+//                        }
+                        
+//                        ForEach(Array(attributes.keys), id: \.self) { fieldName in
+//                            Text(fieldName).font(.title3)
+//                            Text("TODO: field value selection")
+//                            let k = attributes.index(forKey: fieldName)
+//                            if let projectField = attributes.first(where: { $0.key == fieldName })?.value,
+//                               Text(projectField)
+//
+//                            //Picker("Project points", selection: $points, in: attributes.)
+//                        }
                     } else {
                         Text("No projects")
                     }

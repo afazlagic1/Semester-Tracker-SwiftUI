@@ -10,7 +10,7 @@ import Firebase
 
 class DataManager: ObservableObject {
     let db = Firestore.firestore()
-
+    
     func setEventStatus(event: Event, attributes: [String: Any]) {
         guard let eventId = event.id else {
             NSLog("Cannot set event status for event")
