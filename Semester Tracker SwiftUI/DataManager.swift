@@ -27,10 +27,20 @@ class DataManager: ObservableObject {
         eventStatus["parentSubject"] = parentSubject
         eventStatus["attributes"] = attributes
 
-        
-        db.collection("event_status").document(eventId).setData(eventStatus) { error in
-            if let error = error {
-                NSLog("Error creating event status: \(error.localizedDescription)")
+        let containsKey = attributes.contains { $0.key == "attendance" }
+
+        if containsKey {
+            db.collection("event_status").document(eventId).setData(eventStatus) { error in
+                if let error = error {
+                    NSLog("Error creating event status: \(error.localizedDescription)")
+                }
+            }
+        }
+        else {
+            db.collection("event_status").document("\(eventId)_POINTS_\(Array(attributes.keys)[0])").setData(eventStatus) { error in
+                if let error = error {
+                    NSLog("Error creating event status: \(error.localizedDescription)")
+                }
             }
         }
     }

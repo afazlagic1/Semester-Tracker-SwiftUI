@@ -23,6 +23,8 @@ struct DetailView: View {
         }
     }
 
+    
+    
     var body: some View {
         NavigationStack {
             ScrollView(.vertical,  showsIndicators: false) {
@@ -57,8 +59,6 @@ struct DetailView: View {
                     if let attributes = subject.attributes {
                         ForEach(Array(attributes.keys), id: \.self) { fieldName in
                             Text(fieldName)
-                            let projectF = attributes[fieldName]
-                            Text("\(projectF.debugDescription)")
                             if(fieldName == "Project 1") {
                                 Picker("Points picker", selection: $pointsP1) {
                                     ForEach(self.listPoints, id: \.self) { option in
@@ -72,9 +72,13 @@ struct DetailView: View {
                                 .onChange(of: pointsP1) { newValue in
                                     print("Selected value: \(newValue)")
                                     eventStatus.forEach { eventSt in
-                                        var attr = ["attendance": eventSt.attributes["attendance"] ?? "", fieldName: pointsP1]
-                                        print("Points: ", attr)
+                                        //Event e = Event(
                                         //dataManager.setEventStatus(event: subject, attributes: attr)
+                                        let attr = [fieldName: pointsP1]
+                                        
+                                        let event = events[0]
+                                        
+                                        dataManager.setEventStatus(event: event, attributes: attr)
                                     }
                                 }
                                 
@@ -91,11 +95,16 @@ struct DetailView: View {
                                 .shadow(radius: 5)
                                 .onChange(of: pointsP2) { newValue in
                                     print("Selected value: \(newValue)")
-                                    eventStatus.forEach { eventSt in
-                                        var attr = ["attendance": eventSt.attributes["attendance"] ?? "", fieldName: pointsP2 ]
-                                        print("Points2: ", attr)
-                                        //dataManager.setEventStatus(event: subject, attributes: attr)
-                                    }
+//                                    eventStatus.forEach { eventSt in
+//                                        var attr = ["attendance": eventSt.attributes["attendance"] ?? "", fieldName: pointsP2 ]
+//                                        print("Points2: ", attr)
+//                                        //dataManager.setEventStatus(event: subject, attributes: attr)
+//                                    }
+                                    let event = events[0]
+                                    
+                                    let attr = [fieldName: pointsP2]
+                                    
+                                    dataManager.setEventStatus(event: event, attributes: attr)
                                 }
                             }
                             // TODO: fix this to generate pickers for project points (from the var subject)
