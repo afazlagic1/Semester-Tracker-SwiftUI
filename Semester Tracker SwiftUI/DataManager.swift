@@ -21,12 +21,13 @@ class DataManager: ObservableObject {
             NSLog("Event has no parent subject")
             return
         }
-
+        
         var eventStatus = [String: Any]()
         eventStatus["parent"] = "/events/\(eventId)"
         eventStatus["parentSubject"] = parentSubject
         eventStatus["attributes"] = attributes
 
+        
         db.collection("event_status").document(eventId).setData(eventStatus) { error in
             if let error = error {
                 NSLog("Error creating event status: \(error.localizedDescription)")
