@@ -69,7 +69,14 @@ struct DetailView: View {
                                 .background(Color.white)
                                 .cornerRadius(10)
                                 .shadow(radius: 5)
-                                
+                                .onChange(of: pointsP1) { newValue in
+                                    print("Selected value: \(newValue)")
+                                    eventStatus.forEach { eventSt in
+                                        var attr = ["attendance": eventSt.attributes["attendance"] ?? "", fieldName: pointsP1]
+                                        print("Points: ", attr)
+                                        //dataManager.setEventStatus(event: subject, attributes: attr)
+                                    }
+                                }
                                 
                             }
                             else {
@@ -82,7 +89,14 @@ struct DetailView: View {
                                 .background(Color.white)
                                 .cornerRadius(10)
                                 .shadow(radius: 5)
-                                
+                                .onChange(of: pointsP2) { newValue in
+                                    print("Selected value: \(newValue)")
+                                    eventStatus.forEach { eventSt in
+                                        var attr = ["attendance": eventSt.attributes["attendance"] ?? "", fieldName: pointsP2 ]
+                                        print("Points2: ", attr)
+                                        //dataManager.setEventStatus(event: subject, attributes: attr)
+                                    }
+                                }
                             }
                             // TODO: fix this to generate pickers for project points (from the var subject)
                             // TODO: ideally this should also display for points from lectures/exercises (use the same logic but with var
@@ -104,13 +118,6 @@ struct DetailView: View {
                 }
             }
         }
-//        .onChange(of: pointsP1) { newValue in
-//            print("Selected value: \(newValue)")
-//            ForEach(eventStatus) { eventSt in
-//                var attr = ["points": pointsP1, "attendance": eventSt.attributes["attendance"] ]
-//                dataManager.setEventStatus(event: subject, attributes: attr)
-//            }
-//        }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .navigationBarTitleDisplayMode(.inline)
             .padding().background(Color.background)
