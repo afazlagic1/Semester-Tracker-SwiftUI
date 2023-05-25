@@ -4,7 +4,6 @@
 //
 //  Created by Anesa Fazlagić on 9. 3. 2023..
 //
-
 import Foundation
 import FirebaseFirestoreSwift
 import Firebase
@@ -34,7 +33,7 @@ enum Field: Codable, Hashable {
             self = .rangeField(data)
             return
         }
-        
+
         if let data = try? container.decode(OptionsField.self) {
             self = .optionsField(data)
             return

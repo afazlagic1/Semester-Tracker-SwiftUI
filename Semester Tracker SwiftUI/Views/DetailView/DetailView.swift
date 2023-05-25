@@ -13,6 +13,8 @@ struct DetailView: View {
     var eventStatus: [EventStatus]
     var weeks: [Week]
     let eventTypes = ["lecture", "exercise", "exam"]
+    @State private var pointsP1 = 0
+    @State private var pointsP2 = 0
     private var totalEstimatedAttendanceCompletion: Double {
         get {
             return EventUtils.getEstimatedCompletion(events: events, eventStatus: eventStatus)
@@ -36,7 +38,7 @@ struct DetailView: View {
 
                     ScrollView(.horizontal, showsIndicators: false) {
                         SubjectsTableHeader(weeks: weeks)
-                        
+
                         ForEach(eventTypes.indices, id: \.hashValue) { index in
                             let filteredEvents = EventUtils.filterEventsByType(events: events, eventTypeSelection: eventTypes[index])
                             let filteredEventStatus = EventUtils.filterEventStatus(events: events, eventStatus: eventStatus)
@@ -53,25 +55,22 @@ struct DetailView: View {
                     if let attributes = subject.attributes {
                         ForEach(Array(attributes.keys), id: \.self) { fieldName in
                             Text(fieldName)
-                            
+                            let projectF = attributes[fieldName]
+                            Text("\(projectF.debugDescription)")
+                            // TODO: fix this to generate pickers for project points (from the var subject)
+                            // TODO: ideally this should also display for points from lectures/exercises (use the same logic but with var
+                            // events which contains the individual lectures/exercises/exams)
+
+//                            switch projectF {
+//                            case .rangeField(let rangeField):
+//                                Picker(selection: $pointsP1, in: rangeField.min...rangeField.max)
+//                                Text("test")
+//                                break
+//                            default:
+//                                Text("Asdf")
+//                                break
+//                            }
                         }
-                        
-//                        ForEach(Array(attributes.keys), id: \.self) { fieldName in
-//                            Text(fieldName)
-////                            let projectF = attributes[fieldName] {
-////                                let p = projectF.rangeField
-////                            }
-//                        }
-                        
-//                        ForEach(Array(attributes.keys), id: \.self) { fieldName in
-//                            Text(fieldName).font(.title3)
-//                            Text("TODO: field value selection")
-//                            let k = attributes.index(forKey: fieldName)
-//                            if let projectField = attributes.first(where: { $0.key == fieldName })?.value,
-//                               Text(projectField)
-//
-//                            //Picker("Project points", selection: $points, in: attributes.)
-//                        }
                     } else {
                         Text("No projects")
                     }
