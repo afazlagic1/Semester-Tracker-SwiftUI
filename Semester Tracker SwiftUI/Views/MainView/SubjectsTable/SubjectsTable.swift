@@ -79,7 +79,7 @@ struct SubjectsTable: View {
     @ViewBuilder
     private func viewForSubjectRow(subject: Event) -> some View {
         let filteredEvents = events.filter {
-            $0.parentSubject == "/events/\(subject.id!)"
+            $0.parentSubject == "/events/\(subject.id!)" || $0.id ?? "" == subject.id ?? ""
         }
 
         let filteredEventStatus = eventStatus.filter {

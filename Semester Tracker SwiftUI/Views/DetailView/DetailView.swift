@@ -14,17 +14,13 @@ struct DetailView: View {
     var eventStatus: [EventStatus]
     var weeks: [Week]
     let eventTypes = ["lecture", "exercise", "exam"]
-    @State private var pointsP1 = "0"
-    @State private var pointsP2 = "0"
-    let listPoints = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+
     private var totalEstimatedAttendanceCompletion: Double {
         get {
             return EventUtils.getEstimatedCompletion(events: events, eventStatus: eventStatus)
         }
     }
 
-    
-    
     var body: some View {
         NavigationStack {
             ScrollView(.vertical,  showsIndicators: false) {
@@ -58,46 +54,30 @@ struct DetailView: View {
                     Text("Projects").font(.title)
                     if let attributes = subject.attributes {
                         ForEach(Array(attributes.keys), id: \.self) { fieldName in
-                            Text(fieldName)
-                            if(fieldName == "Project 1") {
-                                Picker("Points picker", selection: $pointsP1) {
-                                    ForEach(self.listPoints, id: \.self) { option in
-                                        Text(option)
-                                    }
-                                }
-                                .background(Color.white)
-                                .cornerRadius(10)
-                                .shadow(radius: 5)
-                                .onChange(of: pointsP1) { newValue in
-                                    print("Selected value: \(newValue)")
-                                    eventStatus.forEach { eventSt in
-                                        let attr = [fieldName: pointsP1]
-                                        
-                                        let event = events[0]
-                                        
-                                        dataManager.setEventStatus(event: event, attributes: attr)
-                                    }
-                                }
-                                
+                            let eventStatusForSubject = eventStatus.first(where: { $0.id ?? "" == subject.id })
+
+                            let pointsCallback: (Int) -> Void = { (newPoints: Int) in
+                                NSLog(eventStatusForSubject.debugDescription)
+                                print("New points: \(newPoints)")
+
+                                var oldAttributes = eventStatusForSubject?.attributes ?? [String: String]()
+                                oldAttributes[fieldName] = String(newPoints)
+
+                                dataManager.setEventStatus(event: subject, attributes: oldAttributes)
                             }
-                            else {
-                                Picker("Points picker", selection: $pointsP2) {
-                                    ForEach(self.listPoints, id: \.self) { option in
-                                        Text(option)
-                                    }
-                                }
-                                .background(Color.white)
-                                .cornerRadius(10)
-                                .shadow(radius: 5)
-                                .onChange(of: pointsP2) { newValue in
-                                    print("Selected value: \(newValue)")
-                                    let event = events[0]
-                                    
-                                    let attr = [fieldName: pointsP2]
-                                    
-                                    dataManager.setEventStatus(event: event, attributes: attr)
-                                }
+
+                            Text(fieldName).font(.title)
+                            switch attributes[fieldName] {
+                            case .rangeField(let rangeField):
+                                PointsPicker(event: subject, min:rangeField.min, max: rangeField.max,
+                                             setPoints: pointsCallback, selectedPoints: rangeField.default_val)
+                            default:
+                                VStack {}
                             }
+
+                            // TODO: fix this to generate pickers for project points (from the var subject)
+                            // TODO: ideally this should also display for points from lectures/exercises (use the same logic but with var
+                            // events which contains the individual lectures/exercises/exams)
                         }
                     } else {
                         Text("No projects")
@@ -107,6 +87,11 @@ struct DetailView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .navigationBarTitleDisplayMode(.inline)
-            .padding().background(Color.background)
+        .padding().background(Color.background).onAppear {
+            eventStatus.map { $0.id ?? "" }.forEach {
+                status in
+                print(status)
+            }
+        }
     }
 }

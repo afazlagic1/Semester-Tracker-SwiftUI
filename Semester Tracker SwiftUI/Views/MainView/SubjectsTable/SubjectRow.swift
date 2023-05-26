@@ -61,7 +61,8 @@ struct SubjectRow: View {
                                  progress: estimatedCompletion).padding(.horizontal, 5)
                 }
             case .eventType:
-                SubjectTitle(title: Text(eventTypeSelection.capitalized), icon: Text(eventTypeEmote)                    ,progress: estimatedCompletion).padding(.horizontal, 5)
+                SubjectTitle(title: Text(eventTypeSelection.capitalized), icon: Text(eventTypeEmote),
+                             progress: estimatedCompletion).padding(.horizontal, 5)
             }
             Spacer()
             HStack {
@@ -78,12 +79,15 @@ struct SubjectRow: View {
         let attendanceCallback: (String) -> Void = { (newAttendance: String) in
             if (!weekEvents.isEmpty) {
                 let eventStatus = EventUtils.filterEventStatus(events: [weekEvents[0]], eventStatus: eventStatus)
+
                 var origData = [String: String ]()
                 if (!eventStatus.isEmpty) {
                     origData = eventStatus[0].attributes
                 }
+
                 origData["attendance"] = newAttendance
-                setAttributes(event: weekEvents[0], newAttributes: origData)
+
+                dataManager.setEventStatus(event: weekEvents[0], attributes: origData)
             }
         }
 
@@ -109,10 +113,4 @@ struct SubjectRow: View {
 
         return "unfilled"
     }
-
-    private func setAttributes(event: Event, newAttributes: [String: String]) {
-        dataManager.setEventStatus(event: event, attributes: newAttributes)
-//        print("New attendance for event \(event.id ?? "") = \(newAttendance)")
-    }
-
 }

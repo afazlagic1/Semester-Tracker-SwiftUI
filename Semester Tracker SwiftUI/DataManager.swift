@@ -10,21 +10,16 @@ import Firebase
 
 class DataManager: ObservableObject {
     let db = Firestore.firestore()
-    
+
     func setEventStatus(event: Event, attributes: [String: Any]) {
         guard let eventId = event.id else {
             NSLog("Cannot set event status for event")
             return
         }
-        
-        guard let parentSubject = event.parentSubject else {
-            NSLog("Event has no parent subject")
-            return
-        }
-        
+
         var eventStatus = [String: Any]()
         eventStatus["parent"] = "/events/\(eventId)"
-        eventStatus["parentSubject"] = parentSubject
+        eventStatus["parentSubject"] = event.parentSubject ?? ""
         eventStatus["attributes"] = attributes
 
         let containsKey = attributes.contains { $0.key == "attendance" }
@@ -37,7 +32,7 @@ class DataManager: ObservableObject {
             }
         }
         else {
-            db.collection("event_status").document("\(eventId)_POINTS_\(Array(attributes.keys)[0])").setData(eventStatus) { error in
+            db.collection("event_status").document("\(eventId)").setData(eventStatus) { error in
                 if let error = error {
                     NSLog("Error creating event status: \(error.localizedDescription)")
                 }
@@ -46,9 +41,9 @@ class DataManager: ObservableObject {
     }
 
     func addEvent(event: Event) {
-        // TODO: this create a document with id "new" in firestore
-        let ref = db.collection("events").document("anesa")
-        ref.setData(["attributes": [String: Field](), "description": event.description, "end": event.end, "name": event.name, "parent": event.parent ?? "", "parentSubject": event.parentSubject ?? "", "shortcut": event.shortcut, "start": event.start, "type": event.type]) {
+        let ref = db.collection("events").document("\(event.shortcut)")
+        ref.setData(["attributes": [String: Field](), "description": event.description, "end": event.end, "name": event.name, "parent": event.parent ?? "",
+                     "parentSubject": event.parentSubject ?? "", "shortcut": event.shortcut, "start": event.start, "type": event.type]) {
             error in
             if let error = error {
                 print(error.localizedDescription)

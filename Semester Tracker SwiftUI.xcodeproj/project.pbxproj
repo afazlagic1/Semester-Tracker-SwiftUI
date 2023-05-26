@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C7225BB12A208E6600653CCF /* PointsPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7225BB02A208E6600653CCF /* PointsPicker.swift */; };
 		C774265E2A1D6D9400F10090 /* ProgressDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C774265D2A1D6D9400F10090 /* ProgressDisplay.swift */; };
 		C77426622A1E6B5E00F10090 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77426612A1E6B5E00F10090 /* Utils.swift */; };
 		C77426642A1E70F900F10090 /* SubjectTableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77426632A1E70F900F10090 /* SubjectTableHeader.swift */; };
@@ -47,6 +48,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C7225BB02A208E6600653CCF /* PointsPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsPicker.swift; sourceTree = "<group>"; };
 		C774265D2A1D6D9400F10090 /* ProgressDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDisplay.swift; sourceTree = "<group>"; };
 		C77426612A1E6B5E00F10090 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		C77426632A1E70F900F10090 /* SubjectTableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectTableHeader.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 			children = (
 				FB2D636C29DCB097007D707A /* FilterBar.swift */,
 				C774265D2A1D6D9400F10090 /* ProgressDisplay.swift */,
+				C7225BB02A208E6600653CCF /* PointsPicker.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				C774265E2A1D6D9400F10090 /* ProgressDisplay.swift in Sources */,
 				FBB01CED29FB97F0005B3A07 /* DetailView.swift in Sources */,
 				FBDFD8A229CEFD1D0069A4C5 /* StatusListViewModel.swift in Sources */,
+				C7225BB12A208E6600653CCF /* PointsPicker.swift in Sources */,
 				FB04859029CE3E130086323D /* Extensions.swift in Sources */,
 				FB172B8F29D32889000AC842 /* SubjectListViewModel.swift in Sources */,
 				C7875F7129E837F700683BC2 /* SubjectTitle.swift in Sources */,
