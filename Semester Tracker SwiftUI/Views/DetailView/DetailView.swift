@@ -33,14 +33,13 @@ struct DetailView: View {
                     // MARK: DESCRIPTION
                     Text(subject.description)
                         .font(.headline)
-                    
+
+                    Divider()
+                    Text("Events").font(.title)
                     HStack {
                         Text("Total subject event completion: ")
                         ProgressDisplay(progress: totalEstimatedAttendanceCompletion, maxValue: 100)
                     }
-
-                    Divider()
-                    Text("Events").font(.title)
                     ScrollView(.horizontal, showsIndicators: false) {
                         VStack {
                             SubjectsTableHeader(weeks: weeks)
@@ -66,7 +65,7 @@ struct DetailView: View {
                         ForEach(Array(attributes.keys), id: \.self) { fieldName in
                             let pointsCallback: (Int) -> Void = { (newPoints: Int) in
                                 NSLog(eventStatusForSubject.debugDescription)
-                                print("New points: \(newPoints)")
+//                                print("New points: \(newPoints)")
 
                                 var oldAttributes = eventStatusForSubject?.attributes ?? [String: String]()
                                 oldAttributes[fieldName] = String(newPoints)
@@ -116,12 +115,7 @@ struct DetailView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .navigationBarTitleDisplayMode(.inline)
-        .padding().background(Color.background).onAppear {
-            eventStatus.map { $0.id ?? "" }.forEach {
-                status in
-                print(status)
-            }
-        }
+        .padding().background(Color.background)
     }
         
     private func GetFieldIntValue(value: String, defaultValue: Int) -> Int {

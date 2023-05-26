@@ -27,7 +27,7 @@ struct PointsPicker: View {
             .shadow(radius: 5)
             .frame(height: 100)
             .onChange(of: selectedPoints) { newValue in
-                print("Selected value: \(newValue)")
+//                print("Selected value: \(newValue)")
                 setPoints(selectedPoints)
             }
         }

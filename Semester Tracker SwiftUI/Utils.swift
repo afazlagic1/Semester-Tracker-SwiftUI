@@ -106,7 +106,7 @@ class EventUtils {
         }
 
         let totalStatus = eventStatus.reduce(0, +)
-        print("Event count: \(eventCount) eventStatus: \(eventStatus) -> \(totalStatus)")
+//        print("Event count: \(eventCount) eventStatus: \(eventStatus) -> \(totalStatus)")
 
         return (totalStatus / eventCount) * 100
     }

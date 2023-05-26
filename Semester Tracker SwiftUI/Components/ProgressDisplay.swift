@@ -18,7 +18,12 @@ struct ProgressDisplay: View {
                 NSLog("Progress \(finalProgress) overflowed max value of \(maxValue)")
                 finalProgress = maxValue
             }
-            return String(format: "%.0f", finalProgress.rounded(.toNearestOrAwayFromZero))
+            
+            var finalProgressRounded = finalProgress.rounded(.toNearestOrAwayFromZero)
+            if (finalProgressRounded.isNaN) {
+                finalProgressRounded = 0
+            }
+            return String(format: "%.0f", finalProgressRounded)
         }
     }
     
