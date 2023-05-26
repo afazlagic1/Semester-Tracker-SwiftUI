@@ -177,10 +177,12 @@ struct MainView: View {
     @ViewBuilder
     private func ToolbarView() -> some View {
         //MARK: NotificationItem in the right
-        NavigationLink(destination: SettingsView()) {
-            Image(systemName: "help").fontWeight(.bold)
+        NavigationLink(destination: HelpView()) {
+            Image(systemName: "questionmark.circle.fill")
+            .fontWeight(.bold)
             .symbolRenderingMode(.palette)
-            .foregroundStyle(Color.icon, .primary)
+            .foregroundStyle(Color.icon, .primary.opacity(0.5))
+            .background(Color.background)
         }
     }
 

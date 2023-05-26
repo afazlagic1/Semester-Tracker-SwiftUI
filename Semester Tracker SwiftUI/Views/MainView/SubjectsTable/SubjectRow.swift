@@ -27,13 +27,17 @@ struct SubjectRow: View {
 
     private var weekEvents: [(Week, [Event])] {
         get {
-            return weeks.map { week in
+            let weekEvents = weeks.map { week in
                 (week, displayedEvents.filter {event in
-                    event.start >= week.start && event.start < week.end})
+                    let startCond = event.start >= week.start
+                    let endCond = event.start <= week.end
+                    return startCond && endCond
+                })
             }
+            return weekEvents
         }
     }
-    
+
     private var eventTypeEmote: String {
         get {
             switch eventTypeSelection {
