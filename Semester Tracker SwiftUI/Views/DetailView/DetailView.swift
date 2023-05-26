@@ -24,7 +24,7 @@ struct DetailView: View {
     var body: some View {
         NavigationStack {
             ScrollView(.vertical,  showsIndicators: false) {
-                VStack(spacing: 20) {
+                VStack(alignment: .leading, spacing: 20) {
                     // MARK: TITLE
                     Text("\(subject.shortcut): \(subject.name)")
                         .font(.largeTitle)
@@ -33,25 +33,33 @@ struct DetailView: View {
                     // MARK: DESCRIPTION
                     Text(subject.description)
                         .font(.headline)
-                    Text("Total completion: ").font(.title)
-                    ProgressDisplay(progress: totalEstimatedAttendanceCompletion, maxValue: 100)
+                    
+                    HStack {
+                        Text("Total subject event completion: ")
+                        ProgressDisplay(progress: totalEstimatedAttendanceCompletion, maxValue: 100)
+                    }
 
+                    Divider()
+                    Text("Events").font(.title)
                     ScrollView(.horizontal, showsIndicators: false) {
-                        SubjectsTableHeader(weeks: weeks)
+                        VStack {
+                            SubjectsTableHeader(weeks: weeks)
 
-                        ForEach(eventTypes.indices, id: \.hashValue) { index in
-                            let filteredEvents = EventUtils.filterEventsByType(events: events, eventTypeSelection: eventTypes[index])
-                            let filteredEventStatus = EventUtils.filterEventStatus(events: events, eventStatus: eventStatus)
+                            ForEach(eventTypes.indices, id: \.hashValue) { index in
+                                let filteredEvents = EventUtils.filterEventsByType(events: events, eventTypeSelection: eventTypes[index])
+                                let filteredEventStatus = EventUtils.filterEventStatus(events: events, eventStatus: eventStatus)
 
-                            let estimatedCompletion = EventUtils.getEstimatedCompletion(events: filteredEvents, eventStatus: filteredEventStatus)
+                                let estimatedCompletion = EventUtils.getEstimatedCompletion(events: filteredEvents, eventStatus: filteredEventStatus)
 
-                            SubjectRow(subject: subject, weeks: weeks, events: events, displayedEvents: filteredEvents,
-                                       eventStatus: filteredEventStatus, eventTypeSelection: eventTypes[index],
-                                       displayMode: .eventType, estimatedCompletion: estimatedCompletion)
-                        }
+                                SubjectRow(subject: subject, weeks: weeks, events: events, displayedEvents: filteredEvents,
+                                           eventStatus: filteredEventStatus, eventTypeSelection: eventTypes[index],
+                                           displayMode: .eventType, estimatedCompletion: estimatedCompletion)
+                            }
+                        }.padding()
                     }.background(.white).clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
 
-                    Text("Projects").font(.title)
+                    Divider()
+                    Text("Projects").font(.largeTitle)
                     if let attributes = subject.attributes {
                         let eventStatusForSubject = eventStatus.first(where: { $0.id ?? "" == subject.id })
 
@@ -69,10 +77,26 @@ struct DetailView: View {
                             Text(fieldName).font(.title)
                             switch attributes[fieldName] {
                             case .rangeField(let rangeField):
-                                let fieldValue = GetFieldIntValue(
+                                let fieldValue: Int = GetFieldIntValue(
                                     value: eventStatusForSubject?.attributes[fieldName] ?? "",
                                     defaultValue: rangeField.default_val ?? 0
                                 )
+                                
+                                let minPointsToPass = rangeField.min_points_to_pass ?? 0
+
+                                Text("Min points: \(rangeField.min), max points: \(rangeField.max)")
+                            
+                                HStack {
+                                    let rangeFieldMax = Double(rangeField.max)
+                                    Text("Current progress: ")
+                                    ProgressDisplay(progress: (Double(fieldValue) / rangeFieldMax) * 100, maxValue: 100.0)
+                                }
+                                
+                                if (fieldValue >= minPointsToPass) {
+                                    Text("✅ Passed minimum requirements: points \(fieldValue) >= \(minPointsToPass)").foregroundColor(.green).bold()
+                                } else {
+                                    Text("❌ Failed minimum requirements: points \(fieldValue) >= \(minPointsToPass)").foregroundColor(.red).bold()
+                                }
 
                                 PointsPicker(event: subject, min:rangeField.min, max: rangeField.max,
                                              setPoints: pointsCallback,
@@ -82,9 +106,7 @@ struct DetailView: View {
                                 VStack {}
                             }
 
-                            // TODO: fix this to generate pickers for project points (from the var subject)
                             // TODO: ideally this should also display for points from lectures/exercises (use the same logic but with var
-                            // events which contains the individual lectures/exercises/exams)
                         }
                     } else {
                         Text("No projects")

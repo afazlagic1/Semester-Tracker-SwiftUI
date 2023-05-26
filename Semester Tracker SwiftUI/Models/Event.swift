@@ -48,7 +48,7 @@ struct RangeField: Codable, Hashable {
     var default_val: Int?
     var min: Int
     var max: Int
-    var aggregate: Bool?
+    var min_points_to_pass: Int?
 }
 
 struct OptionsField: Codable, Hashable {
