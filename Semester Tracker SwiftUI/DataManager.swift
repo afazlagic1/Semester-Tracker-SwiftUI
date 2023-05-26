@@ -40,8 +40,9 @@ class DataManager: ObservableObject {
         }
     }
 
-    func addEvent(event: Event) {
-        let ref = db.collection("events").document("\(event.shortcut)")
+    func addEvent(semester: Event, subject: Event, event: Event) {
+        let ref = db.collection("events").document("\(semester.shortcut)_\(subject.shortcut)_\(event.shortcut)")
+
         ref.setData(["attributes": [String: Field](), "description": event.description, "end": event.end, "name": event.name, "parent": event.parent ?? "",
                      "parentSubject": event.parentSubject ?? "", "shortcut": event.shortcut, "start": event.start, "type": event.type]) {
             error in

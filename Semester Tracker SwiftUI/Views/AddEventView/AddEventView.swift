@@ -22,9 +22,11 @@ struct AddEventView: View {
     @State private var eventDesc: String = ""
     @State private var navigateToNewView = false
     private var allOptions = ["presence", "absence", "distraction"]
+    var semester: Event
     var subjects: [Event]
-
-    init(subjects: [Event]) {
+    
+    init(semester: Event, subjects: [Event]) {
+        self.semester = semester
         self.subjects = subjects
     }
 
@@ -58,7 +60,7 @@ struct AddEventView: View {
                description: eventDesc, type: eventType.rawValue, start: startD,
                end: endD, attributes: attributes, parent: docRef, parentSubject: docRef
             )
-            dataManager.addEvent(event: newEvent)
+            dataManager.addEvent(semester: semester, subject: selectedSubject, event: newEvent)
         }
 
         ResetForm()

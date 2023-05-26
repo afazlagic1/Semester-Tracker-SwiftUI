@@ -166,7 +166,9 @@ struct MainView: View {
     @ViewBuilder
     func NavigationLinkView() -> some View {
         NavigationLink {
-            AddEventView(subjects: subjects)
+            if let selectedSemester = selectedSemester {
+                AddEventView(semester: selectedSemester, subjects: subjects)
+            }
         } label: {
             Text("🗓️ Add Event").bold()
         }.buttonStyle(.borderedProminent).disabled(semesters.isEmpty || subjects.isEmpty)

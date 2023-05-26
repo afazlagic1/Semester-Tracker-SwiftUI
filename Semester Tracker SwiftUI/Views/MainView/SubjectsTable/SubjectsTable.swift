@@ -50,14 +50,14 @@ struct SubjectsTable: View {
             .shadow(color: Color.primary.opacity(0.2), radius: 10, x: 0, y: 5)
         }
 
-//        #if DEBUG
-//        ScrollView {
-//            Text("DEBUG Event count: \(events.count)").bold()
-//            ForEach(events) { event in
-//                Text("shortcut=\(event.shortcut) parent=\(event.parentSubject ?? "unknown parent")")
-//            }
-//        }.border(Color.black, width: 1)
-//        #endif
+        #if DEBUG
+        ScrollView {
+            Text("DEBUG Event count: \(events.count)").bold()
+            ForEach(events) { event in
+                Text("shortcut=\(event.shortcut) parent=\(event.parentSubject ?? "unknown parent")")
+            }
+        }.border(Color.black, width: 1).frame(height: 100)
+        #endif
     }
 
     @ViewBuilder
