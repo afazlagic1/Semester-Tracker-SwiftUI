@@ -102,18 +102,16 @@ struct DetailView: View {
                 
                 let minPointsToPass = rangeField.min_points_to_pass ?? 0
 
-                Text("Min points: \(rangeField.min), max points: \(rangeField.max)")
-            
                 HStack {
                     let rangeFieldMax = Double(rangeField.max)
-                    Text("Current progress: ")
+                    Text("Current points: \(fieldValue)/\(rangeField.max)")
                     ProgressDisplay(progress: (Double(fieldValue) / rangeFieldMax) * 100, maxValue: 100.0)
                 }
                 
                 if (fieldValue >= minPointsToPass) {
-                    Text("✅ Passed minimum requirements:\npoints \(fieldValue) >= \(minPointsToPass)").foregroundColor(.green).bold()
+                    Text("✅ Passed minimum requirements:\npoints >= \(minPointsToPass)").foregroundColor(.green).bold()
                 } else {
-                    Text("❌ Failed minimum requirements:\npoints \(fieldValue) >= \(minPointsToPass)").foregroundColor(.red).bold()
+                    Text("❌ Failed minimum requirements:\npoints >= \(minPointsToPass)").foregroundColor(.red).bold()
                 }
 
                 PointsPicker(event: subject, min:rangeField.min, max: rangeField.max,

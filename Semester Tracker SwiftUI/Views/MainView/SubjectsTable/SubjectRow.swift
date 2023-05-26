@@ -55,7 +55,6 @@ struct SubjectRow: View {
 
     var body: some View {
         HStack {
-            // TODO: this should show the estimated completion for all event types, not just the
             // one currently filtered
             switch displayMode {
             case .subject:

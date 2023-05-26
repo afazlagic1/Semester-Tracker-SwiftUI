@@ -24,16 +24,18 @@ struct SubjectTitle: View {
                 .overlay {
                     icon.font(.system(size: 40))
             }
-            VStack(spacing: 4) {
+            VStack(alignment: .center, spacing: 4) {
                 // MARK: title subject
                 title.font(.subheadline)
                     .bold()
                     .lineLimit(1)
-                
-                if let progress = progress {
-                    ProgressDisplay(progress: progress, maxValue: 100)
+
+                HStack(alignment: .center) {
+                    if let progress = progress {
+                        ProgressDisplay(progress: progress, maxValue: 100)
+                    }
                 }
-            }
+            }.frame(minWidth: 50)
         }
     }
 }
