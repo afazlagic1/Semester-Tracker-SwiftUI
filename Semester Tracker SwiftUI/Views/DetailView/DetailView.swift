@@ -62,7 +62,7 @@ struct DetailView: View {
                     }.background(.white).clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
 
                     Divider()
-                    Text("Projects").font(.largeTitle)
+                    Text("💻 Projects").font(.largeTitle)
                     if let attributes = subject.attributes {
                         VStack {
                             ForEach(Array(attributes.keys).sorted(by: <), id: \.self) { fieldName in
@@ -70,7 +70,7 @@ struct DetailView: View {
                             }
                         }
                     } else {
-                        Text("No projects")
+                        Text("💻🤔 No projects")
                     }
                 }
             }

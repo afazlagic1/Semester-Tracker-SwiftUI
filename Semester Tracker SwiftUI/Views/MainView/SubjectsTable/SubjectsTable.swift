@@ -43,31 +43,28 @@ struct SubjectsTable: View {
                 Toggle(isOn: $showSubjectsWithoutEvents) {
                     Text("Show subjects without events")
                 }.disabled(subjects.isEmpty)
-            }
+            }.frame(minHeight: 300)
             .padding()
             .background(Color.systemBackground)
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
             .shadow(color: Color.primary.opacity(0.2), radius: 10, x: 0, y: 5)
         }
 
-        #if DEBUG
-        ScrollView {
-            Text("DEBUG Event count: \(events.count)").bold()
-            ForEach(events) { event in
-                Text("shortcut=\(event.shortcut) parent=\(event.parentSubject ?? "unknown parent")")
-            }
-        }.border(Color.black, width: 1).frame(height: 100)
-        #endif
+//        #if DEBUG
+//        ScrollView {
+//            Text("DEBUG Event count: \(events.count)").bold()
+//            ForEach(events) { event in
+//                Text("shortcut=\(event.shortcut) parent=\(event.parentSubject ?? "unknown parent")")
+//            }
+//        }.border(Color.black, width: 1).frame(height: 100)
+//        #endif
     }
 
     @ViewBuilder
     private func SubjectsTableView() -> some View {
         VStack {
-//            if subjects.error != nil {
-//                Text("Error loading subjects: \(subjects.error.debugDescription)")
-//            } else
         if (subjects.isEmpty) {
-                Text("🤔📚 No subjects for selected semester")
+                Text("📚🤔 No subjects for selected semester")
             } else {
                 ScrollView(.horizontal, showsIndicators: false) {
                     SubjectsTableHeader(weeks: weeks)
