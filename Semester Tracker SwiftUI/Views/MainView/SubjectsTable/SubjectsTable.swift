@@ -27,7 +27,7 @@ struct SubjectsTable: View {
 
     private var selectableEventTypes: [String] {
         get {
-            return Array(Set(events.map { $0.type })).sorted().reversed()
+            return Array(Set(events.map { $0.type })).filter{ $0 != "subject" }.sorted().reversed()
         }
     }
 

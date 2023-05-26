@@ -53,9 +53,9 @@ struct DetailView: View {
 
                     Text("Projects").font(.title)
                     if let attributes = subject.attributes {
-                        ForEach(Array(attributes.keys), id: \.self) { fieldName in
-                            let eventStatusForSubject = eventStatus.first(where: { $0.id ?? "" == subject.id })
+                        let eventStatusForSubject = eventStatus.first(where: { $0.id ?? "" == subject.id })
 
+                        ForEach(Array(attributes.keys), id: \.self) { fieldName in
                             let pointsCallback: (Int) -> Void = { (newPoints: Int) in
                                 NSLog(eventStatusForSubject.debugDescription)
                                 print("New points: \(newPoints)")
@@ -69,8 +69,15 @@ struct DetailView: View {
                             Text(fieldName).font(.title)
                             switch attributes[fieldName] {
                             case .rangeField(let rangeField):
+                                let fieldValue = GetFieldIntValue(
+                                    value: eventStatusForSubject?.attributes[fieldName] ?? "",
+                                    defaultValue: rangeField.default_val ?? 0
+                                )
+
                                 PointsPicker(event: subject, min:rangeField.min, max: rangeField.max,
-                                             setPoints: pointsCallback, selectedPoints: rangeField.default_val)
+                                             setPoints: pointsCallback,
+                                             selectedPoints: fieldValue)
+
                             default:
                                 VStack {}
                             }
@@ -93,5 +100,12 @@ struct DetailView: View {
                 print(status)
             }
         }
+    }
+        
+    private func GetFieldIntValue(value: String, defaultValue: Int) -> Int {
+        if let newValue = Int(value) {
+            return newValue
+        }
+        return defaultValue
     }
 }
