@@ -64,52 +64,10 @@ struct DetailView: View {
                     Divider()
                     Text("Projects").font(.largeTitle)
                     if let attributes = subject.attributes {
-                        let eventStatusForSubject = eventStatus.first(where: { $0.id ?? "" == subject.id })
-                        
-                        ForEach(Array(attributes.keys).sorted(by: <), id: \.self) { fieldName in
-                            let pointsCallback: (Int) -> Void = { (newPoints: Int) in
-                                NSLog(eventStatusForSubject.debugDescription)
-//                                print("New points: \(newPoints)")
-
-                                var oldAttributes = eventStatusForSubject?.attributes ?? [String: String]()
-                                oldAttributes[fieldName] = String(newPoints)
-
-                                dataManager.setEventStatus(event: subject, attributes: oldAttributes)
+                        VStack {
+                            ForEach(Array(attributes.keys).sorted(by: <), id: \.self) { fieldName in
+                                ProjectPointsView(fieldName: fieldName, attributes: attributes)
                             }
-
-                            Text(fieldName).font(.title)
-                            switch attributes[fieldName] {
-                            case .rangeField(let rangeField):
-                                let fieldValue: Int = GetFieldIntValue(
-                                    value: eventStatusForSubject?.attributes[fieldName] ?? "",
-                                    defaultValue: rangeField.default_val ?? 0
-                                )
-                                
-                                let minPointsToPass = rangeField.min_points_to_pass ?? 0
-
-                                Text("Min points: \(rangeField.min), max points: \(rangeField.max)")
-                            
-                                HStack {
-                                    let rangeFieldMax = Double(rangeField.max)
-                                    Text("Current progress: ")
-                                    ProgressDisplay(progress: (Double(fieldValue) / rangeFieldMax) * 100, maxValue: 100.0)
-                                }
-                                
-                                if (fieldValue >= minPointsToPass) {
-                                    Text("✅ Passed minimum requirements:\npoints \(fieldValue) >= \(minPointsToPass)").foregroundColor(.green).bold()
-                                } else {
-                                    Text("❌ Failed minimum requirements:\npoints \(fieldValue) >= \(minPointsToPass)").foregroundColor(.red).bold()
-                                }
-
-                                PointsPicker(event: subject, min:rangeField.min, max: rangeField.max,
-                                             setPoints: pointsCallback,
-                                             selectedPoints: fieldValue)
-
-                            default:
-                                VStack {}
-                            }
-
-                            // TODO: ideally this should also display for points from lectures/exercises (use the same logic but with var
                         }
                     } else {
                         Text("No projects")
@@ -120,6 +78,54 @@ struct DetailView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .navigationBarTitleDisplayMode(.inline)
         .padding().background(Color.background)
+    }
+
+    private func ProjectPointsView(fieldName: String, attributes: [String: Field]) -> some View {
+        VStack(alignment: .leading, spacing: 20) {
+            let eventStatusForSubject = eventStatus.first(where: { $0.id ?? "" == subject.id })
+            let pointsCallback: (Int) -> Void = { (newPoints: Int) in
+                NSLog(eventStatusForSubject.debugDescription)
+
+                var oldAttributes = eventStatusForSubject?.attributes ?? [String: String]()
+                oldAttributes[fieldName] = String(newPoints)
+
+                dataManager.setEventStatus(event: subject, attributes: oldAttributes)
+            }
+
+            Text(fieldName).font(.title)
+            switch attributes[fieldName] {
+            case .rangeField(let rangeField):
+                let fieldValue: Int = GetFieldIntValue(
+                    value: eventStatusForSubject?.attributes[fieldName] ?? "",
+                    defaultValue: rangeField.default_val ?? 0
+                )
+                
+                let minPointsToPass = rangeField.min_points_to_pass ?? 0
+
+                Text("Min points: \(rangeField.min), max points: \(rangeField.max)")
+            
+                HStack {
+                    let rangeFieldMax = Double(rangeField.max)
+                    Text("Current progress: ")
+                    ProgressDisplay(progress: (Double(fieldValue) / rangeFieldMax) * 100, maxValue: 100.0)
+                }
+                
+                if (fieldValue >= minPointsToPass) {
+                    Text("✅ Passed minimum requirements:\npoints \(fieldValue) >= \(minPointsToPass)").foregroundColor(.green).bold()
+                } else {
+                    Text("❌ Failed minimum requirements:\npoints \(fieldValue) >= \(minPointsToPass)").foregroundColor(.red).bold()
+                }
+
+                PointsPicker(event: subject, min:rangeField.min, max: rangeField.max,
+                             setPoints: pointsCallback,
+                             selectedPoints: fieldValue)
+
+            default:
+                VStack {}
+            }
+        }
+
+        // TODO: ideally this should also display for points from lectures/exercises (use the same logic but with var
     }
         
     private func GetFieldIntValue(value: String, defaultValue: Int) -> Int {

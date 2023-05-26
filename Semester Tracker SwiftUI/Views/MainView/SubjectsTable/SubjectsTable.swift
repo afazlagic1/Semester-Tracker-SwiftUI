@@ -39,10 +39,10 @@ struct SubjectsTable: View {
                 FilterBar(selection: $eventTypeSelection, items: selectableEventTypes
                 ).padding([.bottom], 10).disabled(subjects.isEmpty)
 
-                SubjectsTableView()
+                SubjectsTableView().padding([.bottom], 10)
                 Toggle(isOn: $showSubjectsWithoutEvents) {
                     Text("Show subjects without events")
-                }
+                }.disabled(subjects.isEmpty)
             }
             .padding()
             .background(Color.systemBackground)
