@@ -65,15 +65,12 @@ struct DetailView: View {
                                         Text(option)
                                     }
                                 }
-                                .pickerStyle(.wheel)
                                 .background(Color.white)
                                 .cornerRadius(10)
                                 .shadow(radius: 5)
                                 .onChange(of: pointsP1) { newValue in
                                     print("Selected value: \(newValue)")
                                     eventStatus.forEach { eventSt in
-                                        //Event e = Event(
-                                        //dataManager.setEventStatus(event: subject, attributes: attr)
                                         let attr = [fieldName: pointsP1]
                                         
                                         let event = events[0]
@@ -89,17 +86,11 @@ struct DetailView: View {
                                         Text(option)
                                     }
                                 }
-                                .pickerStyle(.wheel)
                                 .background(Color.white)
                                 .cornerRadius(10)
                                 .shadow(radius: 5)
                                 .onChange(of: pointsP2) { newValue in
                                     print("Selected value: \(newValue)")
-//                                    eventStatus.forEach { eventSt in
-//                                        var attr = ["attendance": eventSt.attributes["attendance"] ?? "", fieldName: pointsP2 ]
-//                                        print("Points2: ", attr)
-//                                        //dataManager.setEventStatus(event: subject, attributes: attr)
-//                                    }
                                     let event = events[0]
                                     
                                     let attr = [fieldName: pointsP2]
@@ -107,19 +98,6 @@ struct DetailView: View {
                                     dataManager.setEventStatus(event: event, attributes: attr)
                                 }
                             }
-                            // TODO: fix this to generate pickers for project points (from the var subject)
-                            // TODO: ideally this should also display for points from lectures/exercises (use the same logic but with var
-                            // events which contains the individual lectures/exercises/exams)
-
-//                            switch projectF {
-//                            case .rangeField(let rangeField):
-//                                Picker(selection: $pointsP1, in: rangeField.min...rangeField.max)
-//                                Text("test")
-//                                break
-//                            default:
-//                                Text("Asdf")
-//                                break
-//                            }
                         }
                     } else {
                         Text("No projects")

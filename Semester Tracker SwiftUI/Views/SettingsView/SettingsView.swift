@@ -10,9 +10,12 @@ import SwiftUI
 struct SettingsView: View {
     var body: some View {
         NavigationStack {
-            VStack(alignment: .center) {
-                Text("Settings").font(.title)
-                Text("TODO: add settings for week numbering (relative/absolute)")
+            VStack() {
+                Text("Help").font(.title)
+                Image("help")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.background)

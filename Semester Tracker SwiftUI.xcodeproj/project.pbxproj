@@ -35,6 +35,7 @@
 		FB707C512A0B87CC00DFD1F2 /* AddEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB707C502A0B87CC00DFD1F2 /* AddEventView.swift */; };
 		FB7CD7622A1FB706006F9C58 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB7CD7612A1FB706006F9C58 /* GoogleService-Info.plist */; };
 		FB9C1BC329D23277006058C4 /* statuses.json in Resources */ = {isa = PBXBuildFile; fileRef = FBDFD8A529CF19A50069A4C5 /* statuses.json */; };
+		FBACE17C2A208BAF00A593B8 /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = FBACE17B2A208BAF00A593B8 /* help.png */; };
 		FBB01CE629FB8B24005B3A07 /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB01CE529FB8B24005B3A07 /* EventRepository.swift */; };
 		FBB01CE829FB8C88005B3A07 /* EventListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB01CE729FB8C88005B3A07 /* EventListViewModel.swift */; };
 		FBB01CED29FB97F0005B3A07 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB01CEC29FB97F0005B3A07 /* DetailView.swift */; };
@@ -69,6 +70,7 @@
 		FB2D636C29DCB097007D707A /* FilterBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBar.swift; sourceTree = "<group>"; };
 		FB707C502A0B87CC00DFD1F2 /* AddEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventView.swift; sourceTree = "<group>"; };
 		FB7CD7612A1FB706006F9C58 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FBACE17B2A208BAF00A593B8 /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help.png; sourceTree = "<group>"; };
 		FBB01CE529FB8B24005B3A07 /* EventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
 		FBB01CE729FB8C88005B3A07 /* EventListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListViewModel.swift; sourceTree = "<group>"; };
 		FBB01CEC29FB97F0005B3A07 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				FB172B8B29D32760000AC842 /* Models */,
 				FB04856F29CE37BF0086323D /* Semester_Tracker_SwiftUIApp.swift */,
 				FB04857329CE37C20086323D /* Assets.xcassets */,
+				FBACE17B2A208BAF00A593B8 /* help.png */,
 				FB04857529CE37C20086323D /* Preview Content */,
 				FBDFD8A529CF19A50069A4C5 /* statuses.json */,
 				FBBDA1B629D345C70054A247 /* subjects.json */,
@@ -317,6 +320,7 @@
 			files = (
 				FB7CD7622A1FB706006F9C58 /* GoogleService-Info.plist in Resources */,
 				FB9C1BC329D23277006058C4 /* statuses.json in Resources */,
+				FBACE17C2A208BAF00A593B8 /* help.png in Resources */,
 				FB04857729CE37C20086323D /* Preview Assets.xcassets in Resources */,
 				FB04857429CE37C20086323D /* Assets.xcassets in Resources */,
 				FBBDA1B729D345C70054A247 /* subjects.json in Resources */,

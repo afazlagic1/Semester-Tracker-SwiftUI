@@ -69,20 +69,20 @@ struct MainView: View {
             NavigationLinkView()
         }
     
-        #if DEBUG
-        ScrollView {
-            Text("Semesters \(semesters.count)")
-            Text("Subjects \(subjects.count)")
-            Text("Subject events \(events.count)")
-            if let error = $events.error {
-                Text("Subject event error: \(error.localizedDescription)").foregroundColor(.red)
-            }
-            Text("Event status \(eventStatus.count)")
-            if let error = $eventStatus.error {
-                Text("Event status error: \(error.localizedDescription)").foregroundColor(.red)
-            }
-        }.border(Color.black, width: 1)
-        #endif
+//        #if DEBUG
+//        ScrollView {
+//            Text("Semesters \(semesters.count)")
+//            Text("Subjects \(subjects.count)")
+//            Text("Subject events \(events.count)")
+//            if let error = $events.error {
+//                Text("Subject event error: \(error.localizedDescription)").foregroundColor(.red)
+//            }
+//            Text("Event status \(eventStatus.count)")
+//            if let error = $eventStatus.error {
+//                Text("Event status error: \(error.localizedDescription)").foregroundColor(.red)
+//            }
+//        }.border(Color.black, width: 1)
+//        #endif
     }
 
     private func changeSemesterPredicates() {
@@ -179,7 +179,7 @@ struct MainView: View {
     private func ToolbarView() -> some View {
         //MARK: NotificationItem in the right
         NavigationLink(destination: SettingsView()) {
-            Image(systemName: "gearshape").fontWeight(.bold)
+            Image(systemName: "help").fontWeight(.bold)
             .symbolRenderingMode(.palette)
             .foregroundStyle(Color.icon, .primary)
         }
