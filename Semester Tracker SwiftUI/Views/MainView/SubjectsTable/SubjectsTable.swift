@@ -16,6 +16,7 @@ struct SubjectsTable: View {
     var subjects: [Event]
     var events: [Event]
     var eventStatus: [EventStatus]
+    @State private var showSubjectsWithoutEvents: Bool = false
     
     @State private var eventTypeSelection = "lecture"
 
@@ -39,6 +40,9 @@ struct SubjectsTable: View {
                 ).padding([.bottom], 10).disabled(subjects.isEmpty)
 
                 SubjectsTableView()
+                Toggle(isOn: $showSubjectsWithoutEvents) {
+                    Text("Show subjects without events")
+                }
             }
             .padding()
             .background(Color.systemBackground)
@@ -79,7 +83,8 @@ struct SubjectsTable: View {
     @ViewBuilder
     private func viewForSubjectRow(subject: Event) -> some View {
         let filteredEvents = events.filter {
-            $0.parentSubject == "/events/\(subject.id!)" || $0.id ?? "" == subject.id ?? ""
+            $0.parentSubject == "/events/\(subject.id!)" ||
+            $0.id ?? "" == subject.id ?? ""  // To include the Event for the subject itself
         }
 
         let filteredEventStatus = eventStatus.filter {
@@ -87,13 +92,14 @@ struct SubjectsTable: View {
             }.contains($0.parent)
         }
 
-        if filteredEvents.count > 0 {
-            let filteredEventsFinal = EventUtils.filterEventsByType(events: filteredEvents, eventTypeSelection: eventTypeSelection)
-            let filteredEventStatusFinal = EventUtils.filterEventStatus(events: filteredEventsFinal, eventStatus: filteredEventStatus)
 
-            let estimatedCompletion = EventUtils.getEstimatedCompletion(events: filteredEventsFinal,
-                                                                        eventStatus: filteredEventStatusFinal)
+        let filteredEventsFinal = EventUtils.filterEventsByType(events: filteredEvents, eventTypeSelection: eventTypeSelection)
+        let filteredEventStatusFinal = EventUtils.filterEventStatus(events: filteredEventsFinal, eventStatus: filteredEventStatus)
 
+        let estimatedCompletion = EventUtils.getEstimatedCompletion(events: filteredEventsFinal,
+                                                                    eventStatus: filteredEventStatusFinal)
+
+        if filteredEventsFinal.count > 0 || showSubjectsWithoutEvents {
             SubjectRow(subject: subject, weeks: weeks,
                        events: filteredEvents, displayedEvents: filteredEventsFinal, eventStatus: filteredEventStatus,
                        eventTypeSelection: eventTypeSelection, estimatedCompletion: estimatedCompletion)

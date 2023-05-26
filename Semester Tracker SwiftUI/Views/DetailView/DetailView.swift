@@ -35,7 +35,7 @@ struct DetailView: View {
                         .font(.headline)
 
                     Divider()
-                    Text("Events").font(.title)
+                    Text("📅 Events").font(.title)
                     HStack {
                         Text("Total subject event completion: ")
                         ProgressDisplay(progress: totalEstimatedAttendanceCompletion, maxValue: 100)
@@ -50,9 +50,13 @@ struct DetailView: View {
 
                                 let estimatedCompletion = EventUtils.getEstimatedCompletion(events: filteredEvents, eventStatus: filteredEventStatus)
 
-                                SubjectRow(subject: subject, weeks: weeks, events: events, displayedEvents: filteredEvents,
-                                           eventStatus: filteredEventStatus, eventTypeSelection: eventTypes[index],
-                                           displayMode: .eventType, estimatedCompletion: estimatedCompletion)
+                                if (filteredEvents.isEmpty) {
+                                    VStack {}
+                                } else {
+                                    SubjectRow(subject: subject, weeks: weeks, events: events, displayedEvents: filteredEvents,
+                                               eventStatus: filteredEventStatus, eventTypeSelection: eventTypes[index],
+                                               displayMode: .eventType, estimatedCompletion: estimatedCompletion)
+                                }
                             }
                         }.padding()
                     }.background(.white).clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
@@ -61,8 +65,8 @@ struct DetailView: View {
                     Text("Projects").font(.largeTitle)
                     if let attributes = subject.attributes {
                         let eventStatusForSubject = eventStatus.first(where: { $0.id ?? "" == subject.id })
-
-                        ForEach(Array(attributes.keys), id: \.self) { fieldName in
+                        
+                        ForEach(Array(attributes.keys).sorted(by: <), id: \.self) { fieldName in
                             let pointsCallback: (Int) -> Void = { (newPoints: Int) in
                                 NSLog(eventStatusForSubject.debugDescription)
 //                                print("New points: \(newPoints)")
@@ -92,9 +96,9 @@ struct DetailView: View {
                                 }
                                 
                                 if (fieldValue >= minPointsToPass) {
-                                    Text("✅ Passed minimum requirements: points \(fieldValue) >= \(minPointsToPass)").foregroundColor(.green).bold()
+                                    Text("✅ Passed minimum requirements:\npoints \(fieldValue) >= \(minPointsToPass)").foregroundColor(.green).bold()
                                 } else {
-                                    Text("❌ Failed minimum requirements: points \(fieldValue) >= \(minPointsToPass)").foregroundColor(.red).bold()
+                                    Text("❌ Failed minimum requirements:\npoints \(fieldValue) >= \(minPointsToPass)").foregroundColor(.red).bold()
                                 }
 
                                 PointsPicker(event: subject, min:rangeField.min, max: rangeField.max,

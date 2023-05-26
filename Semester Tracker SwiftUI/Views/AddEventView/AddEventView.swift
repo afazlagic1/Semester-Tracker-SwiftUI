@@ -53,12 +53,12 @@ struct AddEventView: View {
             let optionsField = OptionsField(default_val: "presence")
             let field2 = Field.optionsField(optionsField)
             let attributes: [String: Field] = ["field": field2]
-           let newEvent = Event(
+            let newEvent = Event(
                shortcut: eventShortcut, name: eventName,
                description: eventDesc, type: eventType.rawValue, start: startD,
                end: endD, attributes: attributes, parent: docRef, parentSubject: docRef
-           )
-           dataManager.addEvent(event: newEvent)
+            )
+            dataManager.addEvent(event: newEvent)
         }
 
         ResetForm()
@@ -100,7 +100,6 @@ struct AddEventView: View {
                 }
 
                 Section(header: Text("Time details")) {
-                    // TODO: not sure if this is working
                     if let selectedSubject = selectedSubject {
                         //MARK: start date picker
                         DatePicker(selection: $startD, in: selectedSubject.start...) {
@@ -119,9 +118,7 @@ struct AddEventView: View {
                 }
 
                 Section {
-                    //TODO: disable button if required fields are not filled
                     Button {
-                        //TODO: only call this after the alert is confirmed
                         Submit()
                     } label: {
                         HStack {
@@ -129,16 +126,8 @@ struct AddEventView: View {
                             Text("🗓️ Add event").bold()
                             Spacer()
                         }
-                    }.alert(isPresented: $showingAlert) {
-                        Alert(
-                            title: Text("Alert"),
-                            message: Text("Are you sure you want to add this event?"),
-                            primaryButton: .default(Text("OK"),
-                            action: { navigateToNewView = true }),
-                            secondaryButton: .cancel()
-                        )
                     }
-                }
+                }.disabled(eventName.isEmpty || eventShortcut.isEmpty)
             }.navigationTitle(Text("🗓️ New event"))
         }.frame(maxWidth: .infinity)
     }
