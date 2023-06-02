@@ -63,7 +63,9 @@ struct MainView: View {
                 SemesterSwitchedTask()
                 initialLoad = false
             }
-            NavigationLinkView()
+            HStack {
+                NavigationLinkView()
+            }.padding(.vertical, 1)
         }
 
 //       #if DEBUG
@@ -169,7 +171,7 @@ struct MainView: View {
                 AddEventView(semester: selectedSemester, subjects: subjects)
             }
         } label: {
-            Text("🗓️ Add Event").bold()
+            Text("🗓️ Add event").bold().padding(.all, 1).shadow(color: Color.primary.opacity(0.2), radius: 10, x: 0, y: 5)
         }.buttonStyle(.borderedProminent).disabled(semesters.isEmpty || subjects.isEmpty)
     }
 

@@ -49,7 +49,7 @@ struct DetailView: View {
                                     events: events, eventStatus: eventStatus, eventTypeSelection: eventTypes[index])
 
                                 if (eventView.filteredEvents.isEmpty) {
-                                    VStack {}
+                                    EmptyView()
                                 } else {
                                     SubjectRow(subject: subject, weeks: weeks, events: events, displayedEvents: eventView.filteredEvents,
                                                eventStatus: eventView.filteredEventStatus, eventTypeSelection: eventTypes[index],
@@ -57,7 +57,10 @@ struct DetailView: View {
                                 }
                             }
                         }.padding()
-                    }.background(.white).clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                    }.background(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                    .shadow(color: Color.primary.opacity(0.2), radius: 10, x: 0, y: 5)
+                    .padding()
 
                     Divider()
                     Text("💻 Projects").font(.largeTitle)
@@ -97,7 +100,7 @@ struct DetailView: View {
                     value: eventStatusForSubject?.attributes[fieldName] ?? "",
                     defaultValue: rangeField.default_val ?? 0
                 )
-                
+
                 let minPointsToPass = rangeField.min_points_to_pass ?? 0
 
                 HStack {
@@ -105,7 +108,7 @@ struct DetailView: View {
                     Text("Current points: \(fieldValue)/\(rangeField.max)")
                     ProgressDisplay(progress: (Double(fieldValue) / rangeFieldMax) * 100, maxValue: 100.0)
                 }
-                
+
                 if (fieldValue >= minPointsToPass) {
                     Text("✅ Passed minimum requirements:\npoints >= \(minPointsToPass)").foregroundColor(.green).bold()
                 } else {
@@ -123,7 +126,7 @@ struct DetailView: View {
 
         // TODO: ideally this should also display for points from lectures/exercises (use the same logic but with var
     }
-        
+
     private func GetFieldIntValue(value: String, defaultValue: Int) -> Int {
         if let newValue = Int(value) {
             return newValue
