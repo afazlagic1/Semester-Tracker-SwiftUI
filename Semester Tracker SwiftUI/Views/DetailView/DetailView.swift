@@ -35,9 +35,11 @@ struct DetailView: View {
                     Text(subject.description).font(.headline)
 
                     VStack(alignment: .center, spacing: 10) {
-                        Text("📅 Events").font(.title)
-                        EventsView()
-                    }.padding().background(Color.white).cornerRadius(20)
+                        Text("📅 Events").font(.largeTitle)
+                        VStack {
+                            EventsView()
+                        }.padding().background(Color.white).cornerRadius(20)
+                    }
 
                     Divider()
                     VStack(alignment: .center, spacing: 20) {
@@ -45,7 +47,7 @@ struct DetailView: View {
                         ProjectsView()
                     }
                 }
-            }.padding(.top, 10).overlay(
+            }.padding(.top, 10).padding(.bottom, 5).overlay(
                 VStack {
                     LinearGradient(
                         gradient: Gradient(colors: [Color.background, Color.white.opacity(0.0)]),
@@ -53,7 +55,7 @@ struct DetailView: View {
                     Spacer()
                     LinearGradient(
                         gradient: Gradient(colors: [Color.background, Color.white.opacity(0.0)]),
-                        startPoint: .bottom, endPoint: .center).frame(height: 50)
+                        startPoint: .bottom, endPoint: .center).frame(height: 30)
                 }
             )
         }
@@ -114,7 +116,7 @@ struct DetailView: View {
                 dataManager.setEventStatus(event: subject, attributes: oldAttributes)
             }
 
-            Text(fieldName).font(.title)
+            Text("🔬 \(fieldName)").font(.title)
             switch attributes[fieldName] {
             case .rangeField(let rangeField):
                 let fieldValue: Int = GetFieldIntValue(
