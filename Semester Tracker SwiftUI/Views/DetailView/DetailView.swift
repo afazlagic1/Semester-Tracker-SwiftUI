@@ -30,49 +30,17 @@ struct DetailView: View {
                         .font(.largeTitle)
                         .fontWeight(.heavy)
                         .foregroundColor(Color.text)
+
                     // MARK: DESCRIPTION
-                    Text(subject.description)
-                        .font(.headline)
+                    Text(subject.description).font(.headline)
 
                     Divider()
                     Text("📅 Events").font(.title)
-                    HStack {
-                        Text("Total subject event completion: ")
-                        ProgressDisplay(progress: totalEstimatedAttendanceCompletion, maxValue: 100)
-                    }
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        VStack {
-                            SubjectsTableHeader(weeks: weeks)
-
-                            ForEach(eventTypes.indices, id: \.hashValue) { index in
-                                let eventView = EventUtils.getFilteredEventView(
-                                    events: events, eventStatus: eventStatus, eventTypeSelection: eventTypes[index])
-
-                                if (eventView.filteredEvents.isEmpty) {
-                                    EmptyView()
-                                } else {
-                                    SubjectRow(subject: subject, weeks: weeks, events: events, displayedEvents: eventView.filteredEvents,
-                                               eventStatus: eventView.filteredEventStatus, eventTypeSelection: eventTypes[index],
-                                               displayMode: .eventType, estimatedCompletion: eventView.estimatedCompletion)
-                                }
-                            }
-                        }.padding()
-                    }.background(.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-                    .shadow(color: Color.primary.opacity(0.2), radius: 10, x: 0, y: 5)
-                    .padding()
+                    EventsView()
 
                     Divider()
                     Text("💻 Projects").font(.largeTitle)
-                    if let attributes = subject.attributes {
-                        VStack {
-                            ForEach(Array(attributes.keys).sorted(by: <), id: \.self) { fieldName in
-                                ProjectPointsView(fieldName: fieldName, attributes: attributes)
-                            }
-                        }
-                    } else {
-                        Text("💻🤔 No projects")
-                    }
+                    ProjectsView()
                 }
             }
         }
@@ -80,7 +48,50 @@ struct DetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .padding().background(Color.background)
     }
+    
+    @ViewBuilder
+    private func EventsView() -> some View {
+        HStack {
+            Text("Total subject event completion: ")
+            ProgressDisplay(progress: totalEstimatedAttendanceCompletion, maxValue: 100)
+        }
+        ScrollView(.horizontal, showsIndicators: false) {
+            VStack {
+                SubjectsTableHeader(weeks: weeks)
 
+                ForEach(eventTypes.indices, id: \.hashValue) { index in
+                    let eventView = EventUtils.getFilteredEventView(
+                        events: events, eventStatus: eventStatus, eventTypeSelection: eventTypes[index])
+
+                    if (eventView.filteredEvents.isEmpty) {
+                        EmptyView()
+                    } else {
+                        SubjectRow(subject: subject, weeks: weeks, events: events, displayedEvents: eventView.filteredEvents,
+                                   eventStatus: eventView.filteredEventStatus, eventTypeSelection: eventTypes[index],
+                                   displayMode: .eventType, estimatedCompletion: eventView.estimatedCompletion)
+                    }
+                }
+            }.padding()
+        }.background(.white)
+        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+        .shadow(color: Color.primary.opacity(0.2), radius: 10, x: 0, y: 5)
+        .padding()
+    }
+    
+    @ViewBuilder
+    private func ProjectsView() -> some View {
+        if let attributes = subject.attributes {
+            VStack {
+                ForEach(Array(attributes.keys).sorted(by: <), id: \.self) { fieldName in
+                    ProjectPointsView(fieldName: fieldName, attributes: attributes)
+                }
+            }
+        } else {
+            Text("💻🤔 No projects")
+        }
+    }
+
+    @ViewBuilder
     private func ProjectPointsView(fieldName: String, attributes: [String: Field]) -> some View {
         VStack(alignment: .leading, spacing: 20) {
             let eventStatusForSubject = eventStatus.first(where: { $0.id ?? "" == subject.id })
@@ -120,11 +131,9 @@ struct DetailView: View {
                              selectedPoints: fieldValue)
 
             default:
-                VStack {}
+                EmptyView()
             }
         }
-
-        // TODO: ideally this should also display for points from lectures/exercises (use the same logic but with var
     }
 
     private func GetFieldIntValue(value: String, defaultValue: Int) -> Int {

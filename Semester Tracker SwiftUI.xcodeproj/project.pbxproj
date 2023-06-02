@@ -23,28 +23,18 @@
 		FB04857729CE37C20086323D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB04857629CE37C20086323D /* Preview Assets.xcassets */; };
 		FB04858429CE39210086323D /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB04858329CE39210086323D /* Event.swift */; };
 		FB04859029CE3E130086323D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB04858F29CE3E130086323D /* Extensions.swift */; };
-		FB04859229CE41490086323D /* SubjectPreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB04859129CE41490086323D /* SubjectPreviewData.swift */; };
 		FB04859429CE43A10086323D /* SubjectRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB04859329CE43A10086323D /* SubjectRow.swift */; };
 		FB04859729CE45BD0086323D /* SwiftUIFontIcon in Frameworks */ = {isa = PBXBuildFile; productRef = FB04859629CE45BD0086323D /* SwiftUIFontIcon */; };
 		FB04859929CE588C0086323D /* StatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB04859829CE588C0086323D /* StatusCell.swift */; };
-		FB172B8F29D32889000AC842 /* SubjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB172B8E29D32889000AC842 /* SubjectListViewModel.swift */; };
 		FB2490D229D8818D0052AA40 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = FB2490D129D8818D0052AA40 /* Introspect */; };
 		FB2490D729D884810052AA40 /* SimultaneouslyScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = FB2490D629D884810052AA40 /* SimultaneouslyScrollView */; };
-		FB2CF1C029D2208000BC9DF0 /* StatusPreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2CF1BF29D2208000BC9DF0 /* StatusPreviewData.swift */; };
-		FB2D636B29DC9622007D707A /* SimultaneouslyScrollViewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2D636A29DC9621007D707A /* SimultaneouslyScrollViewHandler.swift */; };
 		FB2D636D29DCB097007D707A /* FilterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2D636C29DCB097007D707A /* FilterBar.swift */; };
 		FB707C512A0B87CC00DFD1F2 /* AddEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB707C502A0B87CC00DFD1F2 /* AddEventView.swift */; };
 		FB7CD7622A1FB706006F9C58 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB7CD7612A1FB706006F9C58 /* GoogleService-Info.plist */; };
-		FB9C1BC329D23277006058C4 /* statuses.json in Resources */ = {isa = PBXBuildFile; fileRef = FBDFD8A529CF19A50069A4C5 /* statuses.json */; };
 		FBACE17C2A208BAF00A593B8 /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = FBACE17B2A208BAF00A593B8 /* help.png */; };
-		FBB01CE629FB8B24005B3A07 /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB01CE529FB8B24005B3A07 /* EventRepository.swift */; };
-		FBB01CE829FB8C88005B3A07 /* EventListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB01CE729FB8C88005B3A07 /* EventListViewModel.swift */; };
 		FBB01CED29FB97F0005B3A07 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB01CEC29FB97F0005B3A07 /* DetailView.swift */; };
 		FBBDA1B529D344870054A247 /* SubjectsTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBDA1B429D344870054A247 /* SubjectsTable.swift */; };
-		FBBDA1B729D345C70054A247 /* subjects.json in Resources */ = {isa = PBXBuildFile; fileRef = FBBDA1B629D345C70054A247 /* subjects.json */; };
 		FBCCE2EA2A0C18E10036C1A1 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBCCE2E92A0C18D80036C1A1 /* DataManager.swift */; };
-		FBDFD8A229CEFD1D0069A4C5 /* StatusListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDFD8A129CEFD1D0069A4C5 /* StatusListViewModel.swift */; };
-		FBDFD8A629CF19A50069A4C5 /* statuses.json in Sources */ = {isa = PBXBuildFile; fileRef = FBDFD8A529CF19A50069A4C5 /* statuses.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,24 +53,15 @@
 		FB04857629CE37C20086323D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FB04858329CE39210086323D /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		FB04858F29CE3E130086323D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		FB04859129CE41490086323D /* SubjectPreviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectPreviewData.swift; sourceTree = "<group>"; };
 		FB04859329CE43A10086323D /* SubjectRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectRow.swift; sourceTree = "<group>"; };
 		FB04859829CE588C0086323D /* StatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusCell.swift; sourceTree = "<group>"; };
-		FB172B8E29D32889000AC842 /* SubjectListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectListViewModel.swift; sourceTree = "<group>"; };
-		FB2CF1BF29D2208000BC9DF0 /* StatusPreviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusPreviewData.swift; sourceTree = "<group>"; };
-		FB2D636A29DC9621007D707A /* SimultaneouslyScrollViewHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimultaneouslyScrollViewHandler.swift; sourceTree = "<group>"; };
 		FB2D636C29DCB097007D707A /* FilterBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBar.swift; sourceTree = "<group>"; };
 		FB707C502A0B87CC00DFD1F2 /* AddEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventView.swift; sourceTree = "<group>"; };
 		FB7CD7612A1FB706006F9C58 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FBACE17B2A208BAF00A593B8 /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help.png; sourceTree = "<group>"; };
-		FBB01CE529FB8B24005B3A07 /* EventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
-		FBB01CE729FB8C88005B3A07 /* EventListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListViewModel.swift; sourceTree = "<group>"; };
 		FBB01CEC29FB97F0005B3A07 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		FBBDA1B429D344870054A247 /* SubjectsTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectsTable.swift; sourceTree = "<group>"; };
-		FBBDA1B629D345C70054A247 /* subjects.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = subjects.json; sourceTree = "<group>"; };
 		FBCCE2E92A0C18D80036C1A1 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
-		FBDFD8A129CEFD1D0069A4C5 /* StatusListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusListViewModel.swift; sourceTree = "<group>"; };
-		FBDFD8A529CF19A50069A4C5 /* statuses.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = statuses.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,8 +157,6 @@
 				FB7CD7612A1FB706006F9C58 /* GoogleService-Info.plist */,
 				C774265C2A1D6D6E00F10090 /* Components */,
 				FBCCE2E92A0C18D80036C1A1 /* DataManager.swift */,
-				FBB01CEB29FB8E2F005B3A07 /* Repository */,
-				FBBDA1B329D343500054A247 /* ViewModels */,
 				FB172B9029D328B5000AC842 /* Views */,
 				FB172B8C29D32776000AC842 /* Extensions */,
 				FB172B8B29D32760000AC842 /* Models */,
@@ -185,9 +164,6 @@
 				FB04857329CE37C20086323D /* Assets.xcassets */,
 				FBACE17B2A208BAF00A593B8 /* help.png */,
 				FB04857529CE37C20086323D /* Preview Content */,
-				FBDFD8A529CF19A50069A4C5 /* statuses.json */,
-				FBBDA1B629D345C70054A247 /* subjects.json */,
-				FB2D636A29DC9621007D707A /* SimultaneouslyScrollViewHandler.swift */,
 				C77426612A1E6B5E00F10090 /* Utils.swift */,
 			);
 			path = "Semester Tracker SwiftUI";
@@ -197,8 +173,6 @@
 			isa = PBXGroup;
 			children = (
 				FB04857629CE37C20086323D /* Preview Assets.xcassets */,
-				FB04859129CE41490086323D /* SubjectPreviewData.swift */,
-				FB2CF1BF29D2208000BC9DF0 /* StatusPreviewData.swift */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -230,24 +204,6 @@
 				C77426572A1D446C00F10090 /* MainView */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		FBB01CEB29FB8E2F005B3A07 /* Repository */ = {
-			isa = PBXGroup;
-			children = (
-				FBB01CE529FB8B24005B3A07 /* EventRepository.swift */,
-			);
-			path = Repository;
-			sourceTree = "<group>";
-		};
-		FBBDA1B329D343500054A247 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				FBB01CE729FB8C88005B3A07 /* EventListViewModel.swift */,
-				FBDFD8A129CEFD1D0069A4C5 /* StatusListViewModel.swift */,
-				FB172B8E29D32889000AC842 /* SubjectListViewModel.swift */,
-			);
-			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -322,11 +278,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB7CD7622A1FB706006F9C58 /* GoogleService-Info.plist in Resources */,
-				FB9C1BC329D23277006058C4 /* statuses.json in Resources */,
 				FBACE17C2A208BAF00A593B8 /* help.png in Resources */,
 				FB04857729CE37C20086323D /* Preview Assets.xcassets in Resources */,
 				FB04857429CE37C20086323D /* Assets.xcassets in Resources */,
-				FBBDA1B729D345C70054A247 /* subjects.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,30 +294,22 @@
 				FB04857229CE37BF0086323D /* MainView.swift in Sources */,
 				C786A3AE2A0586EF0007667C /* HelpView.swift in Sources */,
 				FB2D636D29DCB097007D707A /* FilterBar.swift in Sources */,
-				FB2CF1C029D2208000BC9DF0 /* StatusPreviewData.swift in Sources */,
 				FBBDA1B529D344870054A247 /* SubjectsTable.swift in Sources */,
 				C77426622A1E6B5E00F10090 /* Utils.swift in Sources */,
 				C77426642A1E70F900F10090 /* SubjectTableHeader.swift in Sources */,
-				FBB01CE629FB8B24005B3A07 /* EventRepository.swift in Sources */,
-				FBDFD8A629CF19A50069A4C5 /* statuses.json in Sources */,
 				C7D5B1F229EE03C70066187F /* Person.swift in Sources */,
 				C7D5B1F429EF50A80066187F /* EventStatus.swift in Sources */,
 				FB04859429CE43A10086323D /* SubjectRow.swift in Sources */,
-				FB04859229CE41490086323D /* SubjectPreviewData.swift in Sources */,
 				C774265E2A1D6D9400F10090 /* ProgressDisplay.swift in Sources */,
 				FBB01CED29FB97F0005B3A07 /* DetailView.swift in Sources */,
-				FBDFD8A229CEFD1D0069A4C5 /* StatusListViewModel.swift in Sources */,
 				C7225BB12A208E6600653CCF /* PointsPicker.swift in Sources */,
 				FB04859029CE3E130086323D /* Extensions.swift in Sources */,
-				FB172B8F29D32889000AC842 /* SubjectListViewModel.swift in Sources */,
 				C7875F7129E837F700683BC2 /* SubjectTitle.swift in Sources */,
 				FB04859929CE588C0086323D /* StatusCell.swift in Sources */,
 				FB04858429CE39210086323D /* Event.swift in Sources */,
 				FB707C512A0B87CC00DFD1F2 /* AddEventView.swift in Sources */,
 				FBCCE2EA2A0C18E10036C1A1 /* DataManager.swift in Sources */,
-				FB2D636B29DC9622007D707A /* SimultaneouslyScrollViewHandler.swift in Sources */,
 				FB04857029CE37BF0086323D /* Semester_Tracker_SwiftUIApp.swift in Sources */,
-				FBB01CE829FB8C88005B3A07 /* EventListViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
