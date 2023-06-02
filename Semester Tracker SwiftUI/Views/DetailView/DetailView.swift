@@ -45,17 +45,15 @@ struct DetailView: View {
                             SubjectsTableHeader(weeks: weeks)
 
                             ForEach(eventTypes.indices, id: \.hashValue) { index in
-                                let filteredEvents = EventUtils.filterEventsByType(events: events, eventTypeSelection: eventTypes[index])
-                                let filteredEventStatus = EventUtils.filterEventStatus(events: filteredEvents, eventStatus: eventStatus)
+                                let eventView = EventUtils.getFilteredEventView(
+                                    events: events, eventStatus: eventStatus, eventTypeSelection: eventTypes[index])
 
-                                let estimatedCompletion = EventUtils.getEstimatedCompletion(events: filteredEvents, eventStatus: filteredEventStatus)
-
-                                if (filteredEvents.isEmpty) {
+                                if (eventView.filteredEvents.isEmpty) {
                                     VStack {}
                                 } else {
-                                    SubjectRow(subject: subject, weeks: weeks, events: events, displayedEvents: filteredEvents,
-                                               eventStatus: filteredEventStatus, eventTypeSelection: eventTypes[index],
-                                               displayMode: .eventType, estimatedCompletion: estimatedCompletion)
+                                    SubjectRow(subject: subject, weeks: weeks, events: events, displayedEvents: eventView.filteredEvents,
+                                               eventStatus: eventView.filteredEventStatus, eventTypeSelection: eventTypes[index],
+                                               displayMode: .eventType, estimatedCompletion: eventView.estimatedCompletion)
                                 }
                             }
                         }.padding()

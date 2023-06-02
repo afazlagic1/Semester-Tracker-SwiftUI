@@ -67,7 +67,26 @@ class TimeUtils {
     }
 }
 
+struct FilteredEventView {
+    var filteredEvents: [Event]
+    var filteredEventStatus: [EventStatus]
+    var estimatedCompletion: Double
+}
+
 class EventUtils {
+    static func getFilteredEventView(events: [Event], eventStatus: [EventStatus], eventTypeSelection: String) -> FilteredEventView {
+        let filteredEvents = EventUtils.filterEventsByType(events: events, eventTypeSelection: eventTypeSelection)
+        let filteredEventStatus = EventUtils.filterEventStatus(events: filteredEvents, eventStatus: eventStatus)
+
+        let estimatedCompletion = EventUtils.getEstimatedCompletion(events: filteredEvents, eventStatus: filteredEventStatus)
+        
+        return FilteredEventView(
+            filteredEvents: filteredEvents,
+            filteredEventStatus: filteredEventStatus,
+            estimatedCompletion: estimatedCompletion
+        );
+    }
+    
     static func filterEventsByType(events: [Event]?, eventTypeSelection: String) -> [Event] {
         if let events = events {
             return events.filter { $0.type == eventTypeSelection }
@@ -106,8 +125,6 @@ class EventUtils {
         }
 
         let totalStatus = eventStatus.reduce(0, +)
-//        print("Event count: \(eventCount) eventStatus: \(eventStatus) -> \(totalStatus)")
-
         return (totalStatus / eventCount) * 100
     }
 }
