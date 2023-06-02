@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C7225BB12A208E6600653CCF /* PointsPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7225BB02A208E6600653CCF /* PointsPicker.swift */; };
+		C738F0522A2A1E30002950A4 /* GradientOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C738F0512A2A1E30002950A4 /* GradientOverlay.swift */; };
 		C774265E2A1D6D9400F10090 /* ProgressDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C774265D2A1D6D9400F10090 /* ProgressDisplay.swift */; };
 		C77426622A1E6B5E00F10090 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77426612A1E6B5E00F10090 /* Utils.swift */; };
 		C77426642A1E70F900F10090 /* SubjectTableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77426632A1E70F900F10090 /* SubjectTableHeader.swift */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		C7225BB02A208E6600653CCF /* PointsPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsPicker.swift; sourceTree = "<group>"; };
+		C738F0512A2A1E30002950A4 /* GradientOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientOverlay.swift; sourceTree = "<group>"; };
 		C774265D2A1D6D9400F10090 /* ProgressDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDisplay.swift; sourceTree = "<group>"; };
 		C77426612A1E6B5E00F10090 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		C77426632A1E70F900F10090 /* SubjectTableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectTableHeader.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				FB2D636C29DCB097007D707A /* FilterBar.swift */,
 				C774265D2A1D6D9400F10090 /* ProgressDisplay.swift */,
 				C7225BB02A208E6600653CCF /* PointsPicker.swift */,
+				C738F0512A2A1E30002950A4 /* GradientOverlay.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C738F0522A2A1E30002950A4 /* GradientOverlay.swift in Sources */,
 				FB04857229CE37BF0086323D /* MainView.swift in Sources */,
 				C786A3AE2A0586EF0007667C /* HelpView.swift in Sources */,
 				FB2D636D29DCB097007D707A /* FilterBar.swift in Sources */,

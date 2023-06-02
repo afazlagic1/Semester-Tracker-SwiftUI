@@ -46,8 +46,8 @@ struct SubjectsTable: View {
             }.frame(minHeight: 300)
             .padding()
             .background(Color.systemBackground)
-            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-            .shadow(color: Color.primary.opacity(0.2), radius: 10, x: 0, y: 5)
+            .cornerRadius(20)
+            .shadow(radius: .pi)
         }
 
 //        #if DEBUG
@@ -72,7 +72,9 @@ struct SubjectsTable: View {
                     ForEach(subjects) { subject in
                         viewForSubjectRow(subject: subject)
                     }
-                }
+                }.padding(.leading, 5).overlay(
+                    GradientOverlay()
+                )
             }
         }
     }

@@ -31,7 +31,6 @@ struct StatusCell: View {
     }
     
     var icon: FontCode {
-        // TODO: we could also use the Image(systemName: ...)
         switch attendance {
         case "presence":
             return .awesome5Solid(code: .check)

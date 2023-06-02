@@ -171,7 +171,7 @@ struct MainView: View {
                 AddEventView(semester: selectedSemester, subjects: subjects)
             }
         } label: {
-            Text("🗓️ Add event").bold().padding(.all, 1).shadow(color: Color.primary.opacity(0.2), radius: 10, x: 0, y: 5)
+            Text("🗓️ Add event").bold().padding(.all, 1)
         }.buttonStyle(.borderedProminent).disabled(semesters.isEmpty || subjects.isEmpty)
     }
 

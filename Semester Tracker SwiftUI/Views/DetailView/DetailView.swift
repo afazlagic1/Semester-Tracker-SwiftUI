@@ -34,25 +34,38 @@ struct DetailView: View {
                     // MARK: DESCRIPTION
                     Text(subject.description).font(.headline)
 
-                    Divider()
-                    Text("📅 Events").font(.title)
-                    EventsView()
+                    VStack(alignment: .center, spacing: 10) {
+                        Text("📅 Events").font(.title)
+                        EventsView()
+                    }.padding().background(Color.white).cornerRadius(20)
 
                     Divider()
-                    Text("💻 Projects").font(.largeTitle)
-                    ProjectsView()
+                    VStack(alignment: .center, spacing: 20) {
+                        Text("💻 Projects").font(.largeTitle)
+                        ProjectsView()
+                    }
                 }
-            }
+            }.padding(.top, 10).overlay(
+                VStack {
+                    LinearGradient(
+                        gradient: Gradient(colors: [Color.background, Color.white.opacity(0.0)]),
+                        startPoint: .center, endPoint: .bottom).frame(height: 20)
+                    Spacer()
+                    LinearGradient(
+                        gradient: Gradient(colors: [Color.background, Color.white.opacity(0.0)]),
+                        startPoint: .bottom, endPoint: .center).frame(height: 50)
+                }
+            )
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .navigationBarTitleDisplayMode(.inline)
         .padding().background(Color.background)
     }
-    
+
     @ViewBuilder
     private func EventsView() -> some View {
         HStack {
-            Text("Total subject event completion: ")
+            Text("• Total subject event completion: ")
             ProgressDisplay(progress: totalEstimatedAttendanceCompletion, maxValue: 100)
         }
         ScrollView(.horizontal, showsIndicators: false) {
@@ -73,18 +86,15 @@ struct DetailView: View {
                 }
             }.padding()
         }.background(.white)
-        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-        .shadow(color: Color.primary.opacity(0.2), radius: 10, x: 0, y: 5)
-        .padding()
+        .overlay(GradientOverlay())
     }
-    
+
     @ViewBuilder
     private func ProjectsView() -> some View {
         if let attributes = subject.attributes {
-            VStack {
-                ForEach(Array(attributes.keys).sorted(by: <), id: \.self) { fieldName in
-                    ProjectPointsView(fieldName: fieldName, attributes: attributes)
-                }
+            ForEach(Array(attributes.keys).sorted(by: <), id: \.self) { fieldName in
+                ProjectPointsView(fieldName: fieldName, attributes: attributes)
+                    .padding().background(Color.white).cornerRadius(20)
             }
         } else {
             Text("💻🤔 No projects")
@@ -96,7 +106,7 @@ struct DetailView: View {
         VStack(alignment: .leading, spacing: 20) {
             let eventStatusForSubject = eventStatus.first(where: { $0.id ?? "" == subject.id })
             let pointsCallback: (Int) -> Void = { (newPoints: Int) in
-                NSLog(eventStatusForSubject.debugDescription)
+                NSLog("Set points for event \(eventStatusForSubject.debugDescription) to \(newPoints)")
 
                 var oldAttributes = eventStatusForSubject?.attributes ?? [String: String]()
                 oldAttributes[fieldName] = String(newPoints)
@@ -116,19 +126,24 @@ struct DetailView: View {
 
                 HStack {
                     let rangeFieldMax = Double(rangeField.max)
-                    Text("Current points: \(fieldValue)/\(rangeField.max)")
+                    Text("• Current points: \(fieldValue)/\(rangeField.max)")
                     ProgressDisplay(progress: (Double(fieldValue) / rangeFieldMax) * 100, maxValue: 100.0)
                 }
 
                 if (fieldValue >= minPointsToPass) {
-                    Text("✅ Passed minimum requirements:\npoints >= \(minPointsToPass)").foregroundColor(.green).bold()
+                    Text("• ✅ Passed minimum requirements:\npoints >= \(minPointsToPass)").foregroundColor(.green).bold()
                 } else {
-                    Text("❌ Failed minimum requirements:\npoints >= \(minPointsToPass)").foregroundColor(.red).bold()
+                    Text("• ❌ Failed minimum requirements:\npoints >= \(minPointsToPass)").foregroundColor(.red).bold()
                 }
 
+                Text("Project points:")
                 PointsPicker(event: subject, min:rangeField.min, max: rangeField.max,
                              setPoints: pointsCallback,
-                             selectedPoints: fieldValue)
+                             selectedPoints: fieldValue).frame(height: 100)
+                    .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color.black.opacity(0.1), lineWidth: 1)
+                        )
 
             default:
                 EmptyView()

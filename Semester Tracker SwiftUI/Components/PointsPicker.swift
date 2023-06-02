@@ -22,11 +22,6 @@ struct PointsPicker: View {
                 }
             }
             .pickerStyle(.wheel)
-            .background(Color.white)
-            .cornerRadius(10)
-            .padding()
-            .shadow(radius: 5)
-            .frame(height: 120)
             .onChange(of: selectedPoints) { newValue in
                 setPoints(selectedPoints)
             }
