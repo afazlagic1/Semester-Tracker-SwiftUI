@@ -99,7 +99,7 @@ struct SubjectsTable: View {
                 subject: subject, weeks: weeks,
                 events: filteredEvents, displayedEvents:
                 eventView.filteredEvents,
-                eventStatus: eventView.filteredEventStatus,
+                eventStatus: filteredEventStatus,
                 eventTypeSelection: eventTypeSelection,
                 estimatedCompletion: eventView.estimatedCompletion
             )
