@@ -46,7 +46,7 @@ struct DetailView: View {
 
                             ForEach(eventTypes.indices, id: \.hashValue) { index in
                                 let filteredEvents = EventUtils.filterEventsByType(events: events, eventTypeSelection: eventTypes[index])
-                                let filteredEventStatus = EventUtils.filterEventStatus(events: events, eventStatus: eventStatus)
+                                let filteredEventStatus = EventUtils.filterEventStatus(events: filteredEvents, eventStatus: eventStatus)
 
                                 let estimatedCompletion = EventUtils.getEstimatedCompletion(events: filteredEvents, eventStatus: filteredEventStatus)
 
