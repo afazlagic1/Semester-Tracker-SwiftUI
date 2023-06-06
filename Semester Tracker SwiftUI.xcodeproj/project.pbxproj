@@ -29,7 +29,6 @@
 		FB04859929CE588C0086323D /* StatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB04859829CE588C0086323D /* StatusCell.swift */; };
 		FB2490D229D8818D0052AA40 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = FB2490D129D8818D0052AA40 /* Introspect */; };
 		FB2490D729D884810052AA40 /* SimultaneouslyScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = FB2490D629D884810052AA40 /* SimultaneouslyScrollView */; };
-		FB2D636D29DCB097007D707A /* FilterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2D636C29DCB097007D707A /* FilterBar.swift */; };
 		FB707C512A0B87CC00DFD1F2 /* AddEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB707C502A0B87CC00DFD1F2 /* AddEventView.swift */; };
 		FB7CD7622A1FB706006F9C58 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB7CD7612A1FB706006F9C58 /* GoogleService-Info.plist */; };
 		FBACE17C2A208BAF00A593B8 /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = FBACE17B2A208BAF00A593B8 /* help.png */; };
@@ -57,7 +56,6 @@
 		FB04858F29CE3E130086323D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		FB04859329CE43A10086323D /* SubjectRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectRow.swift; sourceTree = "<group>"; };
 		FB04859829CE588C0086323D /* StatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusCell.swift; sourceTree = "<group>"; };
-		FB2D636C29DCB097007D707A /* FilterBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBar.swift; sourceTree = "<group>"; };
 		FB707C502A0B87CC00DFD1F2 /* AddEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventView.swift; sourceTree = "<group>"; };
 		FB7CD7612A1FB706006F9C58 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FBACE17B2A208BAF00A593B8 /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help.png; sourceTree = "<group>"; };
@@ -85,7 +83,6 @@
 		C77426572A1D446C00F10090 /* MainView */ = {
 			isa = PBXGroup;
 			children = (
-				C77426582A1D486600F10090 /* SubjectsTable */,
 				FB04857129CE37BF0086323D /* MainView.swift */,
 			);
 			path = MainView;
@@ -130,12 +127,21 @@
 		C774265C2A1D6D6E00F10090 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				FB2D636C29DCB097007D707A /* FilterBar.swift */,
+				C77426582A1D486600F10090 /* SubjectsTable */,
 				C774265D2A1D6D9400F10090 /* ProgressDisplay.swift */,
 				C7225BB02A208E6600653CCF /* PointsPicker.swift */,
 				C738F0512A2A1E30002950A4 /* GradientOverlay.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		C7C11C872A2F265A00992479 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				FBCCE2E92A0C18D80036C1A1 /* DataManager.swift */,
+				C77426612A1E6B5E00F10090 /* Utils.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		FB04856329CE37BF0086323D = {
@@ -157,9 +163,9 @@
 		FB04856E29CE37BF0086323D /* Semester Tracker SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				C7C11C872A2F265A00992479 /* Helpers */,
 				FB7CD7612A1FB706006F9C58 /* GoogleService-Info.plist */,
 				C774265C2A1D6D6E00F10090 /* Components */,
-				FBCCE2E92A0C18D80036C1A1 /* DataManager.swift */,
 				FB172B9029D328B5000AC842 /* Views */,
 				FB172B8C29D32776000AC842 /* Extensions */,
 				FB172B8B29D32760000AC842 /* Models */,
@@ -167,7 +173,6 @@
 				FB04857329CE37C20086323D /* Assets.xcassets */,
 				FBACE17B2A208BAF00A593B8 /* help.png */,
 				FB04857529CE37C20086323D /* Preview Content */,
-				C77426612A1E6B5E00F10090 /* Utils.swift */,
 			);
 			path = "Semester Tracker SwiftUI";
 			sourceTree = "<group>";
@@ -297,7 +302,6 @@
 				C738F0522A2A1E30002950A4 /* GradientOverlay.swift in Sources */,
 				FB04857229CE37BF0086323D /* MainView.swift in Sources */,
 				C786A3AE2A0586EF0007667C /* HelpView.swift in Sources */,
-				FB2D636D29DCB097007D707A /* FilterBar.swift in Sources */,
 				FBBDA1B529D344870054A247 /* SubjectsTable.swift in Sources */,
 				C77426622A1E6B5E00F10090 /* Utils.swift in Sources */,
 				C77426642A1E70F900F10090 /* SubjectTableHeader.swift in Sources */,

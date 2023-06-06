@@ -15,22 +15,3 @@ extension Color {
     static let icon = Color("Icon")
     static let color = Color("Color")
 }
-
-extension DateFormatter {
-    static let allNumericFormat: DateFormatter = {
-        let formater = DateFormatter()
-        formater.dateFormat = "dd/MM/yyyy"
-        return formater
-    }()
-    static let dayMonthFormat: DateFormatter = {
-        let formater = DateFormatter()
-        formater.dateFormat = "d MMM"
-        return formater
-    }()
-}
-extension String {
-    func dateParsed() -> Date {
-        guard let dateP = DateFormatter.allNumericFormat.date(from: self) else { return Date() }
-        return dateP
-    }
-}

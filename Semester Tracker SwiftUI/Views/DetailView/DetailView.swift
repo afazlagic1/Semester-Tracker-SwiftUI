@@ -24,6 +24,7 @@ struct DetailView: View {
     var body: some View {
         NavigationStack {
             ScrollView(.vertical,  showsIndicators: false) {
+                VStack{}.frame(height: 5)
                 VStack(alignment: .leading, spacing: 20) {
                     // MARK: TITLE
                     Text("\(subject.shortcut): \(subject.name)")
@@ -33,7 +34,8 @@ struct DetailView: View {
 
                     // MARK: DESCRIPTION
                     Text(subject.description).font(.headline)
-
+                    
+                    Divider()
                     VStack(alignment: .center, spacing: 10) {
                         Text("📅 Events").font(.largeTitle)
                         VStack {
@@ -46,17 +48,18 @@ struct DetailView: View {
                         Text("💻 Projects").font(.largeTitle)
                         ProjectsView()
                     }
+                    VStack{}.frame(height: 10)
                 }
-            }.padding(.top, 10).padding(.bottom, 5).overlay(
+            }.overlay(
                 VStack {
                     LinearGradient(
                         gradient: Gradient(colors: [Color.background, Color.white.opacity(0.0)]),
-                        startPoint: .center, endPoint: .bottom).frame(height: 20)
+                        startPoint: .top, endPoint: .center).frame(height: 40)
                     Spacer()
                     LinearGradient(
                         gradient: Gradient(colors: [Color.background, Color.white.opacity(0.0)]),
-                        startPoint: .bottom, endPoint: .center).frame(height: 30)
-                }
+                        startPoint: .bottom, endPoint: .center).frame(height: 40)
+                }.allowsHitTesting(false)
             )
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -88,7 +91,7 @@ struct DetailView: View {
                 }
             }.padding()
         }.background(.white)
-        .overlay(GradientOverlay())
+        .overlay(GradientOverlay().allowsHitTesting(false))
     }
 
     @ViewBuilder

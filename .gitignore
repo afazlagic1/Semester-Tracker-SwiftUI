@@ -1,0 +1,8 @@
+data_generator
+*.xcbkptlist
+*.plist
+.DS_Store
+*.xcworkspacedata
+*.xcuserstate
+.vscode
+*.json

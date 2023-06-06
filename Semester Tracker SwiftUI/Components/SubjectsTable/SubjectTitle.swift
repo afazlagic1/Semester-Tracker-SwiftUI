@@ -21,9 +21,7 @@ struct SubjectTitle: View {
             RoundedRectangle(cornerRadius: 15, style: .continuous)
                 .fill(Color.icon.opacity(0.1))
                 .frame(width: iconSize, height: iconSize)
-                .overlay {
-                    icon.font(.system(size: 40))
-            }
+                .overlay {icon.font(.system(size: 40))}
             VStack(alignment: .center, spacing: 4) {
                 // MARK: title subject
                 title.font(.subheadline)

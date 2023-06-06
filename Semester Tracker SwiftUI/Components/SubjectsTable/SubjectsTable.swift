@@ -72,9 +72,7 @@ struct SubjectsTable: View {
                     ForEach(subjects) { subject in
                         viewForSubjectRow(subject: subject)
                     }
-                }.padding(.leading, 5).overlay(
-                    GradientOverlay()
-                )
+                }.padding(.leading, 5).overlay(GradientOverlay().allowsHitTesting(false))
             }
         }
     }
@@ -103,6 +101,21 @@ struct SubjectsTable: View {
                 eventTypeSelection: eventTypeSelection,
                 estimatedCompletion: eventView.estimatedCompletion
             )
+        }
+    }
+}
+
+struct FilterBar: View {
+    @Binding var selection: String
+    var items: [String]
+    
+    var body: some View {
+        VStack {
+            Picker("Pick event type.", selection: $selection) {
+                ForEach(items, id: \.self) {
+                    Text($0.capitalized)
+                }
+            }.pickerStyle(.segmented)
         }
     }
 }
