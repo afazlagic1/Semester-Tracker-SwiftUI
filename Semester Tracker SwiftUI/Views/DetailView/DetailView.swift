@@ -24,47 +24,37 @@ struct DetailView: View {
     var body: some View {
         NavigationStack {
             ScrollView(.vertical,  showsIndicators: false) {
-                VStack{}.frame(height: 5)
                 VStack(alignment: .leading, spacing: 20) {
-                    // MARK: TITLE
-                    Text("\(subject.shortcut): \(subject.name)")
-                        .font(.largeTitle)
-                        .fontWeight(.heavy)
-                        .foregroundColor(Color.text)
+                    VStack(alignment: .leading, spacing: 20) {
+                        // MARK: TITLE
+                        Text("\(subject.shortcut): \(subject.name)")
+                            .font(.largeTitle)
+                            .fontWeight(.heavy)
+                            .foregroundColor(Color.text)
 
-                    // MARK: DESCRIPTION
-                    Text(subject.description).font(.headline)
-                    
+                        // MARK: DESCRIPTION
+                        Text(subject.description).font(.headline)
+                    }.padding(.horizontal)
+
                     Divider()
                     VStack(alignment: .center, spacing: 10) {
-                        Text("📅 Events").font(.largeTitle)
+                        Text("📅 Events").font(.largeTitle).shadow(radius: shadowRadius)
                         VStack {
                             EventsView()
-                        }.padding().background(Color.white).cornerRadius(20)
-                    }
+                        }.padding().background(Color.white).cornerRadius(frameCornerRadius).shadow(radius: shadowRadius)
+                    }.padding(.horizontal)
 
                     Divider()
                     VStack(alignment: .center, spacing: 20) {
-                        Text("💻 Projects").font(.largeTitle)
+                        Text("💻 Projects").font(.largeTitle).shadow(radius: shadowRadius)
                         ProjectsView()
-                    }
-                    VStack{}.frame(height: 10)
+                    }.padding(.horizontal)
                 }
-            }.overlay(
-                VStack {
-                    LinearGradient(
-                        gradient: Gradient(colors: [Color.background, Color.white.opacity(0.0)]),
-                        startPoint: .top, endPoint: .center).frame(height: 40)
-                    Spacer()
-                    LinearGradient(
-                        gradient: Gradient(colors: [Color.background, Color.white.opacity(0.0)]),
-                        startPoint: .bottom, endPoint: .center).frame(height: 40)
-                }.allowsHitTesting(false)
-            )
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .navigationBarTitleDisplayMode(.inline)
-        .padding().background(Color.background)
+        .navigationBarTitleDisplayMode(.inline).background(backgroundGradient)
+        .navigationTitle(Text("\(subject.shortcut): \(subject.name)"))
     }
 
     @ViewBuilder
@@ -99,7 +89,7 @@ struct DetailView: View {
         if let attributes = subject.attributes {
             ForEach(Array(attributes.keys).sorted(by: <), id: \.self) { fieldName in
                 ProjectPointsView(fieldName: fieldName, attributes: attributes)
-                    .padding().background(Color.white).cornerRadius(20)
+                    .padding().background(.white).cornerRadius(frameCornerRadius).shadow(radius: shadowRadius)
             }
         } else {
             Text("💻🤔 No projects")
@@ -120,6 +110,7 @@ struct DetailView: View {
             }
 
             Text("🔬 \(fieldName)").font(.title)
+            Divider()
             switch attributes[fieldName] {
             case .rangeField(let rangeField):
                 let fieldValue: Int = GetFieldIntValue(
@@ -141,15 +132,14 @@ struct DetailView: View {
                     Text("• ❌ Failed minimum requirements:\npoints >= \(minPointsToPass)").foregroundColor(.red).bold()
                 }
 
-                Text("Project points:")
+                Text("Project points")
                 PointsPicker(event: subject, min:rangeField.min, max: rangeField.max,
                              setPoints: pointsCallback,
                              selectedPoints: fieldValue).frame(height: 100)
                     .overlay(
-                            RoundedRectangle(cornerRadius: 20)
+                            RoundedRectangle(cornerRadius: frameCornerRadius)
                                 .stroke(Color.black.opacity(0.1), lineWidth: 1)
                         )
-
             default:
                 EmptyView()
             }

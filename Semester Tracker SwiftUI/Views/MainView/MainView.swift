@@ -54,7 +54,7 @@ struct MainView: View {
                 SubjectsTableView().environmentObject(dataManager)
                 Spacer()
             }.padding().frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.background)
+                .background(backgroundGradient)
             .toolbar {
                 ToolbarItem {
                     ToolbarView()
@@ -67,21 +67,6 @@ struct MainView: View {
                 NavigationLinkView()
             }.padding(.vertical, 1)
         }
-
-//       #if DEBUG
-//       ScrollView {
-//           Text("Semesters \(semesters.count)")
-//           Text("Subjects \(subjects.count)")
-//           Text("Subject events \(events.count)")
-//           if let error = $events.error {
-//               Text("Subject event error: \(error.localizedDescription)").foregroundColor(.red)
-//           }
-//           Text("Event status \(eventStatus.count)")
-//           if let error = $eventStatus.error {
-//               Text("Event status error: \(error.localizedDescription)").foregroundColor(.red)
-//           }
-//       }.border(Color.black, width: 1).frame(height: 200)
-//       #endif
     }
 
     private func changeSemesterPredicates() {
@@ -171,19 +156,20 @@ struct MainView: View {
                 AddEventView(semester: selectedSemester, subjects: subjects)
             }
         } label: {
-            Text("🗓️ Add event").bold().padding(.all, 1)
-        }.buttonStyle(.borderedProminent).disabled(semesters.isEmpty || subjects.isEmpty)
+            Text("🗓️ Add event").bold().padding(.vertical, 12).padding(.horizontal, 20)
+                .background(clickableGradient)
+                .foregroundColor(.white).shadow(radius: shadowRadius)
+        }.disabled(semesters.isEmpty || subjects.isEmpty).cornerRadius(frameCornerRadius).shadow(radius: shadowRadius)
     }
 
     @ViewBuilder
     private func ToolbarView() -> some View {
         //MARK: NotificationItem in the right
         NavigationLink(destination: HelpView()) {
-            Image(systemName: "questionmark.circle.fill")
+            Image(systemName: "questionmark.circle.fill").font(.system(size: 24))
             .fontWeight(.bold)
             .symbolRenderingMode(.palette)
-            .foregroundStyle(Color.icon, .primary.opacity(0.5))
-            .background(Color.background)
+            .foregroundStyle(.background, .primary.opacity(0.5)).shadow(radius: shadowRadius)
         }
     }
 

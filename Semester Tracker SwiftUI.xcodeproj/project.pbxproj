@@ -138,6 +138,7 @@
 		C7C11C872A2F265A00992479 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				FB172B8C29D32776000AC842 /* Extensions */,
 				FBCCE2E92A0C18D80036C1A1 /* DataManager.swift */,
 				C77426612A1E6B5E00F10090 /* Utils.swift */,
 			);
@@ -167,7 +168,6 @@
 				FB7CD7612A1FB706006F9C58 /* GoogleService-Info.plist */,
 				C774265C2A1D6D6E00F10090 /* Components */,
 				FB172B9029D328B5000AC842 /* Views */,
-				FB172B8C29D32776000AC842 /* Extensions */,
 				FB172B8B29D32760000AC842 /* Models */,
 				FB04856F29CE37BF0086323D /* Semester_Tracker_SwiftUIApp.swift */,
 				FB04857329CE37C20086323D /* Assets.xcassets */,

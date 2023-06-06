@@ -60,7 +60,7 @@ struct StatusCell: View {
         }) {
             let icon = FontIcon.text(icon, fontsize: fontsize, color: backgroundColor)
             CellRectangle(backgroundColor: backgroundColor.opacity(0.25), content: icon, fixedHeight: true)
-                .shadow(radius: .pi).opacity(week.ended ? 0.5 : 1)
+                .shadow(radius: shadowRadius).opacity(week.ended ? 0.5 : 1)
         }.disabled(attendance == nil)
     }
 }
@@ -75,8 +75,6 @@ struct CellRectangle: View {
         RoundedRectangle(cornerRadius: 5, style: .continuous)
             .fill(backgroundColor)
             .frame(width: iconSize, height: fixedHeight ? iconSize : 15)
-            .overlay {
-                content
-            }
+            .overlay { content }
     }
 }

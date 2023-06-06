@@ -10,16 +10,17 @@ import SwiftUI
 struct HelpView: View {
     var body: some View {
         NavigationStack {
-            VStack {
-                Text("Help").font(.largeTitle)
+            VStack() {
+                Text("Basic usage").font(.largeTitle)
                 Image("help")
                     .resizable()
                     .scaledToFit()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .padding()
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.background)
-        }.navigationBarTitleDisplayMode(.inline)
+                    .cornerRadius(frameCornerRadius)
+                    .frame(maxWidth: .infinity)
+                    .shadow(radius: shadowRadius).padding()
+                    
+                Spacer()
+            }.background(backgroundGradient)
+        }.navigationBarTitleDisplayMode(.inline).navigationTitle("Help")
     }
 }

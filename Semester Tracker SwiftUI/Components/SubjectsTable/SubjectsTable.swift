@@ -45,19 +45,10 @@ struct SubjectsTable: View {
                 }.disabled(subjects.isEmpty)
             }.frame(minHeight: 300)
             .padding()
-            .background(Color.systemBackground)
-            .cornerRadius(20)
-            .shadow(radius: .pi)
+            .background(.white)
+            .cornerRadius(frameCornerRadius)
+            .shadow(radius: shadowRadius)
         }
-
-//        #if DEBUG
-//        ScrollView {
-//            Text("DEBUG Event count: \(events.count)").bold()
-//            ForEach(events) { event in
-//                Text("shortcut=\(event.shortcut) parent=\(event.parentSubject ?? "unknown parent")")
-//            }
-//        }.border(Color.black, width: 1).frame(height: 100)
-//        #endif
     }
 
     @ViewBuilder
